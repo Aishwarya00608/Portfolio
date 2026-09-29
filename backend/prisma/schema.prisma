@@ -1,0 +1,176 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Profile {
+  id           String   @id @default(uuid())
+  fullName     String
+  headline     String
+  shortBio     String
+  longBio      String
+  email        String
+  phone        String?
+  location     String?
+  profileImage String?
+  resumeUrl    String?
+  githubUrl    String?
+  linkedinUrl  String?
+  portfolioUrl String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Project {
+  id               String   @id @default(uuid())
+  title            String
+  slug             String   @unique
+  category         String
+  shortDescription String
+  description      String
+  problem          String?
+  solution         String?
+  features         String?  // Stored as comma-separated or JSON string
+  architecture     String?
+  imageUrl         String?
+  githubUrl        String?
+  liveUrl          String?
+  startDate        String?
+  endDate          String?
+  featured         Boolean  @default(false)
+  published        Boolean  @default(true)
+  displayOrder     Int      @default(0)
+  technologies     String   // Stored as comma-separated or JSON string
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Skill {
+  id           String   @id @default(uuid())
+  name         String
+  category     String   // Programming, Data Science, Machine Learning, Computer Vision, Data Analytics, Web Development, Databases, DevOps, Tools
+  icon         String?
+  proficiency  Int      @default(85) // Percentage 1-100
+  displayOrder Int      @default(0)
+  published    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Internship {
+  id              String   @id @default(uuid())
+  company         String
+  role            String
+  description     String
+  startDate       String
+  endDate         String
+  status          String   @default("Completed") // Completed, Ongoing
+  location        String?
+  technologies    String?  // Comma-separated or JSON
+  responsibilities String? // Comma-separated or bullet points
+  achievements    String?
+  certificateUrl String?
+  companyUrl      String?
+  featured        Boolean  @default(false)
+  published       Boolean  @default(true)
+  displayOrder    Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Certification {
+  id             String   @id @default(uuid())
+  name           String
+  organization   String
+  issueDate      String?
+  credentialId   String?
+  credentialUrl  String?
+  certificateUrl String?
+  description    String?
+  category       String   @default("AI / ML") // AI / ML, Data, Programming, Development, Business, Other
+  featured       Boolean  @default(false)
+  published      Boolean  @default(true)
+  displayOrder   Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Education {
+  id           String   @id @default(uuid())
+  institution  String
+  degree       String
+  field        String
+  startDate    String
+  endDate      String
+  grade        String?
+  description  String?
+  displayOrder Int      @default(0)
+  published    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Achievement {
+  id             String   @id @default(uuid())
+  title          String
+  organization   String?
+  date           String?
+  description    String?
+  certificateUrl String?
+  category       String?
+  featured       Boolean  @default(false)
+  published      Boolean  @default(true)
+  displayOrder   Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Hackathon {
+  id           String   @id @default(uuid())
+  name         String
+  organizer    String?
+  date         String?
+  role         String?
+  projectName  String?
+  description  String?
+  result       String?
+  projectUrl   String?
+  displayOrder Int      @default(0)
+  published    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model SocialLink {
+  id           String   @id @default(uuid())
+  platform     String
+  url          String
+  icon         String?
+  displayOrder Int      @default(0)
+  published    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

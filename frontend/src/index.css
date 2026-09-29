@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply transition-colors duration-300;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF8FF;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #0F172A;
+}
+::-webkit-scrollbar-thumb {
+  background: #E2E2FF;
+  border-radius: 9999px;
+  border: 2px solid #FAF8FF;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+  border: 2px solid #0F172A;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #F472B6;
+}
+
+/* Glassmorphism Utilities */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.dark .glass-card {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Sparkle & Glow Background Elements */
+.sparkle-dot {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Cute Gradient Text */
+.gradient-text {
+  @apply bg-gradient-to-r from-purple-600 via-pink-500 to-rose-400 bg-clip-text text-transparent;
+}
+
+.dark .gradient-text {
+  @apply bg-gradient-to-r from-purple-400 via-pink-300 to-rose-300 bg-clip-text text-transparent;
+}
+
+/* Custom Button Hover */
+.btn-cute-primary {
+  @apply px-6 py-3 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-rose-400 text-white font-semibold shadow-cute hover:shadow-cute-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2;
+}
+
+.btn-cute-secondary {
+  @apply px-6 py-3 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold border border-purple-100 dark:border-slate-700 shadow-sm hover:border-pink-300 dark:hover:border-pink-500 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2;
+}
