@@ -108,17 +108,13 @@ export const changePassword = (data: { currentPassword: string; newPassword: str
 export const uploadProfilePhoto = (file: File) => {
   const formData = new FormData();
   formData.append('file', file);
-  return api.post<{ url: string; message: string }>('/upload/photo', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  }).then((r) => r.data);
+  return api.post<{ url: string; message: string }>('/upload/photo', formData).then((r) => r.data);
 };
 
 export const uploadResumeFile = (file: File) => {
   const formData = new FormData();
   formData.append('file', file);
-  return api.post<{ url: string; message: string }>('/upload/resume', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  }).then((r) => r.data);
+  return api.post<{ url: string; message: string }>('/upload/resume', formData).then((r) => r.data);
 };
 
 export default api;
