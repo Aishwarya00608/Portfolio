@@ -31,6 +31,7 @@ api.interceptors.request.use((config) => {
 // Profile API
 export const getProfile = () => api.get<Profile>('/profile').then((r) => r.data);
 export const updateProfile = (data: Partial<Profile>) => api.put<Profile>('/profile', data).then((r) => r.data);
+export const getResumeDownloadUrl = (): string => `${API_BASE_URL}/profile/resume/download`;
 
 // Projects API
 export const getProjects = (params?: { category?: string; featured?: boolean; all?: boolean }) =>

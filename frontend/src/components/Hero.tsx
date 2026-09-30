@@ -13,6 +13,7 @@ import {
   Download,
 } from 'lucide-react';
 import { Profile, SocialLink } from '../types';
+import { getResumeDownloadUrl } from '../services/api';
 
 interface HeroProps {
   profile: Profile | null;
@@ -32,18 +33,6 @@ export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
       default:
         return <Sparkles className="w-5 h-5" />;
     }
-  };
-
-  const getDownloadResumeUrl = (url?: string): string => {
-    const rawUrl = url || 'https://aishwarya00608.github.io/resume.pdf';
-    if (rawUrl.includes('cloudinary.com') && rawUrl.includes('/raw/upload/')) {
-      let downloadUrl = rawUrl.replace('/raw/upload/', '/raw/upload/fl_attachment/');
-      if (!downloadUrl.toLowerCase().endsWith('.pdf')) {
-        downloadUrl += '.pdf';
-      }
-      return downloadUrl;
-    }
-    return rawUrl;
   };
 
   const name = profile?.fullName || 'Bulusu Vyaghri Aiswarya';
@@ -96,10 +85,9 @@ export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
               </a>
 
               <a
-                href={getDownloadResumeUrl(profile?.resumeUrl)}
+                href={getResumeDownloadUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                download="Bulusu_Vyaghri_Aiswarya_Resume.pdf"
                 className="btn-cute-secondary"
               >
                 <Download className="w-4 h-4 text-purple-500" />
