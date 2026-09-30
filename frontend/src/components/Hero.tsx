@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import {
   Sparkles,
@@ -6,16 +6,12 @@ import {
   Github,
   Linkedin,
   Mail,
-  FileText,
-  Eye,
   Brain,
   Code2,
   Cpu,
-  ShieldCheck,
   BarChart,
 } from 'lucide-react';
 import { Profile, SocialLink } from '../types';
-import { ResumeModal } from './ResumeModal';
 
 interface HeroProps {
   profile: Profile | null;
@@ -23,8 +19,6 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
-  const [resumeModalOpen, setResumeModalOpen] = useState(false);
-
   const getSocialIcon = (platform: string) => {
     switch (platform.toLowerCase()) {
       case 'github':
@@ -86,34 +80,6 @@ export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
               <a href="#projects" className="btn-cute-primary">
                 View My Work
                 <ArrowDown className="w-4 h-4" />
-              </a>
-
-              <button
-                onClick={() => {
-                  const rawUrl = profile?.resumeUrl || 'https://aishwarya00608.github.io/resume.pdf';
-                  let inlineUrl = rawUrl;
-                  if (rawUrl.includes('cloudinary.com') && rawUrl.includes('/raw/upload/')) {
-                    inlineUrl = rawUrl.replace('/raw/upload/', '/raw/upload/fl_inline/');
-                    if (!inlineUrl.toLowerCase().endsWith('.pdf')) {
-                      inlineUrl += '.pdf';
-                    }
-                  }
-                  window.open(inlineUrl, '_blank', 'noopener,noreferrer');
-                }}
-                className="btn-cute-secondary"
-              >
-                <Eye className="w-4 h-4 text-pink-500" />
-                View Resume
-              </button>
-
-              <a
-                href={profile?.resumeUrl || 'https://aishwarya00608.github.io/resume.pdf'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-cute-secondary"
-              >
-                <FileText className="w-4 h-4 text-purple-500" />
-                Download Resume
               </a>
             </div>
 
@@ -223,13 +189,6 @@ export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
 
         </div>
       </div>
-
-      {/* Resume Viewer Modal */}
-      <ResumeModal
-        isOpen={resumeModalOpen}
-        onClose={() => setResumeModalOpen(false)}
-        resumeUrl={profile?.resumeUrl}
-      />
     </section>
   );
 };
