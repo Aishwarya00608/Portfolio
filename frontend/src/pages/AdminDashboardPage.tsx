@@ -1384,7 +1384,19 @@ export const AdminDashboardPage: React.FC = () => {
                     <input
                       name="githubUrl"
                       defaultValue={editItem?.githubUrl || ''}
-                      className="w-full p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white"
+                      placeholder="https://github.com/username/repo"
+                      className="w-full p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white font-mono"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1">
+                      Live Demo URL <span className="text-slate-500 font-normal">(Optional)</span>
+                    </label>
+                    <input
+                      name="liveUrl"
+                      defaultValue={editItem?.liveUrl || ''}
+                      placeholder="https://example.com"
+                      className="w-full p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white font-mono"
                     />
                   </div>
                 </>
@@ -1508,6 +1520,7 @@ export const AdminDashboardPage: React.FC = () => {
                       defaultValue={editItem?.category || 'Programming'}
                       className="w-full p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white"
                     >
+                      <option value="AI">AI</option>
                       <option value="Programming">Programming</option>
                       <option value="Data Science">Data Science</option>
                       <option value="Machine Learning">Machine Learning</option>

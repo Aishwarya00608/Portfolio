@@ -109,7 +109,7 @@ async function main() {
       architecture: 'React + Vite + TypeScript Frontend → Axios API Client Layer → Node.js + Express.js Web Server → Prisma ORM Database Client → PostgreSQL Relational Database (Containerized with Docker & Deployed on Render/Vercel)',
       imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop',
       githubUrl: 'https://github.com/Aishwarya00608/Mini-ERP-CRM-Operations-Portal',
-      liveUrl: 'https://mini-erp-crm-demo.vercel.app',
+      liveUrl: 'https://mini-erp-gilt.vercel.app/login',
       startDate: 'May 2024',
       endDate: 'Jul 2024',
       featured: true,
@@ -293,6 +293,12 @@ async function main() {
   await prisma.skill.deleteMany();
 
   const skillsData = [
+    // AI
+    { name: 'RAG', category: 'AI', icon: 'Brain', proficiency: 90, displayOrder: 1 },
+    { name: 'Prompt Engineering', category: 'AI', icon: 'Sparkles', proficiency: 95, displayOrder: 2 },
+    { name: 'LLM', category: 'AI', icon: 'Cpu', proficiency: 90, displayOrder: 3 },
+    { name: 'Generative AI', category: 'AI', icon: 'Zap', proficiency: 92, displayOrder: 4 },
+
     // Programming
     { name: 'Python', category: 'Programming', icon: 'Code', proficiency: 95, displayOrder: 1 },
     { name: 'C++', category: 'Programming', icon: 'Code2', proficiency: 85, displayOrder: 2 },

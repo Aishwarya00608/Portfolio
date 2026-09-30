@@ -23,6 +23,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ skills, loading })
 
   const categories = [
     'All',
+    'AI',
     'Programming',
     'Data Science',
     'Machine Learning',
@@ -34,6 +35,8 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ skills, loading })
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
+      case 'AI':
+        return <Sparkles className="w-4 h-4 text-purple-500" />;
       case 'Programming':
         return <Code className="w-4 h-4 text-purple-500" />;
       case 'Data Science':

@@ -77,6 +77,9 @@ export const createProject = async (req: Request, res: Response) => {
   try {
     const data = { ...req.body };
 
+    if (typeof data.liveUrl === 'string') {
+      data.liveUrl = data.liveUrl.trim();
+    }
     if (Array.isArray(data.features)) {
       data.features = JSON.stringify(data.features);
     }
@@ -104,6 +107,9 @@ export const updateProject = async (req: Request, res: Response) => {
     const { id } = req.params;
     const data = { ...req.body };
 
+    if (typeof data.liveUrl === 'string') {
+      data.liveUrl = data.liveUrl.trim();
+    }
     if (Array.isArray(data.features)) {
       data.features = JSON.stringify(data.features);
     }

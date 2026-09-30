@@ -10,7 +10,14 @@ interface ResumeModalProps {
 export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose, resumeUrl }) => {
   if (!isOpen) return null;
 
-  const validUrl = resumeUrl || 'https://aishwarya00608.github.io/FlyRank_Assignment/';
+  const rawUrl = resumeUrl || 'https://aishwarya00608.github.io/resume.pdf';
+  let validUrl = rawUrl;
+  if (rawUrl.includes('cloudinary.com') && rawUrl.includes('/raw/upload/')) {
+    validUrl = rawUrl.replace('/raw/upload/', '/raw/upload/fl_inline/');
+    if (!validUrl.toLowerCase().endsWith('.pdf')) {
+      validUrl += '.pdf';
+    }
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">

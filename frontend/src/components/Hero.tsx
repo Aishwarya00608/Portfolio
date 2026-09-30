@@ -89,7 +89,17 @@ export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
               </a>
 
               <button
-                onClick={() => setResumeModalOpen(true)}
+                onClick={() => {
+                  const rawUrl = profile?.resumeUrl || 'https://aishwarya00608.github.io/resume.pdf';
+                  let inlineUrl = rawUrl;
+                  if (rawUrl.includes('cloudinary.com') && rawUrl.includes('/raw/upload/')) {
+                    inlineUrl = rawUrl.replace('/raw/upload/', '/raw/upload/fl_inline/');
+                    if (!inlineUrl.toLowerCase().endsWith('.pdf')) {
+                      inlineUrl += '.pdf';
+                    }
+                  }
+                  window.open(inlineUrl, '_blank', 'noopener,noreferrer');
+                }}
                 className="btn-cute-secondary"
               >
                 <Eye className="w-4 h-4 text-pink-500" />
