@@ -115,4 +115,21 @@ export const uploadResumeFile = (file: File) => {
   return api.post<{ url: string; message: string }>('/upload/resume', formData).then((r) => r.data);
 };
 
+export const uploadProjectImage = (file: File) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  return api.post<{ url: string; message: string }>('/upload/project-image', formData).then((r) => r.data);
+};
+
+export const uploadCertificateFile = (file: File) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  return api.post<{ url: string; message: string }>('/upload/certificate', formData).then((r) => r.data);
+};
+
+export const getCertificateViewUrl = (url?: string): string => {
+  if (!url) return '';
+  return `${API_BASE_URL}/upload/certificate/view?url=${encodeURIComponent(url)}`;
+};
+
 export default api;

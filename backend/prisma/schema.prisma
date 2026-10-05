@@ -139,19 +139,20 @@ model Achievement {
 }
 
 model Hackathon {
-  id           String   @id @default(uuid())
-  name         String
-  organizer    String?
-  date         String?
-  role         String?
-  projectName  String?
-  description  String?
-  result       String?
-  projectUrl   String?
-  displayOrder Int      @default(0)
-  published    Boolean  @default(true)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id             String   @id @default(uuid())
+  name           String
+  organizer      String?
+  date           String?
+  role           String?
+  projectName    String?
+  description    String?
+  result         String?
+  projectUrl     String?
+  certificateUrl String?
+  displayOrder   Int      @default(0)
+  published      Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 model SocialLink {

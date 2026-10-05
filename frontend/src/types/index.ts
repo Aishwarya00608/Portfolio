@@ -133,11 +133,33 @@ export interface Hackathon {
   description?: string;
   result?: string;
   projectUrl?: string;
+  certificateUrl?: string;
   displayOrder: number;
   published: boolean;
   createdAt?: string;
   updatedAt?: string;
 }
+
+export const DOMAIN_CATEGORIES = [
+  'Artificial Intelligence',
+  'Machine Learning',
+  'Computer Vision',
+  'Deep Learning',
+  'Generative AI',
+  'Large Language Models',
+  'RAG',
+  'Data Science',
+  'Data Analytics',
+  'Cyber Security',
+  'Full Stack',
+  'Frontend Development',
+  'Backend Development',
+  'Web Development',
+  'Cloud / DevOps',
+  'Database',
+  'Open Source',
+  'Other',
+] as const;
 
 export interface SocialLink {
   id: string;

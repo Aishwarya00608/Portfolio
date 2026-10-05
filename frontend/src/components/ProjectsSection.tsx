@@ -1,164 +1,196 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Project } from '../types';
-import { Github, ExternalLink, ArrowRight, Sparkles, FolderGit2 } from 'lucide-react';
+import { Project, DOMAIN_CATEGORIES } from '../types';
+import { Github, ExternalLink, ArrowUpRight } from 'lucide-react';
 
 interface ProjectsSectionProps {
   projects: Project[];
   loading?: boolean;
 }
 
+// Fallback high-res distinct images map by project slug/index to guarantee no 2 projects share images
+const PROJECT_FALLBACK_IMAGES: Record<string, string> = {
+  'driver-drowsiness-monitoring-system': 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=800&auto=format&fit=crop',
+  'mini-erp-crm-operations-portal': 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop',
+  'ai-based-climate-risk-platform': 'https://images.unsplash.com/photo-1590055531615-f16d36ffe8ec?q=80&w=800&auto=format&fit=crop',
+};
+
+const DEFAULT_UNIQUE_IMAGES = [
+  'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=800&auto=format&fit=crop',
+];
+
+const getProjectImage = (project: Project, idx: number): string => {
+  if (project.imageUrl && project.imageUrl.trim() !== '') {
+    return project.imageUrl;
+  }
+  if (project.slug && PROJECT_FALLBACK_IMAGES[project.slug]) {
+    return PROJECT_FALLBACK_IMAGES[project.slug];
+  }
+  return DEFAULT_UNIQUE_IMAGES[idx % DEFAULT_UNIQUE_IMAGES.length];
+};
+
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects, loading }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
-  const categories = ['All', ...Array.from(new Set(projects.map((p) => p.category)))];
+  // Categories list
+  const categoryList = ['All', ...Array.from(new Set([...DOMAIN_CATEGORIES, ...projects.map((p) => p.category)]))];
 
   const filteredProjects =
     selectedCategory === 'All'
       ? projects
-      : projects.filter((p) => p.category === selectedCategory);
+      : projects.filter((p) => p.category.toLowerCase() === selectedCategory.toLowerCase());
 
   return (
-    <section id="projects" className="py-20 relative bg-purple-50/30 dark:bg-slate-900/30">
+    <section id="projects" className="py-20 border-b border-[#1C1B1A]/15 dark:border-[#EAE7E1]/15">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-100 dark:bg-slate-800 text-purple-700 dark:text-purple-300 text-xs font-bold uppercase tracking-wider mb-3">
-            <FolderGit2 className="w-3.5 h-3.5" />
-            <span>Featured Portfolio Works</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold font-serif text-slate-900 dark:text-white">
-            Primary <span className="gradient-text">Engineering Projects</span>
+        {/* Section Header */}
+        <div className="flex items-center gap-4 pb-4 border-b border-[#1C1B1A]/20 dark:border-[#EAE7E1]/20 mb-8">
+          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
+            SECTION 03
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1C1B1A] dark:text-[#EAE7E1]">
+            Featured Engineering Projects
           </h2>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-2">
-            Database-driven dynamic showcase of AI/ML, Computer Vision, and Full-Stack systems.
-          </p>
         </div>
 
+        <p className="text-sm font-sans text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70 max-w-2xl mb-10">
+          Selected works showcasing applied artificial intelligence, computer vision, data analytics, and full-stack software development.
+        </p>
+
         {/* Category Filters */}
-        {categories.length > 2 && (
-          <div className="flex flex-wrap justify-center gap-2 mb-12">
-            {categories.map((cat) => (
+        <div className="flex flex-wrap gap-2 mb-12 pb-6 border-b border-[#1C1B1A]/15 dark:border-[#EAE7E1]/15">
+          {categoryList.map((cat) => {
+            const count = cat === 'All' ? projects.length : projects.filter(p => p.category.toLowerCase() === cat.toLowerCase()).length;
+            if (cat !== 'All' && count === 0) return null; // Show only relevant categories
+
+            return (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
-                  selectedCategory === cat
-                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-cute'
-                    : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
+                className={`text-[11px] font-mono font-bold tracking-widest uppercase px-3.5 py-1.5 border transition-all ${
+                  selectedCategory.toLowerCase() === cat.toLowerCase()
+                    ? 'bg-[#1C1B1A] text-[#FAF8F5] dark:bg-[#EAE7E1] dark:text-[#141312] border-[#1C1B1A] dark:border-[#EAE7E1]'
+                    : 'border-[#1C1B1A]/20 dark:border-[#EAE7E1]/20 text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70 hover:border-[#1C1B1A] dark:hover:border-[#EAE7E1]'
                 }`}
               >
-                {cat}
+                {cat} ({count})
               </button>
-            ))}
-          </div>
-        )}
+            );
+          })}
+        </div>
 
-        {/* Projects Cards Grid */}
+        {/* Projects Editorial Cards Grid */}
         {loading ? (
-          <div className="text-center py-12">
-            <div className="w-8 h-8 border-4 border-pink-400 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-            <p className="text-sm text-slate-500">Loading projects database...</p>
+          <div className="text-center py-12 font-mono text-xs text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
+            LOADING PROJECTS CATALOG...
           </div>
         ) : filteredProjects.length === 0 ? (
-          <div className="text-center py-16 bg-white dark:bg-slate-800/50 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700">
-            <FolderGit2 className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-            <p className="text-slate-500 dark:text-slate-400 font-medium">No projects added yet.</p>
+          <div className="text-center py-12 font-mono text-xs border border-dashed border-[#1C1B1A]/20 dark:border-[#EAE7E1]/20">
+            NO PROJECTS FOUND IN THIS CATEGORY.
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project, idx) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="group rounded-3xl bg-white dark:bg-slate-800 border border-purple-100/80 dark:border-slate-700/80 shadow-sm hover:shadow-cute-lg overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1.5"
-              >
-                {/* Project Image Header */}
-                <div className="relative h-48 sm:h-52 overflow-hidden bg-slate-100 dark:bg-slate-900">
-                  <img
-                    src={
-                      project.imageUrl ||
-                      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=800&auto=format&fit=crop'
-                    }
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-slate-800 dark:text-slate-200 text-[11px] font-bold shadow-sm">
-                    {project.category}
-                  </div>
-                </div>
+            {filteredProjects.map((project, idx) => {
+              const projectImg = getProjectImage(project, idx);
+              const hasLiveDemo = Boolean(project.liveUrl && project.liveUrl.trim() !== '');
 
-                {/* Card Content */}
-                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+              return (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="editorial-card flex flex-col justify-between group"
+                >
                   <div>
-                    <h3 className="text-xl font-bold font-serif text-slate-900 dark:text-white group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors line-clamp-1">
-                      {project.title}
-                    </h3>
-                    <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 line-clamp-3 leading-relaxed">
-                      {project.shortDescription}
-                    </p>
+                    {/* Unique Project Image Header */}
+                    <div className="relative aspect-[16/10] overflow-hidden border-b border-[#1C1B1A]/20 dark:border-[#EAE7E1]/20 bg-[#E8E4DC] dark:bg-[#262422]">
+                      <img
+                        src={projectImg}
+                        alt={project.title}
+                        className="w-full h-full object-cover filter grayscale contrast-105 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                      />
+                      <div className="absolute top-3 left-3">
+                        <span className="editorial-tag bg-[#FAF8F5]/90 dark:bg-[#141312]/90 backdrop-blur-sm">
+                          {project.category}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Card Content */}
+                    <div className="p-6 space-y-4">
+                      <div className="space-y-1">
+                        <h3 className="font-serif font-bold text-xl text-[#1C1B1A] dark:text-[#EAE7E1] group-hover:text-[#A63A24] dark:group-hover:text-amber-400 transition-colors line-clamp-1">
+                          {project.title}
+                        </h3>
+                        <p className="text-xs text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70 leading-relaxed font-sans line-clamp-3">
+                          {project.shortDescription}
+                        </p>
+                      </div>
+
+                      {/* Technology Tags */}
+                      <div className="flex flex-wrap gap-1.5 pt-2">
+                        {(project.technologiesList || []).map((tech) => (
+                          <span
+                            key={tech}
+                            className="text-[10px] font-mono border border-[#1C1B1A]/15 dark:border-[#EAE7E1]/15 px-2 py-0.5 text-[#1C1B1A]/80 dark:text-[#EAE7E1]/80"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Technology Pills */}
-                  <div className="flex flex-wrap gap-1.5 pt-2">
-                    {(project.technologiesList || []).slice(0, 5).map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-pink-50 dark:bg-slate-700/60 text-purple-700 dark:text-purple-300 border border-pink-100 dark:border-slate-600"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {(project.technologiesList || []).length > 5 && (
-                      <span className="text-[11px] text-slate-400 self-center">
-                        +{(project.technologiesList || []).length - 5} more
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Card Action Links */}
-                  <div className="pt-4 border-t border-slate-100 dark:border-slate-700/80 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
+                  {/* Action Links */}
+                  <div className="p-6 pt-0 border-t border-[#1C1B1A]/15 dark:border-[#EAE7E1]/15 mt-4 flex items-center justify-between">
+                    <div className="flex items-center gap-3 pt-4">
                       {project.githubUrl && (
                         <a
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:text-pink-500 hover:bg-pink-50 dark:hover:bg-slate-700 transition-colors"
+                          className="inline-flex items-center gap-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#1C1B1A] dark:text-[#EAE7E1] hover:underline"
                           title="View GitHub Repository"
                         >
-                          <Github className="w-4 h-4" />
+                          <Github className="w-3.5 h-3.5" />
+                          <span>GitHub</span>
                         </a>
                       )}
-                      {project.liveUrl && (
+
+                      {/* OPTIONAL LIVE DEMO BUTTON: Only displayed if liveUrl is non-empty */}
+                      {hasLiveDemo && (
                         <a
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:text-pink-500 hover:bg-pink-50 dark:hover:bg-slate-700 transition-colors"
+                          className="inline-flex items-center gap-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#A63A24] dark:text-amber-400 hover:underline"
                           title="View Live Demo"
                         >
-                          <ExternalLink className="w-4 h-4" />
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          <span>Live Demo</span>
                         </a>
                       )}
                     </div>
 
                     <Link
                       to={`/projects/${project.slug}`}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-pink-600 dark:text-pink-400 hover:text-purple-600 dark:hover:text-purple-300 transition-colors"
+                      className="pt-4 inline-flex items-center gap-1 text-xs font-mono font-bold uppercase text-[#1C1B1A] dark:text-[#EAE7E1] hover:translate-x-0.5 transition-transform"
                     >
-                      <span>View Details</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      <span>DETAILS</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+
+                </motion.div>
+              );
+            })}
           </div>
         )}
 

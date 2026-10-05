@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { submitContact } from '../services/api';
-import { Send, Sparkles, Mail, User, MessageSquare, CheckCircle, AlertCircle } from 'lucide-react';
+import { Mail, Send, CheckCircle, AlertCircle } from 'lucide-react';
 
 export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -29,12 +29,10 @@ export const ContactSection: React.FC = () => {
       setStatus({ type: 'success', message: res.message });
       setFormData({ name: '', email: '', subject: '', message: '' });
 
-      // Trigger celebratory confetti
       confetti({
         particleCount: 80,
         spread: 70,
         origin: { y: 0.6 },
-        colors: ['#F472B6', '#C084FC', '#93C5FD'],
       });
     } catch (err: any) {
       setStatus({
@@ -47,139 +45,146 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-20 relative bg-purple-50/30 dark:bg-slate-900/40">
+    <section id="contact" className="py-20 border-b border-[#1C1B1A]/15 dark:border-[#EAE7E1]/15">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-100 dark:bg-slate-800 text-pink-700 dark:text-pink-300 text-xs font-bold uppercase tracking-wider mb-3">
-            <Mail className="w-3.5 h-3.5" />
-            <span>Get In Touch</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold font-serif text-slate-900 dark:text-white">
-            Let's Build Something <span className="gradient-text">Amazing Together</span>
+        {/* Section Header */}
+        <div className="flex items-center gap-4 pb-4 border-b border-[#1C1B1A]/20 dark:border-[#EAE7E1]/20 mb-8">
+          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
+            SECTION 09
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1C1B1A] dark:text-[#EAE7E1]">
+            Initiate Conversation
           </h2>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-2">
-            Have a project, research inquiry, internship opportunity, or just want to say hi? Send me a message!
-          </p>
         </div>
 
-        <div className="max-w-2xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="p-8 sm:p-10 rounded-3xl bg-white dark:bg-slate-800 border border-purple-100/80 dark:border-slate-700/80 shadow-cute"
-          >
-            {status && (
-              <div
-                className={`mb-6 p-4 rounded-2xl flex items-center gap-3 text-sm ${
-                  status.type === 'success'
-                    ? 'bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200'
-                    : 'bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200'
-                }`}
-              >
-                {status.type === 'success' ? (
-                  <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0" />
-                ) : (
-                  <AlertCircle className="w-5 h-5 text-rose-500 shrink-0" />
-                )}
-                <span>{status.message}</span>
-              </div>
-            )}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pt-4">
+          
+          {/* Left Column: Direct Contact Info */}
+          <div className="lg:col-span-5 space-y-6">
+            <h3 className="font-display italic text-3xl sm:text-4xl text-[#1C1B1A] dark:text-[#EAE7E1] leading-tight">
+              Have a research inquiry, technical project, or opportunity?
+            </h3>
+            
+            <p className="text-sm font-sans text-[#1C1B1A]/80 dark:text-[#EAE7E1]/80 leading-relaxed">
+              I am open to collaborations in AI/ML, Computer Vision, Data Science, and Full-Stack Engineering. Feel free to reach out directly.
+            </p>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {/* Name */}
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Your Name *
-                  </label>
-                  <div className="relative">
-                    <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <div className="p-6 border border-[#1C1B1A]/20 dark:border-[#EAE7E1]/20 bg-[#FAF8F5] dark:bg-[#191817] space-y-2">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#1C1B1A]/50 dark:text-[#EAE7E1]/50 block">
+                DIRECT EMAIL ADDRESS
+              </span>
+              <a
+                href="mailto:aishwaryabulusu2006@gmail.com"
+                className="font-mono font-bold text-base sm:text-lg text-[#1C1B1A] dark:text-[#EAE7E1] hover:underline break-all block"
+              >
+                aishwaryabulusu2006@gmail.com
+              </a>
+            </div>
+          </div>
+
+          {/* Right Column: Contact Form */}
+          <div className="lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="editorial-card p-6 sm:p-8"
+            >
+              {status && (
+                <div
+                  className={`mb-6 p-4 border text-xs font-mono flex items-center gap-2 ${
+                    status.type === 'success'
+                      ? 'border-emerald-600 bg-emerald-50/50 text-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200'
+                      : 'border-rose-600 bg-rose-50/50 text-rose-900 dark:bg-rose-950/40 dark:text-rose-200'
+                  }`}
+                >
+                  {status.type === 'success' ? (
+                    <CheckCircle className="w-4 h-4 shrink-0 text-emerald-600" />
+                  ) : (
+                    <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
+                  )}
+                  <span>{status.message}</span>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-4 font-sans">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[10px] font-mono font-bold uppercase tracking-widest text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70 mb-1">
+                      Your Name *
+                    </label>
                     <input
                       type="text"
                       required
                       placeholder="Jane Doe"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full pl-10 pr-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 dark:focus:ring-pink-900 transition-all"
+                      className="w-full px-3.5 py-2.5 bg-transparent border border-[#1C1B1A]/30 dark:border-[#EAE7E1]/30 text-xs text-[#1C1B1A] dark:text-[#EAE7E1] focus:outline-none focus:border-[#1C1B1A] dark:focus:border-[#EAE7E1]"
                     />
                   </div>
-                </div>
 
-                {/* Email */}
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Your Email *
-                  </label>
-                  <div className="relative">
-                    <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <div>
+                    <label className="block text-[10px] font-mono font-bold uppercase tracking-widest text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70 mb-1">
+                      Your Email *
+                    </label>
                     <input
                       type="email"
                       required
                       placeholder="jane@example.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full pl-10 pr-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 dark:focus:ring-pink-900 transition-all"
+                      className="w-full px-3.5 py-2.5 bg-transparent border border-[#1C1B1A]/30 dark:border-[#EAE7E1]/30 text-xs text-[#1C1B1A] dark:text-[#EAE7E1] focus:outline-none focus:border-[#1C1B1A] dark:focus:border-[#EAE7E1]"
                     />
                   </div>
                 </div>
-              </div>
 
-              {/* Subject */}
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  placeholder="Opportunity / Inquiry"
-                  value={formData.subject}
-                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 dark:focus:ring-pink-900 transition-all"
-                />
-              </div>
+                <div>
+                  <label className="block text-[10px] font-mono font-bold uppercase tracking-widest text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70 mb-1">
+                    Subject
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Project Inquiry / Opportunity"
+                    value={formData.subject}
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                    className="w-full px-3.5 py-2.5 bg-transparent border border-[#1C1B1A]/30 dark:border-[#EAE7E1]/30 text-xs text-[#1C1B1A] dark:text-[#EAE7E1] focus:outline-none focus:border-[#1C1B1A] dark:focus:border-[#EAE7E1]"
+                  />
+                </div>
 
-              {/* Message */}
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                  Message *
-                </label>
-                <div className="relative">
-                  <MessageSquare className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                <div>
+                  <label className="block text-[10px] font-mono font-bold uppercase tracking-widest text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70 mb-1">
+                    Message *
+                  </label>
                   <textarea
                     required
                     rows={4}
-                    placeholder="Hello Aiswarya, I would love to connect regarding..."
+                    placeholder="Write your message here..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full pl-10 pr-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 dark:focus:ring-pink-900 transition-all"
+                    className="w-full px-3.5 py-2.5 bg-transparent border border-[#1C1B1A]/30 dark:border-[#EAE7E1]/30 text-xs text-[#1C1B1A] dark:text-[#EAE7E1] focus:outline-none focus:border-[#1C1B1A] dark:focus:border-[#EAE7E1]"
                   />
                 </div>
-              </div>
 
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full btn-cute-primary text-sm py-3.5"
-              >
-                {loading ? (
-                  <span className="flex items-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    Sending Message...
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-2">
-                    Send Message
-                    <Send className="w-4 h-4" />
-                  </span>
-                )}
-              </button>
-            </form>
-          </motion.div>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="btn-editorial-primary w-full py-3"
+                >
+                  {loading ? (
+                    <span>SENDING MESSAGE...</span>
+                  ) : (
+                    <span className="flex items-center gap-2">
+                      <span>SEND DISPATCH</span>
+                      <Send className="w-3.5 h-3.5" />
+                    </span>
+                  )}
+                </button>
+              </form>
+            </motion.div>
+          </div>
+
         </div>
 
       </div>

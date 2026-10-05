@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Achievement } from '../types';
-import { Trophy, Star, Sparkles } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
+import { getCertificateViewUrl } from '../services/api';
 
 interface AchievementsSectionProps {
   achievements: Achievement[];
@@ -9,69 +10,87 @@ interface AchievementsSectionProps {
 }
 
 export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ achievements, loading }) => {
+  const handleViewCert = (url?: string) => {
+    if (!url) return;
+    const viewUrl = getCertificateViewUrl(url);
+    window.open(viewUrl, '_blank', 'noopener,noreferrer');
+  };
+
   return (
-    <section id="achievements" className="py-20 relative">
+    <section id="achievements" className="py-20 border-b border-[#1C1B1A]/15 dark:border-[#EAE7E1]/15">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 dark:bg-slate-800 text-amber-700 dark:text-amber-300 text-xs font-bold uppercase tracking-wider mb-3">
-            <Trophy className="w-3.5 h-3.5" />
-            <span>Honors & Milestones</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold font-serif text-slate-900 dark:text-white">
-            Key <span className="gradient-text">Achievements</span>
+        {/* Section Header */}
+        <div className="flex items-center gap-4 pb-4 border-b border-[#1C1B1A]/20 dark:border-[#EAE7E1]/20 mb-8">
+          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
+            SECTION 07
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1C1B1A] dark:text-[#EAE7E1]">
+            Honors, Open Source & Leadership
           </h2>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-2">
-            Open-source contributions, hackathon recognition, and leadership initiatives.
-          </p>
         </div>
 
+        <p className="text-sm font-sans text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70 max-w-2xl mb-12">
+          Recognitions, active open-source contributions, public speaking engagements, and institutional honors.
+        </p>
+
         {loading ? (
-          <div className="text-center py-12">
-            <div className="w-8 h-8 border-4 border-pink-400 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-            <p className="text-sm text-slate-500">Loading achievements...</p>
+          <div className="text-center py-12 font-mono text-xs text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
+            LOADING ACHIEVEMENTS...
           </div>
         ) : achievements.length === 0 ? (
-          <div className="text-center py-12 bg-white dark:bg-slate-800/50 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700">
-            <p className="text-slate-500 dark:text-slate-400">No achievement records added yet.</p>
+          <div className="text-center py-12 font-mono text-xs border border-dashed border-[#1C1B1A]/20 dark:border-[#EAE7E1]/20">
+            NO ACHIEVEMENTS RECORDED YET.
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {achievements.map((item, idx) => (
               <motion.div
                 key={item.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.08 }}
-                className="p-6 rounded-3xl bg-white dark:bg-slate-800 border border-purple-100/80 dark:border-slate-700/80 shadow-sm hover:shadow-cute transition-all duration-300"
+                className="editorial-card p-6 flex flex-col justify-between group"
               >
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-slate-700 flex items-center justify-center text-amber-500">
-                    <Trophy className="w-5 h-5" />
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    {item.category && <span className="editorial-tag">{item.category}</span>}
+                    {item.date && (
+                      <span className="text-[10px] font-mono text-[#1C1B1A]/50 dark:text-[#EAE7E1]/50">
+                        {item.date}
+                      </span>
+                    )}
                   </div>
-                  {item.category && (
-                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
-                      {item.category}
-                    </span>
+
+                  <h3 className="font-serif font-bold text-lg text-[#1C1B1A] dark:text-[#EAE7E1] group-hover:text-[#A63A24] dark:group-hover:text-amber-400 transition-colors">
+                    {item.title}
+                  </h3>
+
+                  {item.organization && (
+                    <h4 className="font-mono text-xs uppercase tracking-wider text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70">
+                      {item.organization}
+                    </h4>
+                  )}
+
+                  {item.description && (
+                    <p className="text-xs font-sans text-[#1C1B1A]/75 dark:text-[#EAE7E1]/75 leading-relaxed">
+                      {item.description}
+                    </p>
                   )}
                 </div>
 
-                <h3 className="font-bold text-slate-900 dark:text-white text-base leading-snug">
-                  {item.title}
-                </h3>
-
-                {item.organization && (
-                  <p className="text-xs font-bold text-purple-600 dark:text-purple-300 mt-1">
-                    {item.organization}
-                  </p>
-                )}
-
-                {item.description && (
-                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
-                    {item.description}
-                  </p>
+                {/* View Certificate / Badge Button (Requirement 9) */}
+                {item.certificateUrl && (
+                  <div className="pt-4 mt-4 border-t border-[#1C1B1A]/15 dark:border-[#EAE7E1]/15 flex items-center justify-end">
+                    <button
+                      onClick={() => handleViewCert(item.certificateUrl)}
+                      className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#1C1B1A] dark:text-[#EAE7E1] hover:underline"
+                    >
+                      <span>View Certificate</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 )}
               </motion.div>
             ))}

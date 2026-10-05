@@ -14,6 +14,7 @@ import {
   SocialLink,
   ContactMessage,
   PortfolioStats,
+  DOMAIN_CATEGORIES,
 } from '../types';
 import {
   LayoutDashboard,
@@ -41,6 +42,7 @@ import {
   ArrowLeft,
   RefreshCw,
   FileText,
+  Upload,
 } from 'lucide-react';
 
 export const AdminDashboardPage: React.FC = () => {
@@ -70,10 +72,46 @@ export const AdminDashboardPage: React.FC = () => {
   const [modalType, setModalType] = useState<string>('');
   const [editItem, setEditItem] = useState<any>(null);
 
+  // Modal Asset upload states
+  const [modalImageUrl, setModalImageUrl] = useState<string>('');
+  const [modalCertUrl, setModalCertUrl] = useState<string>('');
+  const [projectImageUploading, setProjectImageUploading] = useState(false);
+  const [certificateUploading, setCertificateUploading] = useState(false);
+
   // Asset upload states
   const [photoUploading, setPhotoUploading] = useState(false);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [resumeUploading, setResumeUploading] = useState(false);
+
+  const handleProjectImageModalUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setProjectImageUploading(true);
+    try {
+      const res = await api.uploadProjectImage(file);
+      setModalImageUrl(res.url);
+      showNotification(res.message || 'Project image uploaded successfully!');
+    } catch (err: any) {
+      showNotification('Project image upload failed.', 'error');
+    } finally {
+      setProjectImageUploading(false);
+    }
+  };
+
+  const handleCertificateModalUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setCertificateUploading(true);
+    try {
+      const res = await api.uploadCertificateFile(file);
+      setModalCertUrl(res.url);
+      showNotification(res.message || 'Certificate uploaded successfully!');
+    } catch (err: any) {
+      showNotification('Certificate upload failed.', 'error');
+    } finally {
+      setCertificateUploading(false);
+    }
+  };
 
   const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -335,6 +373,8 @@ export const AdminDashboardPage: React.FC = () => {
   const openFormModal = (type: string, item: any = null) => {
     setModalType(type);
     setEditItem(item);
+    setModalImageUrl(item?.imageUrl || '');
+    setModalCertUrl(item?.certificateUrl || '');
     setModalOpen(true);
   };
 
@@ -351,12 +391,14 @@ export const AdminDashboardPage: React.FC = () => {
 
     try {
       if (modalType === 'project') {
+        data.imageUrl = modalImageUrl;
         if (editItem) await api.updateProject(editItem.id, data);
         else await api.createProject(data);
       } else if (modalType === 'internship') {
         if (editItem) await api.updateInternship(editItem.id, data);
         else await api.createInternship(data);
       } else if (modalType === 'certification') {
+        data.certificateUrl = modalCertUrl;
         if (editItem) await api.updateCertification(editItem.id, data);
         else await api.createCertification(data);
       } else if (modalType === 'skill') {
@@ -366,9 +408,11 @@ export const AdminDashboardPage: React.FC = () => {
         if (editItem) await api.updateEducation(editItem.id, data);
         else await api.createEducation(data);
       } else if (modalType === 'achievement') {
+        data.certificateUrl = modalCertUrl;
         if (editItem) await api.updateAchievement(editItem.id, data);
         else await api.createAchievement(data);
       } else if (modalType === 'hackathon') {
+        data.certificateUrl = modalCertUrl;
         if (editItem) await api.updateHackathon(editItem.id, data);
         else await api.createHackathon(data);
       } else if (modalType === 'social') {
@@ -1339,13 +1383,58 @@ export const AdminDashboardPage: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-slate-400 mb-1">Category *</label>
-                    <input
+                    <label className="block text-slate-400 mb-1">Domain / Category *</label>
+                    <select
                       name="category"
                       required
-                      defaultValue={editItem?.category || 'Computer Vision / Machine Learning'}
+                      defaultValue={editItem?.category || 'Artificial Intelligence'}
                       className="w-full p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white"
-                    />
+                    >
+                      {DOMAIN_CATEGORIES.map((cat) => (
+                        <option key={cat} value={cat}>
+                          {cat}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1">Project Image (Optional)</label>
+                    <div className="space-y-2">
+                      {modalImageUrl ? (
+                        <div className="relative rounded-xl overflow-hidden border border-slate-700 h-28 bg-slate-950 flex items-center justify-center">
+                          <img src={modalImageUrl} alt="Project Preview" className="h-full object-cover" />
+                          <button
+                            type="button"
+                            onClick={() => setModalImageUrl('')}
+                            className="absolute top-2 right-2 px-2 py-1 rounded-lg bg-rose-900/90 text-white text-[11px] font-bold"
+                          >
+                            Remove Image
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="p-3 border border-dashed border-slate-700 rounded-xl text-center">
+                          <label className="cursor-pointer text-xs font-bold text-pink-400 hover:underline flex items-center justify-center gap-2">
+                            <Upload className="w-4 h-4" />
+                            {projectImageUploading ? 'Uploading Image...' : 'Upload Unique Project Image'}
+                            <input
+                              type="file"
+                              accept="image/jpeg,image/png,image/webp"
+                              className="hidden"
+                              onChange={handleProjectImageModalUpload}
+                              disabled={projectImageUploading}
+                            />
+                          </label>
+                        </div>
+                      )}
+                      <input
+                        type="text"
+                        name="imageUrl"
+                        value={modalImageUrl}
+                        onChange={(e) => setModalImageUrl(e.target.value)}
+                        placeholder="Or paste custom image URL"
+                        className="w-full p-2 rounded-xl bg-slate-800 border border-slate-700 text-white text-[11px] font-mono"
+                      />
+                    </div>
                   </div>
                   <div>
                     <label className="block text-slate-400 mb-1">Short Description *</label>
@@ -1426,16 +1515,57 @@ export const AdminDashboardPage: React.FC = () => {
                     <label className="block text-slate-400 mb-1">Category</label>
                     <select
                       name="category"
-                      defaultValue={editItem?.category || 'AI / ML'}
+                      defaultValue={editItem?.category || 'Artificial Intelligence'}
                       className="w-full p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white"
                     >
-                      <option value="AI / ML">AI / ML</option>
-                      <option value="Data">Data</option>
-                      <option value="Programming">Programming</option>
-                      <option value="Development">Development</option>
-                      <option value="Business">Business</option>
-                      <option value="Other">Other</option>
+                      {DOMAIN_CATEGORIES.map((cat) => (
+                        <option key={cat} value={cat}>
+                          {cat}
+                        </option>
+                      ))}
                     </select>
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1">Certificate / Badge File (Optional)</label>
+                    <div className="space-y-2">
+                      {modalCertUrl ? (
+                        <div className="p-3 rounded-xl bg-slate-950 border border-slate-700 flex items-center justify-between">
+                          <div className="flex items-center gap-2 truncate text-slate-300">
+                            <FileText className="w-4 h-4 text-purple-400 shrink-0" />
+                            <span className="truncate text-xs font-mono">{modalCertUrl}</span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => setModalCertUrl('')}
+                            className="px-2.5 py-1 rounded-lg bg-rose-900/90 text-white text-[11px] font-bold shrink-0 ml-2 hover:bg-rose-800"
+                          >
+                            Remove Certificate
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="p-3 border border-dashed border-slate-700 rounded-xl text-center">
+                          <label className="cursor-pointer text-xs font-bold text-pink-400 hover:underline flex items-center justify-center gap-2">
+                            <Upload className="w-4 h-4" />
+                            {certificateUploading ? 'Uploading File...' : 'Upload Certificate / Badge (PDF, JPG, PNG)'}
+                            <input
+                              type="file"
+                              accept="application/pdf,image/jpeg,image/jpg,image/png,image/webp"
+                              className="hidden"
+                              onChange={handleCertificateModalUpload}
+                              disabled={certificateUploading}
+                            />
+                          </label>
+                        </div>
+                      )}
+                      <input
+                        type="text"
+                        name="certificateUrl"
+                        value={modalCertUrl}
+                        onChange={(e) => setModalCertUrl(e.target.value)}
+                        placeholder="Or paste external certificate URL"
+                        className="w-full p-2 rounded-xl bg-slate-800 border border-slate-700 text-white text-[11px] font-mono"
+                      />
+                    </div>
                   </div>
                   <div>
                     <label className="block text-slate-400 mb-1">Description</label>
@@ -1514,24 +1644,21 @@ export const AdminDashboardPage: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-slate-400 mb-1">Category</label>
+                    <label className="block text-slate-400 mb-1">Domain / Category</label>
                     <select
                       name="category"
-                      defaultValue={editItem?.category || 'Programming'}
+                      defaultValue={editItem?.category || 'Artificial Intelligence'}
                       className="w-full p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white"
                     >
-                      <option value="AI">AI</option>
-                      <option value="Programming">Programming</option>
-                      <option value="Data Science">Data Science</option>
-                      <option value="Machine Learning">Machine Learning</option>
-                      <option value="Computer Vision">Computer Vision</option>
-                      <option value="Web Development">Web Development</option>
-                      <option value="Databases">Databases</option>
-                      <option value="DevOps / Tools">DevOps / Tools</option>
+                      {DOMAIN_CATEGORIES.map((cat) => (
+                        <option key={cat} value={cat}>
+                          {cat}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div>
-                    <label className="block text-slate-400 mb-1">Proficiency % (1-100)</label>
+                    <label className="block text-slate-400 mb-1">Proficiency % (1-100, stored in DB for backend compat)</label>
                     <input
                       name="proficiency"
                       type="number"
@@ -1631,12 +1758,60 @@ export const AdminDashboardPage: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-slate-400 mb-1">Category</label>
-                    <input
+                    <label className="block text-slate-400 mb-1">Domain / Category</label>
+                    <select
                       name="category"
-                      defaultValue={editItem?.category || 'General'}
+                      defaultValue={editItem?.category || 'Artificial Intelligence'}
                       className="w-full p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white"
-                    />
+                    >
+                      {DOMAIN_CATEGORIES.map((cat) => (
+                        <option key={cat} value={cat}>
+                          {cat}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1">Certificate / Badge File (Optional)</label>
+                    <div className="space-y-2">
+                      {modalCertUrl ? (
+                        <div className="p-3 rounded-xl bg-slate-950 border border-slate-700 flex items-center justify-between">
+                          <div className="flex items-center gap-2 truncate text-slate-300">
+                            <FileText className="w-4 h-4 text-purple-400 shrink-0" />
+                            <span className="truncate text-xs font-mono">{modalCertUrl}</span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => setModalCertUrl('')}
+                            className="px-2.5 py-1 rounded-lg bg-rose-900/90 text-white text-[11px] font-bold shrink-0 ml-2 hover:bg-rose-800"
+                          >
+                            Remove Certificate
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="p-3 border border-dashed border-slate-700 rounded-xl text-center">
+                          <label className="cursor-pointer text-xs font-bold text-pink-400 hover:underline flex items-center justify-center gap-2">
+                            <Upload className="w-4 h-4" />
+                            {certificateUploading ? 'Uploading File...' : 'Upload Certificate / Badge (PDF, JPG, PNG)'}
+                            <input
+                              type="file"
+                              accept="application/pdf,image/jpeg,image/jpg,image/png,image/webp"
+                              className="hidden"
+                              onChange={handleCertificateModalUpload}
+                              disabled={certificateUploading}
+                            />
+                          </label>
+                        </div>
+                      )}
+                      <input
+                        type="text"
+                        name="certificateUrl"
+                        value={modalCertUrl}
+                        onChange={(e) => setModalCertUrl(e.target.value)}
+                        placeholder="Or paste external certificate URL"
+                        className="w-full p-2 rounded-xl bg-slate-800 border border-slate-700 text-white text-[11px] font-mono"
+                      />
+                    </div>
                   </div>
                   <div>
                     <label className="block text-slate-400 mb-1">Description</label>
@@ -1684,6 +1859,48 @@ export const AdminDashboardPage: React.FC = () => {
                       defaultValue={editItem?.result || ''}
                       className="w-full p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white"
                     />
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1">Certificate / Badge File (Optional)</label>
+                    <div className="space-y-2">
+                      {modalCertUrl ? (
+                        <div className="p-3 rounded-xl bg-slate-950 border border-slate-700 flex items-center justify-between">
+                          <div className="flex items-center gap-2 truncate text-slate-300">
+                            <FileText className="w-4 h-4 text-purple-400 shrink-0" />
+                            <span className="truncate text-xs font-mono">{modalCertUrl}</span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => setModalCertUrl('')}
+                            className="px-2.5 py-1 rounded-lg bg-rose-900/90 text-white text-[11px] font-bold shrink-0 ml-2 hover:bg-rose-800"
+                          >
+                            Remove Certificate
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="p-3 border border-dashed border-slate-700 rounded-xl text-center">
+                          <label className="cursor-pointer text-xs font-bold text-pink-400 hover:underline flex items-center justify-center gap-2">
+                            <Upload className="w-4 h-4" />
+                            {certificateUploading ? 'Uploading File...' : 'Upload Certificate / Badge (PDF, JPG, PNG)'}
+                            <input
+                              type="file"
+                              accept="application/pdf,image/jpeg,image/jpg,image/png,image/webp"
+                              className="hidden"
+                              onChange={handleCertificateModalUpload}
+                              disabled={certificateUploading}
+                            />
+                          </label>
+                        </div>
+                      )}
+                      <input
+                        type="text"
+                        name="certificateUrl"
+                        value={modalCertUrl}
+                        onChange={(e) => setModalCertUrl(e.target.value)}
+                        placeholder="Or paste external certificate URL"
+                        className="w-full p-2 rounded-xl bg-slate-800 border border-slate-700 text-white text-[11px] font-mono"
+                      />
+                    </div>
                   </div>
                   <div>
                     <label className="block text-slate-400 mb-1">Description</label>

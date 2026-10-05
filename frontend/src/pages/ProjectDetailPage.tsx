@@ -5,18 +5,7 @@ import { Project } from '../types';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { useSocialLinks } from '../hooks/usePortfolioData';
-import {
-  ArrowLeft,
-  Github,
-  ExternalLink,
-  Calendar,
-  Layers,
-  Sparkles,
-  CheckCircle2,
-  Cpu,
-  AlertTriangle,
-  Lightbulb,
-} from 'lucide-react';
+import { ArrowLeft, Github, ExternalLink } from 'lucide-react';
 
 export const ProjectDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -37,122 +26,112 @@ export const ProjectDetailPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FAF8FF] dark:bg-dark-bg">
-        <div className="text-center">
-          <div className="w-10 h-10 border-4 border-pink-400 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-sm font-semibold text-slate-500">Loading project details...</p>
-        </div>
+      <div className="min-h-screen flex items-center justify-center bg-[#FAF8F5] dark:bg-[#141312] font-mono text-xs text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
+        LOADING PROJECT DISPATCH...
       </div>
     );
   }
 
   if (error || !project) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FAF8FF] dark:bg-dark-bg p-4 text-center">
-        <div className="max-w-md bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm">
-          <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-2">Project Not Found</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
-            The project you are looking for does not exist or has been removed.
+      <div className="min-h-screen flex items-center justify-center bg-[#FAF8F5] dark:bg-[#141312] p-4 text-center font-sans">
+        <div className="max-w-md editorial-card p-8 space-y-4">
+          <h2 className="font-serif font-bold text-2xl text-[#1C1B1A] dark:text-[#EAE7E1]">Project Not Found</h2>
+          <p className="text-xs text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70">
+            The requested project record could not be retrieved.
           </p>
-          <Link to="/" className="btn-cute-primary text-xs inline-flex items-center gap-2">
-            <ArrowLeft className="w-4 h-4" />
-            Back to Portfolio
+          <Link to="/" className="btn-editorial-primary text-xs inline-flex items-center gap-2">
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>RETURN TO PORTFOLIO</span>
           </Link>
         </div>
       </div>
     );
   }
 
+  const hasLiveDemo = Boolean(project.liveUrl && project.liveUrl.trim() !== '');
+
   return (
-    <div className="min-h-screen bg-[#FAF8FF] dark:bg-dark-bg text-slate-800 dark:text-slate-100 font-sans">
+    <div className="min-h-screen bg-[#FAF8F5] dark:bg-[#141312] text-[#1C1B1A] dark:text-[#EAE7E1] font-sans">
       <Navbar />
 
-      <main className="pt-28 pb-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <main className="pt-28 pb-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Back Link */}
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-pink-500 dark:hover:text-pink-400 mb-8 transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70 hover:text-[#1C1B1A] dark:hover:text-[#EAE7E1] transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" />
-          Back to all projects
+          <ArrowLeft className="w-3.5 h-3.5" />
+          <span>BACK TO ALL PROJECTS</span>
         </Link>
 
-        {/* Hero Banner */}
-        <div className="space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-100 dark:bg-slate-800 text-pink-700 dark:text-pink-300 text-xs font-bold">
-            <Layers className="w-3.5 h-3.5" />
-            <span>{project.category}</span>
+        {/* Header Block */}
+        <div className="space-y-6 border-b border-[#1C1B1A]/15 dark:border-[#EAE7E1]/15 pb-8">
+          <div className="flex items-center justify-between">
+            <span className="editorial-tag">{project.category}</span>
+            {(project.startDate || project.endDate) && (
+              <span className="text-xs font-mono text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
+                {project.startDate} – {project.endDate}
+              </span>
+            )}
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold font-serif text-slate-900 dark:text-white leading-tight">
+          <h1 className="font-serif font-bold text-4xl sm:text-6xl text-[#1C1B1A] dark:text-[#EAE7E1]">
             {project.title}
           </h1>
 
-          <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-            {project.shortDescription}
+          <p className="font-display italic text-xl sm:text-2xl text-[#1C1B1A]/90 dark:text-[#EAE7E1]/90 leading-snug">
+            "{project.shortDescription}"
           </p>
 
-          {/* Action Links & Meta */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-b border-slate-200 dark:border-slate-800 py-4">
-            <div className="flex items-center gap-4 text-xs font-semibold text-slate-500 dark:text-slate-400">
-              {(project.startDate || project.endDate) && (
-                <span className="flex items-center gap-1.5">
-                  <Calendar className="w-4 h-4 text-pink-500" />
-                  {project.startDate} – {project.endDate}
-                </span>
-              )}
-            </div>
+          {/* Action CTAs */}
+          <div className="flex flex-wrap items-center gap-4 pt-4">
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-editorial-primary text-xs"
+              >
+                <Github className="w-3.5 h-3.5" />
+                <span>GITHUB REPOSITORY</span>
+              </a>
+            )}
 
-            <div className="flex items-center gap-3">
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-cute-secondary text-xs"
-                >
-                  <Github className="w-4 h-4 text-slate-800 dark:text-slate-200" />
-                  GitHub Repository
-                </a>
-              )}
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-cute-primary text-xs"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  Live Demo
-                </a>
-              )}
-            </div>
+            {/* OPTIONAL LIVE DEMO BUTTON */}
+            {hasLiveDemo && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-editorial-secondary text-xs"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span>LIVE DEMO</span>
+              </a>
+            )}
           </div>
         </div>
 
         {/* Main Cover Image */}
         {project.imageUrl && (
-          <div className="my-10 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-cute h-72 sm:h-96">
+          <div className="editorial-card overflow-hidden aspect-[16/9] bg-[#E8E4DC] dark:bg-[#262422]">
             <img
               src={project.imageUrl}
               alt={project.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover filter contrast-105"
             />
           </div>
         )}
 
         {/* Technologies Grid */}
-        <div className="mb-12 p-6 rounded-3xl bg-white dark:bg-slate-800 border border-purple-100 dark:border-slate-700 shadow-sm">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3 flex items-center gap-2">
-            <Cpu className="w-4 h-4 text-purple-500" />
-            Technologies & Frameworks
+        <div className="editorial-card p-6 sm:p-8 space-y-4">
+          <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
+            TECHNOLOGY STACK
           </h3>
           <div className="flex flex-wrap gap-2">
             {(project.technologiesList || []).map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1.5 rounded-full text-xs font-mono font-semibold bg-purple-50 dark:bg-slate-700 text-purple-700 dark:text-purple-300 border border-purple-100 dark:border-slate-600"
-              >
+              <span key={tech} className="editorial-tag">
                 {tech}
               </span>
             ))}
@@ -160,30 +139,30 @@ export const ProjectDetailPage: React.FC = () => {
         </div>
 
         {/* Problem & Solution Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {project.problem && (
-            <div className="p-8 rounded-3xl bg-rose-50/50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/40">
-              <div className="w-10 h-10 rounded-2xl bg-rose-100 dark:bg-rose-900/60 text-rose-600 dark:text-rose-300 flex items-center justify-center mb-4">
-                <AlertTriangle className="w-5 h-5" />
-              </div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-lg mb-2">
+            <div className="editorial-card p-6 sm:p-8 space-y-3">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#A63A24] dark:text-amber-400 block">
+                CHALLENGE & PROBLEM
+              </span>
+              <h3 className="font-serif font-bold text-xl text-[#1C1B1A] dark:text-[#EAE7E1]">
                 Problem Statement
               </h3>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs sm:text-sm font-sans text-[#1C1B1A]/80 dark:text-[#EAE7E1]/80 leading-relaxed">
                 {project.problem}
               </p>
             </div>
           )}
 
           {project.solution && (
-            <div className="p-8 rounded-3xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/40">
-              <div className="w-10 h-10 rounded-2xl bg-emerald-100 dark:bg-emerald-900/60 text-emerald-600 dark:text-emerald-300 flex items-center justify-center mb-4">
-                <Lightbulb className="w-5 h-5" />
-              </div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-lg mb-2">
-                Engineered Solution
+            <div className="editorial-card p-6 sm:p-8 space-y-3">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-600 dark:text-emerald-400 block">
+                ENGINEERED APPROACH
+              </span>
+              <h3 className="font-serif font-bold text-xl text-[#1C1B1A] dark:text-[#EAE7E1]">
+                System Solution
               </h3>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs sm:text-sm font-sans text-[#1C1B1A]/80 dark:text-[#EAE7E1]/80 leading-relaxed">
                 {project.solution}
               </p>
             </div>
@@ -192,28 +171,27 @@ export const ProjectDetailPage: React.FC = () => {
 
         {/* System Architecture */}
         {project.architecture && (
-          <div className="mb-12 p-8 rounded-3xl bg-white dark:bg-slate-800 border border-purple-100 dark:border-slate-700 shadow-sm">
-            <h3 className="text-xl font-bold font-serif text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-              <Layers className="w-5 h-5 text-indigo-500" />
-              System Architecture & Data Workflow
+          <div className="editorial-card p-6 sm:p-8 space-y-4">
+            <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
+              SYSTEM ARCHITECTURE & PIPELINE
             </h3>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-mono bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
+            <div className="p-4 border border-[#1C1B1A]/20 dark:border-[#EAE7E1]/20 font-mono text-xs text-[#1C1B1A] dark:text-[#EAE7E1] bg-[#FAF8F5] dark:bg-[#141312] leading-relaxed">
               {project.architecture}
-            </p>
+            </div>
           </div>
         )}
 
         {/* Detailed Features */}
         {(project.featuresList || []).length > 0 && (
-          <div className="mb-12 p-8 rounded-3xl bg-white dark:bg-slate-800 border border-purple-100 dark:border-slate-700 shadow-sm">
-            <h3 className="text-xl font-bold font-serif text-slate-900 dark:text-white mb-6">
+          <div className="editorial-card p-6 sm:p-8 space-y-6">
+            <h3 className="font-serif font-bold text-2xl text-[#1C1B1A] dark:text-[#EAE7E1]">
               Key System Features
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {project.featuresList?.map((feature, idx) => (
-                <div key={idx} className="flex items-start gap-3 p-3 rounded-2xl bg-slate-50 dark:bg-slate-700/40">
-                  <CheckCircle2 className="w-4 h-4 text-pink-500 shrink-0 mt-0.5" />
-                  <span className="text-xs sm:text-sm text-slate-700 dark:text-slate-200 font-medium">
+                <div key={idx} className="flex items-start gap-3 p-3 border border-[#1C1B1A]/10 dark:border-[#EAE7E1]/10">
+                  <span className="font-mono text-xs text-[#A63A24] dark:text-amber-400 font-bold">—</span>
+                  <span className="text-xs font-sans text-[#1C1B1A]/90 dark:text-[#EAE7E1]/90">
                     {feature}
                   </span>
                 </div>
@@ -223,11 +201,11 @@ export const ProjectDetailPage: React.FC = () => {
         )}
 
         {/* Full Long Description */}
-        <div className="p-8 rounded-3xl bg-white dark:bg-slate-800 border border-purple-100 dark:border-slate-700 shadow-sm">
-          <h3 className="text-xl font-bold font-serif text-slate-900 dark:text-white mb-4">
+        <div className="editorial-card p-6 sm:p-8 space-y-4">
+          <h3 className="font-serif font-bold text-2xl text-[#1C1B1A] dark:text-[#EAE7E1]">
             Comprehensive Overview
           </h3>
-          <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">
+          <p className="text-sm font-sans text-[#1C1B1A]/80 dark:text-[#EAE7E1]/80 leading-relaxed whitespace-pre-line">
             {project.description}
           </p>
         </div>

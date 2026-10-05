@@ -10,7 +10,7 @@ cloudinary.config({
 
 export const uploadFileToStorage = async (
   file: Express.Multer.File,
-  fileType: 'photo' | 'resume'
+  fileType: 'photo' | 'resume' | 'project' | 'certificate'
 ): Promise<string> => {
   const isCloudinaryConfigured =
     Boolean(process.env.CLOUDINARY_CLOUD_NAME) &&
@@ -19,7 +19,11 @@ export const uploadFileToStorage = async (
 
   if (isCloudinaryConfigured) {
     return new Promise((resolve, reject) => {
-      const resourceType = fileType === 'resume' ? 'raw' : 'image';
+      const isPdf =
+        file.mimetype === 'application/pdf' ||
+        file.originalname.toLowerCase().endsWith('.pdf');
+      const resourceType = fileType === 'resume' || (fileType === 'certificate' && isPdf) ? 'raw' : 'image';
+
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           folder: 'portfolio_assets',

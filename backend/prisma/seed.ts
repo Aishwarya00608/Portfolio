@@ -39,7 +39,7 @@ async function main() {
       headline: 'Computer Science Engineer | Data Science & AI/ML Enthusiast',
       shortBio: '4th-year B.Tech Computer Science and Engineering student passionate about Data Science, AI/ML, Computer Vision, Data Analytics, Full-Stack Engineering, and Cyber Security.',
       longBio: 'I am a dedicated 4th-year Computer Science Engineering student specializing in intelligent systems, machine learning pipelines, and modern web application development. My analytical mindset drives me to build computer vision fatigue monitors, role-based enterprise portals, and AI climate risk prediction systems. I thrive at the intersection of data-driven insights and elegant full-stack solutions.',
-      email: 'aishwarya.bulusu@gmail.com',
+      email: 'aishwaryabulusu2006@gmail.com',
       phone: '+91 98765 43210',
       location: 'Hyderabad, Telangana, India',
       profileImage: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop',
@@ -502,7 +502,7 @@ async function main() {
   const socialLinks = [
     { platform: 'GitHub', url: 'https://github.com/Aishwarya00608', icon: 'Github', displayOrder: 1, published: true },
     { platform: 'LinkedIn', url: 'https://linkedin.com/in/aishwarya-bulusu', icon: 'Linkedin', displayOrder: 2, published: true },
-    { platform: 'Email', url: 'mailto:aishwarya.bulusu@gmail.com', icon: 'Mail', displayOrder: 3, published: true },
+    { platform: 'Email', url: 'mailto:aishwaryabulusu2006@gmail.com', icon: 'Mail', displayOrder: 3, published: true },
   ];
 
   for (const social of socialLinks) {

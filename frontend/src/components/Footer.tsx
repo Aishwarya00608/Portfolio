@@ -1,6 +1,6 @@
 import React from 'react';
 import { SocialLink } from '../types';
-import { Sparkles, Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
 
 interface FooterProps {
   socialLinks: SocialLink[];
@@ -17,19 +17,19 @@ export const Footer: React.FC<FooterProps> = ({ socialLinks }) => {
       case 'mail':
         return <Mail className="w-4 h-4" />;
       default:
-        return <Sparkles className="w-4 h-4" />;
+        return <Mail className="w-4 h-4" />;
     }
   };
 
   return (
-    <footer className="py-12 border-t border-slate-100 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+    <footer className="py-12 bg-[#FAF8F5] dark:bg-[#141312] border-t border-[#1C1B1A]/20 dark:border-[#EAE7E1]/20 font-mono text-xs text-[#1C1B1A]/80 dark:text-[#EAE7E1]/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
         <div>
-          <p className="text-sm font-bold font-serif text-slate-800 dark:text-slate-200">
-            Designed & Built by Aiswarya ✦
+          <p className="font-serif font-bold text-sm text-[#1C1B1A] dark:text-[#EAE7E1]">
+            Designed & Engineered by Bulusu Vyaghri Aiswarya ✦
           </p>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
-            Bulusu Vyaghri Aiswarya • Full-Stack Personal Portfolio CMS
+          <p className="text-[11px] text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60 mt-1 uppercase tracking-widest">
+            aishwaryabulusu2006@gmail.com • VOL. 2026 EDITION
           </p>
         </div>
 
@@ -39,10 +39,10 @@ export const Footer: React.FC<FooterProps> = ({ socialLinks }) => {
             socialLinks.map((link) => (
               <a
                 key={link.id}
-                href={link.url}
+                href={link.platform.toLowerCase() === 'email' && !link.url.startsWith('mailto:') ? `mailto:${link.url}` : link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-pink-500 hover:scale-110 transition-all"
+                className="p-2 border border-[#1C1B1A]/30 dark:border-[#EAE7E1]/30 hover:border-[#1C1B1A] dark:hover:border-[#EAE7E1] text-[#1C1B1A] dark:text-[#EAE7E1] transition-colors"
                 title={link.platform}
               >
                 {getSocialIcon(link.platform)}
@@ -54,7 +54,7 @@ export const Footer: React.FC<FooterProps> = ({ socialLinks }) => {
                 href="https://github.com/Aishwarya00608"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-pink-500 transition-all"
+                className="p-2 border border-[#1C1B1A]/30 dark:border-[#EAE7E1]/30 hover:border-[#1C1B1A] dark:hover:border-[#EAE7E1] text-[#1C1B1A] dark:text-[#EAE7E1] transition-colors"
               >
                 <Github className="w-4 h-4" />
               </a>
@@ -62,13 +62,13 @@ export const Footer: React.FC<FooterProps> = ({ socialLinks }) => {
                 href="https://linkedin.com/in/aishwarya-bulusu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-pink-500 transition-all"
+                className="p-2 border border-[#1C1B1A]/30 dark:border-[#EAE7E1]/30 hover:border-[#1C1B1A] dark:hover:border-[#EAE7E1] text-[#1C1B1A] dark:text-[#EAE7E1] transition-colors"
               >
                 <Linkedin className="w-4 h-4" />
               </a>
               <a
-                href="mailto:aishwarya.bulusu@gmail.com"
-                className="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-pink-500 transition-all"
+                href="mailto:aishwaryabulusu2006@gmail.com"
+                className="p-2 border border-[#1C1B1A]/30 dark:border-[#EAE7E1]/30 hover:border-[#1C1B1A] dark:hover:border-[#EAE7E1] text-[#1C1B1A] dark:text-[#EAE7E1] transition-colors"
               >
                 <Mail className="w-4 h-4" />
               </a>
