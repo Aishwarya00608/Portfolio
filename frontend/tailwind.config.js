@@ -8,55 +8,61 @@ export default {
   theme: {
     extend: {
       colors: {
-        rpg: {
-          dark: '#0A0817',      // Primary background (Deep space night)
-          card: '#121026',      // Dark card surface
-          border: '#2A2650',    // Pixel border
-          accent: '#FF2E93',    // Bright Pink / Magenta
-          neon: '#00FF66',      // Neon Green
-          gold: '#FFD700',      // Pixel Gold
-          cyan: '#00F0FF',      // Cyan / Blue
-          purple: '#A855F7',    // RPG Purple
-          muted: '#8B8BAE',     // Muted text
+        cream: {
+          50: '#FFFDFA',
+          100: '#FAF8F5',
+          200: '#F4F0E8',
+          300: '#E8E1D5',
+          800: '#2A2724',
+          900: '#141312',
         },
+        blush: {
+          50: '#FFF8F9',
+          100: '#FDF2F4',
+          200: '#FADEE1',
+          500: '#D98293',
+          700: '#C26D7F',
+        },
+        sage: {
+          100: '#F1F4F0',
+          500: '#8A9A86',
+          700: '#5A6B56',
+        },
+        editorial: {
+          bg: '#FAF8F5',
+          card: '#FFFFFF',
+          text: '#1C1B1A',
+          accent: '#A63A24', // Rust crimson accent
+          muted: '#78716C',
+          border: 'rgba(28, 27, 26, 0.18)',
+          tape: 'rgba(232, 225, 213, 0.7)',
+        }
       },
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
-        pixel: ['"Press Start 2P"', 'monospace'],
-        retro: ['"VT323"', '"Press Start 2P"', 'monospace'],
-        silk: ['"Silkscreen"', 'monospace'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
+        display: ['Instrument Serif', 'Playfair Display', 'serif'],
+        mono: ['Fira Code', 'monospace'],
+        hand: ['Caveat', 'cursive'],
       },
       animation: {
-        'float': 'float 3s ease-in-out infinite',
-        'pixel-bounce': 'pixelBounce 1s steps(2, end) infinite',
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'blink': 'blink 1s steps(2, start) infinite',
+        'float': 'float 6s ease-in-out infinite',
+        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-6px)' },
+          '50%': { transform: 'translateY(-8px)' },
         },
-        pixelBounce: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-4px)' },
-        },
-        blink: {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0' },
-        }
       },
       boxShadow: {
-        'pixel-sm': '2px 2px 0px 0px #000',
-        'pixel': '4px 4px 0px 0px #000',
-        'pixel-lg': '6px 6px 0px 0px #000',
-        'pixel-neon': '4px 4px 0px 0px #00FF66',
-        'pixel-pink': '4px 4px 0px 0px #FF2E93',
-        'pixel-gold': '4px 4px 0px 0px #FFD700',
-        'pixel-cyan': '4px 4px 0px 0px #00F0FF',
+        'editorial': '4px 4px 0px 0px rgba(28, 27, 26, 0.85)',
+        'editorial-hover': '6px 6px 0px 0px rgba(28, 27, 26, 1)',
+        'editorial-soft': '0 10px 30px -5px rgba(28, 27, 26, 0.08)',
       }
     },
   },
   plugins: [],
 }
+
 

@@ -4,70 +4,68 @@
 
 @layer base {
   body {
-    @apply bg-[#0A0817] text-[#E0E7FF] selection:bg-[#FF2E93] selection:text-white;
-    background-image: 
-      radial-gradient(#1E1A3C 1px, transparent 1px),
-      linear-gradient(to bottom, #0A0817, #0F0D24);
-    background-size: 16px 16px, 100% 100%;
-    image-rendering: pixelated;
+    @apply bg-[#FAF8F5] text-[#1C1B1A] selection:bg-[#1C1B1A] selection:text-[#FAF8F5];
+    background-image: radial-gradient(rgba(28, 27, 26, 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 
   h1, h2, h3, h4 {
-    @apply tracking-wider;
+    @apply tracking-tight;
   }
 }
 
-/* Custom Pixel Scrollbar */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0A0817;
-  border-left: 2px solid #2A2650;
+  background: #FAF8F5;
 }
 ::-webkit-scrollbar-thumb {
-  background: #FF2E93;
-  border: 2px solid #000;
-  box-shadow: inset -2px -2px 0px 0px #A30052;
+  background: #1C1B1A;
 }
 
-/* Scanline Effect (subtle CRT touch) */
-.scanlines {
+/* Editorial Typography & Utility Classes */
+.font-display {
+  font-family: 'Instrument Serif', 'Playfair Display', Georgia, serif;
+}
+
+/* Editorial Cards & Magazine Elements */
+.editorial-card {
+  @apply bg-white border border-[#1C1B1A]/20 p-6 sm:p-8 transition-all duration-300 hover:border-[#1C1B1A] hover:shadow-editorial relative;
+}
+
+.editorial-tag {
+  @apply text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 border border-[#1C1B1A]/20 bg-[#FAF8F5] text-[#1C1B1A]/80 inline-block;
+}
+
+.editorial-tape {
   position: relative;
 }
-.scanlines::before {
-  content: " ";
-  display: block;
+.editorial-tape::before {
+  content: "";
   position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-  background: linear-gradient(rgba(18, 16, 38, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-  z-index: 20;
-  background-size: 100% 4px, 6px 100%;
-  pointer-events: none;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 90px;
+  height: 20px;
+  background-color: rgba(232, 225, 213, 0.8);
+  border: 1px dashed rgba(28, 27, 26, 0.2);
+  z-index: 10;
 }
 
-/* Pixel Card Base */
-.pixel-card {
-  @apply bg-[#121026]/90 border-4 border-[#2A2650] shadow-[4px_4px_0px_0px_#000] relative transition-transform duration-150;
-}
-.pixel-card:hover {
-  @apply border-[#00FF66] shadow-[4px_4px_0px_0px_#00FF66];
+/* Editorial Button Utilities */
+.btn-editorial-primary {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#1C1B1A] text-[#FAF8F5] text-xs font-mono font-bold uppercase tracking-widest border border-[#1C1B1A] shadow-editorial hover:bg-[#A63A24] hover:border-[#A63A24] hover:shadow-editorial-hover hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer;
 }
 
-/* Pixel Button Utilities */
-.btn-pixel-primary {
-  @apply inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#FF2E93] text-white font-pixel text-xs border-4 border-black shadow-[4px_4px_0px_0px_#000] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#000] transition-all cursor-pointer;
+.btn-editorial-secondary {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-transparent text-[#1C1B1A] text-xs font-mono font-bold uppercase tracking-widest border border-[#1C1B1A]/40 hover:border-[#1C1B1A] hover:bg-[#F4F0E8] hover:shadow-editorial hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer;
 }
 
-.btn-pixel-secondary {
-  @apply inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#1E1A3C] text-[#00FF66] font-pixel text-xs border-4 border-black shadow-[4px_4px_0px_0px_#000] hover:border-[#00FF66] hover:bg-[#25204C] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#00FF66] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#000] transition-all cursor-pointer;
+.btn-editorial-accent {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#FDF2F4] text-[#C26D7F] text-xs font-mono font-bold uppercase tracking-widest border border-[#C26D7F]/40 hover:border-[#C26D7F] hover:bg-[#FADEE1] transition-all cursor-pointer;
 }
 
-.btn-pixel-gold {
-  @apply inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#FFD700] text-black font-pixel text-xs border-4 border-black shadow-[4px_4px_0px_0px_#000] hover:bg-[#FFE033] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#000] transition-all cursor-pointer;
-}
-
-.pixel-badge {
-  @apply inline-block px-2.5 py-1 text-[10px] font-pixel bg-[#1E1A3C] text-[#00F0FF] border-2 border-black shadow-[2px_2px_0px_0px_#000];
-}
 

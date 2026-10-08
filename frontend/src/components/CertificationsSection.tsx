@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Certification } from '../types';
 import { CertificateViewerModal } from './CertificateViewerModal';
-import { PixelTrophy, PixelStar } from './pixel/PixelDecorations';
-import { playSelectSound } from '../utils/sound';
+import { ExternalLink, Award } from 'lucide-react';
 
 interface CertificationsSectionProps {
   certifications: Certification[];
@@ -25,38 +24,33 @@ export const CertificationsSection: React.FC<CertificationsSectionProps> = ({
       : certifications.filter((c) => c.category.toLowerCase() === selectedCategory.toLowerCase());
 
   return (
-    <section id="certifications" className="py-16 border-b-4 border-[#2A2650]">
+    <section id="certifications" className="py-20 border-b border-[#1C1B1A]/20 bg-[#FAF8F5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Level Header */}
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-8 p-3 bg-[#121026] border-4 border-black shadow-[4px_4px_0px_0px_#000] font-pixel text-xs">
-          <div className="flex items-center gap-2 text-[#A855F7]">
-            <span>LEVEL 05</span>
-            <span className="text-[#8B8BAE]">•</span>
-            <span className="text-[#FFD700]">CERTIFICATION CENTER & TROPHY ROOM</span>
-          </div>
-          <div className="flex items-center gap-2 text-[10px] text-[#00FF66]">
-            <PixelTrophy size={16} /> TROPHIES: {certifications.length}
-          </div>
+        {/* Section Header */}
+        <div className="flex items-center gap-4 pb-4 border-b border-[#1C1B1A]/20 mb-8">
+          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#A63A24]">
+            SECTION N° 05
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1C1B1A]">
+            Verified Certifications & Credentials
+          </h2>
         </div>
 
-        <p className="font-pixel text-xs text-[#E0E7FF] max-w-3xl mb-8 leading-relaxed">
-          VERIFIED TROPHIES AND INDUSTRY CREDENTIALS UNLOCKED FROM GOOGLE, IBM, CISCO, SIMPLILEARN, ANTHROPIC, AND THINKQBATOR.
+        <p className="text-sm font-sans text-[#1C1B1A]/70 max-w-2xl mb-10">
+          Industry credentials and verified certifications from Google, IBM, Cisco, Simplilearn, Anthropic, and ThinkQbator.
         </p>
 
         {/* Category Filter Tags */}
-        <div className="flex flex-wrap gap-2 mb-10 pb-4 border-b-2 border-[#2A2650]">
+        <div className="flex flex-wrap gap-2 mb-12 pb-6 border-b border-[#1C1B1A]/15">
           {categories.map((cat) => (
             <button
               key={cat}
-              onClick={() => {
-                playSelectSound();
-                setSelectedCategory(cat);
-              }}
-              className={`font-pixel text-[10px] uppercase px-3 py-2 border-2 border-black shadow-[2px_2px_0px_#000] transition-all ${
+              onClick={() => setSelectedCategory(cat)}
+              className={`text-[11px] font-mono font-bold tracking-widest uppercase px-3.5 py-1.5 border transition-all ${
                 selectedCategory.toLowerCase() === cat.toLowerCase()
-                  ? 'bg-[#FF2E93] text-white border-black shadow-[3px_3px_0px_#000]'
-                  : 'bg-[#1E1A3C] text-[#00F0FF] hover:bg-[#25204C] hover:text-[#00FF66]'
+                  ? 'bg-[#1C1B1A] text-[#FAF8F5] border-[#1C1B1A]'
+                  : 'border-[#1C1B1A]/20 text-[#1C1B1A]/70 hover:border-[#1C1B1A] hover:text-[#1C1B1A]'
               }`}
             >
               {cat}
@@ -64,14 +58,14 @@ export const CertificationsSection: React.FC<CertificationsSectionProps> = ({
           ))}
         </div>
 
-        {/* Trophy Cards Grid */}
+        {/* Certifications Editorial Grid */}
         {loading ? (
-          <div className="text-center py-12 font-pixel text-xs text-[#00FF66] animate-pulse">
-            LOADING TROPHY ROOM...
+          <div className="text-center py-12 font-mono text-xs text-[#1C1B1A]/60">
+            LOADING CERTIFICATIONS INDEX...
           </div>
         ) : filteredCerts.length === 0 ? (
-          <div className="text-center py-12 font-pixel text-xs border-4 border-dashed border-[#2A2650] text-[#8B8BAE]">
-            NO TROPHIES RECORDED IN THIS CATEGORY.
+          <div className="text-center py-12 font-mono text-xs border border-dashed border-[#1C1B1A]/20">
+            NO CERTIFICATIONS RECORDED IN THIS CATEGORY.
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -85,54 +79,51 @@ export const CertificationsSection: React.FC<CertificationsSectionProps> = ({
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.08 }}
-                  className="pixel-card p-6 bg-[#121026] flex flex-col justify-between group hover:border-[#FFD700]"
+                  className="editorial-card p-6 flex flex-col justify-between group"
                 >
-                  <div className="space-y-4">
-                    {/* Trophy Top Banner */}
-                    <div className="flex items-center justify-between pb-3 border-b-2 border-black font-pixel text-[10px]">
-                      <span className="text-[#FFD700] flex items-center gap-1">
-                        <PixelTrophy size={14} /> TROPHY UNLOCKED
-                      </span>
-                      <span className="text-[#00F0FF] bg-[#0A0817] px-2 py-0.5 border border-black uppercase">
-                        {cert.category}
-                      </span>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="editorial-tag">{cert.category}</span>
+                      {cert.issueDate && (
+                        <span className="text-[10px] font-mono text-[#1C1B1A]/50">
+                          {cert.issueDate}
+                        </span>
+                      )}
                     </div>
 
-                    <h3 className="font-pixel text-sm text-[#FFD700] leading-snug group-hover:text-[#00FF66] transition-colors">
+                    <h3 className="font-serif font-bold text-lg text-[#1C1B1A] group-hover:text-[#A63A24] transition-colors">
                       {cert.name}
                     </h3>
 
-                    <h4 className="font-pixel text-xs text-[#00FF66] uppercase">
-                      ISSUED BY: {cert.organization}
+                    <h4 className="font-mono text-xs uppercase tracking-wider text-[#1C1B1A]/70">
+                      {cert.organization}
                     </h4>
 
                     {cert.description && (
-                      <p className="text-xs text-[#E0E7FF] leading-relaxed font-sans">
+                      <p className="text-xs font-sans text-[#1C1B1A]/70 leading-relaxed">
                         {cert.description}
                       </p>
                     )}
                   </div>
 
                   {/* View Certificate Action */}
-                  <div className="pt-4 mt-4 border-t-2 border-black flex items-center justify-between font-pixel text-[10px]">
-                    <span className="text-[#00FF66] flex items-center gap-1">
-                      <PixelStar size={12} /> VERIFIED
+                  <div className="pt-4 mt-4 border-t border-[#1C1B1A]/15 flex items-center justify-between">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-700">
+                      ✓ VERIFIED CREDENTIAL
                     </span>
-                    {certTargetUrl ? (
+                    {certTargetUrl && (
                       <button
-                        onClick={() => {
-                          playSelectSound();
+                        onClick={() =>
                           setSelectedCert({
                             url: certTargetUrl,
                             title: `${cert.name} - ${cert.organization}`,
-                          });
-                        }}
-                        className="btn-pixel-gold py-1.5 px-3 text-[10px]"
+                          })
+                        }
+                        className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#1C1B1A] hover:underline"
                       >
-                        <span>VIEW CERTIFICATE</span>
+                        <span>View Certificate</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
                       </button>
-                    ) : (
-                      <span className="text-[#8B8BAE]">N/A</span>
                     )}
                   </div>
                 </motion.div>

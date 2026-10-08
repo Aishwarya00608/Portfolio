@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Internship } from '../types';
 import { CertificateViewerModal } from './CertificateViewerModal';
-import { PixelGem, PixelTrophy } from './pixel/PixelDecorations';
-import { playSelectSound } from '../utils/sound';
+import { ExternalLink, Award } from 'lucide-react';
 
 interface ExperienceTimelineProps {
   internships: Internship[];
@@ -14,39 +13,37 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({ internsh
   const [selectedCert, setSelectedCert] = useState<{ url: string; title: string } | null>(null);
 
   return (
-    <section id="experience" className="py-16 border-b-4 border-[#2A2650]">
+    <section id="experience" className="py-20 border-b border-[#1C1B1A]/20 bg-[#FAF8F5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-8 p-3 bg-[#121026] border-4 border-black shadow-[4px_4px_0px_0px_#000] font-pixel text-xs">
-          <div className="flex items-center gap-2 text-[#FFD700]">
-            <span>LEVEL 04</span>
-            <span className="text-[#8B8BAE]">•</span>
-            <span className="text-[#00FF66]">QUEST LOG & EXPERIENCE</span>
-          </div>
-          <div className="flex items-center gap-2 text-[10px] text-[#00F0FF]">
-            <PixelGem size={16} /> QUESTS COMPLETED: {internships.length}
-          </div>
+        <div className="flex items-center gap-4 pb-4 border-b border-[#1C1B1A]/20 mb-8">
+          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#A63A24]">
+            SECTION N° 04
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1C1B1A]">
+            Where I've Worked & Internships
+          </h2>
         </div>
 
-        <p className="font-pixel text-xs text-[#E0E7FF] max-w-3xl mb-8 leading-relaxed">
-          CHRONOLOGICAL LOG OF COMPLETED PROFESSIONAL QUESTS AND ENGAGEMENTS IN AI, ML, AND FULL-STACK SYSTEMS.
+        <p className="text-sm font-sans text-[#1C1B1A]/70 max-w-2xl mb-12">
+          Applied engineering engagements in artificial intelligence, natural language search analytics, and enterprise Generative AI systems.
         </p>
 
         {loading ? (
-          <div className="text-center py-12 font-pixel text-xs text-[#00FF66] animate-pulse">
-            LOADING QUEST LOG...
+          <div className="text-center py-12 font-mono text-xs text-[#1C1B1A]/60">
+            LOADING EXPERIENCE LOG...
           </div>
         ) : internships.length === 0 ? (
-          <div className="text-center py-12 font-pixel text-xs border-4 border-dashed border-[#2A2650] text-[#8B8BAE]">
-            NO COMPLETED QUESTS FOUND.
+          <div className="text-center py-12 font-mono text-xs border border-dashed border-[#1C1B1A]/20">
+            NO EXPERIENCE RECORDS FOUND.
           </div>
         ) : (
-          <div className="space-y-6">
+          <div className="space-y-8">
             {internships.map((item, idx) => {
               const dateDisplay =
                 item.company.toLowerCase().includes('flyrank')
-                  ? 'JUL 2026 – SEP 2026'
+                  ? 'July 2026 – September 2026'
                   : `${item.startDate} – ${item.endDate}`;
 
               const hasCertificate = Boolean(item.certificateUrl && item.certificateUrl.trim() !== '');
@@ -57,56 +54,44 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({ internsh
                   initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: idx * 0.1 }}
-                  className="pixel-card p-6 bg-[#121026] hover:border-[#00FF66]"
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="editorial-card p-6 sm:p-8"
                 >
-                  {/* Quest Header */}
-                  <div className="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b-2 border-black font-pixel text-xs">
-                    <div className="flex items-center gap-2 text-[#00FF66]">
-                      <span className="bg-[#0A0817] px-2 py-1 border border-black text-[#FF2E93]">
-                        QUEST {String(idx + 1).padStart(2, '0')}
-                      </span>
-                      <span className="text-[#FFD700]">QUEST COMPLETED</span>
-                    </div>
-                    <span className="text-[#00F0FF] text-[10px]">
-                      {dateDisplay} • {item.location ? item.location.toUpperCase() : 'REMOTE'}
-                    </span>
-                  </div>
-
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                    {/* Quest Title Info */}
+                    
+                    {/* Role & Company Header */}
                     <div className="lg:col-span-4 space-y-2">
-                      <h3 className="font-pixel text-base text-[#FFD700] leading-snug">
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-[#1C1B1A]/50 block">
+                        {dateDisplay} • {item.location || 'REMOTE'}
+                      </span>
+                      <h3 className="font-serif font-bold text-2xl text-[#1C1B1A]">
                         {item.role}
                       </h3>
-                      <h4 className="font-pixel text-xs text-[#00FF66] uppercase">
+                      <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-[#A63A24]">
                         {item.company}
                       </h4>
                     </div>
 
-                    {/* Quest Details & Deliverables */}
+                    {/* Description & Deliverables */}
                     <div className="lg:col-span-8 space-y-4">
-                      <p className="text-sm text-[#E0E7FF] leading-relaxed font-sans">
+                      <p className="text-sm font-sans text-[#1C1B1A]/80 leading-relaxed">
                         {item.description}
                       </p>
 
                       {item.achievements && (
-                        <div className="p-3 bg-[#0A0817] border-l-4 border-[#FF2E93] text-xs font-sans text-[#E0E7FF] space-y-1">
-                          <strong className="font-pixel text-[9px] text-[#FFD700] block uppercase">
-                            REWARD / KEY CAPSTONE DELIVERABLE:
+                        <div className="p-4 border-l-2 border-[#1C1B1A] bg-[#FAF8F5] text-xs font-sans text-[#1C1B1A]/80">
+                          <strong className="font-mono uppercase text-[10px] tracking-widest block text-[#1C1B1A]/60 mb-1">
+                            KEY CAPSTONE / DELIVERABLE
                           </strong>
-                          <p>{item.achievements}</p>
+                          {item.achievements}
                         </div>
                       )}
 
-                      {/* Tech Stack Badges */}
+                      {/* Tech Tags */}
                       <div className="flex flex-wrap gap-1.5 pt-2">
                         {(item.technologiesList || []).map((tech) => (
-                          <span
-                            key={tech}
-                            className="font-pixel text-[9px] bg-[#1E1A3C] text-[#00F0FF] border border-black px-2 py-0.5"
-                          >
-                            +{tech}
+                          <span key={tech} className="editorial-tag">
+                            {tech}
                           </span>
                         ))}
                       </div>
@@ -115,21 +100,21 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({ internsh
                       {hasCertificate && (
                         <div className="pt-2">
                           <button
-                            onClick={() => {
-                              playSelectSound();
+                            onClick={() =>
                               setSelectedCert({
                                 url: item.certificateUrl!,
                                 title: `${item.role} - ${item.company}`,
-                              });
-                            }}
-                            className="btn-pixel-gold text-[10px] py-1.5 px-3"
+                              })
+                            }
+                            className="btn-editorial-secondary text-xs"
                           >
-                            <PixelTrophy size={14} />
-                            <span>VIEW QUEST CERTIFICATE</span>
+                            <Award className="w-3.5 h-3.5" />
+                            <span>VIEW CERTIFICATE</span>
                           </button>
                         </div>
                       )}
                     </div>
+
                   </div>
                 </motion.div>
               );

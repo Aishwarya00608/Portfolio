@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getProjectBySlug } from '../services/api';
 import { Project } from '../types';
-import { GameHUD } from '../components/GameHUD';
+import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import { useSocialLinks, useStats, useProfile } from '../hooks/usePortfolioData';
+import { useSocialLinks } from '../hooks/usePortfolioData';
 import { ProjectFallbackImage } from '../components/pixel/ProjectFallbackImage';
-import { playSelectSound } from '../utils/sound';
 import { ArrowLeft, Github, ExternalLink } from 'lucide-react';
 
 export const ProjectDetailPage: React.FC = () => {
@@ -15,8 +14,6 @@ export const ProjectDetailPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { socialLinks } = useSocialLinks();
-  const { stats } = useStats();
-  const { profile } = useProfile();
 
   useEffect(() => {
     if (slug) {
@@ -30,28 +27,23 @@ export const ProjectDetailPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#0A0817] font-pixel text-xs text-[#00FF66]">
-        <div className="w-10 h-10 border-4 border-[#FF2E93] border-t-transparent animate-spin mb-4" />
-        <span>LOADING MISSION DISPATCH DATA...</span>
+      <div className="min-h-screen flex items-center justify-center bg-[#FAF8F5] font-mono text-xs text-[#1C1B1A]/60">
+        LOADING PROJECT DISPATCH...
       </div>
     );
   }
 
   if (error || !project) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0A0817] p-4 font-pixel text-xs text-white">
-        <div className="max-w-md pixel-card p-8 text-center space-y-4 bg-[#121026]">
-          <h2 className="text-xl text-[#FF2E93]">MISSION NOT FOUND</h2>
-          <p className="text-xs text-[#8B8BAE]">
-            THE REQUESTED MISSION RECORD COULD NOT BE RETRIEVED.
+      <div className="min-h-screen flex items-center justify-center bg-[#FAF8F5] p-4 text-center font-sans">
+        <div className="max-w-md editorial-card p-8 space-y-4">
+          <h2 className="font-serif font-bold text-2xl text-[#1C1B1A]">Project Not Found</h2>
+          <p className="text-xs text-[#1C1B1A]/70">
+            The requested project record could not be retrieved.
           </p>
-          <Link
-            to="/"
-            onClick={() => playSelectSound()}
-            className="btn-pixel-primary text-xs inline-flex items-center gap-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>RETURN TO PORTFOLIO WORLD</span>
+          <Link to="/" className="btn-editorial-primary text-xs inline-flex items-center gap-2">
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>RETURN TO PORTFOLIO</span>
           </Link>
         </div>
       </div>
@@ -61,121 +53,124 @@ export const ProjectDetailPage: React.FC = () => {
   const hasLiveDemo = Boolean(project.liveUrl && project.liveUrl.trim() !== '');
 
   return (
-    <div className="min-h-screen bg-[#0A0817] text-[#E0E7FF] font-sans scanlines">
-      <GameHUD stats={stats} profile={profile} />
+    <div className="min-h-screen bg-[#FAF8F5] text-[#1C1B1A] font-sans">
+      <Navbar />
 
-      <main className="pt-8 pb-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <main className="pt-28 pb-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Back Link */}
         <Link
           to="/"
-          onClick={() => playSelectSound()}
-          className="inline-flex items-center gap-2 font-pixel text-xs text-[#00F0FF] hover:text-[#00FF66] transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-[#1C1B1A]/70 hover:text-[#1C1B1A] transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" />
-          <span>← BACK TO ALL MISSIONS</span>
+          <ArrowLeft className="w-3.5 h-3.5" />
+          <span>BACK TO ALL PROJECTS</span>
         </Link>
 
         {/* Header Block */}
-        <div className="pixel-card p-6 sm:p-8 bg-[#121026] space-y-6">
-          <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b-2 border-black font-pixel text-xs">
-            <span className="text-[#FF2E93] bg-[#0A0817] px-2.5 py-1 border border-black uppercase">
-              {project.category}
-            </span>
+        <div className="space-y-6 border-b border-[#1C1B1A]/20 pb-8">
+          <div className="flex items-center justify-between">
+            <span className="editorial-tag">{project.category}</span>
             {(project.startDate || project.endDate) && (
-              <span className="text-[#8B8BAE] text-[10px]">
-                MISSION DATES: {project.startDate} – {project.endDate}
+              <span className="text-xs font-mono text-[#1C1B1A]/60">
+                {project.startDate} – {project.endDate}
               </span>
             )}
           </div>
 
-          <h1 className="font-pixel text-2xl sm:text-4xl text-[#FFD700] leading-snug drop-shadow-[3px_3px_0px_#000]">
+          <h1 className="font-serif font-bold text-4xl sm:text-6xl text-[#1C1B1A]">
             {project.title}
           </h1>
 
-          <p className="font-pixel text-xs sm:text-sm text-[#00F0FF] leading-relaxed border-l-4 border-[#FF2E93] pl-3 py-1">
+          <p className="font-display italic text-xl sm:text-2xl text-[#1C1B1A]/90 leading-snug">
             "{project.shortDescription}"
           </p>
 
           {/* Action CTAs */}
-          <div className="flex flex-wrap items-center gap-4 pt-4 border-t-2 border-black">
+          <div className="flex flex-wrap items-center gap-4 pt-4">
             {project.githubUrl && (
               <a
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => playSelectSound()}
-                className="btn-pixel-primary text-xs"
+                className="btn-editorial-primary text-xs"
               >
-                <Github className="w-4 h-4" />
+                <Github className="w-3.5 h-3.5" />
                 <span>GITHUB REPOSITORY</span>
               </a>
             )}
 
-            {/* LIVE DEMO BUTTON: Only displayed if liveUrl exists */}
+            {/* OPTIONAL LIVE DEMO BUTTON */}
             {hasLiveDemo && (
               <a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => playSelectSound()}
-                className="btn-pixel-gold text-xs"
+                className="btn-editorial-secondary text-xs"
               >
-                <ExternalLink className="w-4 h-4" />
-                <span>PLAY LIVE DEMO</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span>LIVE DEMO</span>
               </a>
             )}
           </div>
         </div>
 
-        {/* Main Cover Image Banner */}
-        <div className="pixel-card overflow-hidden bg-[#121026]">
-          <ProjectFallbackImage
-            imageUrl={project.imageUrl}
-            title={project.title}
-            category={project.category}
-            className="w-full aspect-[16/9]"
-          />
+        {/* Main Cover Image */}
+        <div className="editorial-card overflow-hidden aspect-[16/9] bg-[#F4F0E8]">
+          {project.imageUrl && project.imageUrl.trim() !== '' ? (
+            <img
+              src={project.imageUrl}
+              alt={project.title}
+              className="w-full h-full object-cover filter contrast-105"
+            />
+          ) : (
+            <ProjectFallbackImage
+              imageUrl={null}
+              title={project.title}
+              category={project.category}
+              className="w-full h-full"
+            />
+          )}
         </div>
 
-        {/* Technology Stack Grid */}
-        <div className="pixel-card p-6 bg-[#121026] space-y-4">
-          <h3 className="font-pixel text-xs text-[#00FF66] uppercase">
+        {/* Technologies Grid */}
+        <div className="editorial-card p-6 sm:p-8 space-y-4">
+          <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#A63A24]">
             EQUIPPED TECHNOLOGY STACK
           </h3>
           <div className="flex flex-wrap gap-2">
             {(project.technologiesList || []).map((tech) => (
-              <span key={tech} className="pixel-badge">
-                +{tech}
+              <span key={tech} className="editorial-tag">
+                {tech}
               </span>
             ))}
           </div>
         </div>
 
         {/* Problem & Solution Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {project.problem && (
-            <div className="pixel-card p-6 bg-[#121026] space-y-3">
-              <span className="font-pixel text-[10px] text-[#FF2E93] uppercase block">
-                MISSION CHALLENGE & PROBLEM
+            <div className="editorial-card p-6 sm:p-8 space-y-3">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#A63A24] block">
+                CHALLENGE & PROBLEM
               </span>
-              <h3 className="font-pixel text-sm text-[#FFD700]">
+              <h3 className="font-serif font-bold text-xl text-[#1C1B1A]">
                 Problem Statement
               </h3>
-              <p className="text-xs sm:text-sm font-sans text-[#E0E7FF] leading-relaxed">
+              <p className="text-xs sm:text-sm font-sans text-[#1C1B1A]/80 leading-relaxed">
                 {project.problem}
               </p>
             </div>
           )}
 
           {project.solution && (
-            <div className="pixel-card p-6 bg-[#121026] space-y-3">
-              <span className="font-pixel text-[10px] text-[#00FF66] uppercase block">
-                ENGINEERED SOLUTION
+            <div className="editorial-card p-6 sm:p-8 space-y-3">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-700 block">
+                ENGINEERED APPROACH
               </span>
-              <h3 className="font-pixel text-sm text-[#FFD700]">
+              <h3 className="font-serif font-bold text-xl text-[#1C1B1A]">
                 System Solution
               </h3>
-              <p className="text-xs sm:text-sm font-sans text-[#E0E7FF] leading-relaxed">
+              <p className="text-xs sm:text-sm font-sans text-[#1C1B1A]/80 leading-relaxed">
                 {project.solution}
               </p>
             </div>
@@ -184,11 +179,11 @@ export const ProjectDetailPage: React.FC = () => {
 
         {/* System Architecture */}
         {project.architecture && (
-          <div className="pixel-card p-6 bg-[#121026] space-y-4">
-            <h3 className="font-pixel text-xs text-[#00F0FF] uppercase">
+          <div className="editorial-card p-6 sm:p-8 space-y-4">
+            <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#A63A24]">
               SYSTEM ARCHITECTURE & PIPELINE
             </h3>
-            <div className="p-4 bg-[#0A0817] border-2 border-black font-pixel text-xs text-[#00FF66] leading-relaxed">
+            <div className="p-4 border border-[#1C1B1A]/20 font-mono text-xs text-[#1C1B1A] bg-[#FAF8F5] leading-relaxed">
               {project.architecture}
             </div>
           </div>
@@ -196,15 +191,15 @@ export const ProjectDetailPage: React.FC = () => {
 
         {/* Detailed Features */}
         {(project.featuresList || []).length > 0 && (
-          <div className="pixel-card p-6 bg-[#121026] space-y-4">
-            <h3 className="font-pixel text-xs text-[#FFD700] uppercase">
-              KEY MISSION FEATURES
+          <div className="editorial-card p-6 sm:p-8 space-y-6">
+            <h3 className="font-serif font-bold text-2xl text-[#1C1B1A]">
+              Key System Features
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {project.featuresList?.map((feature, idx) => (
-                <div key={idx} className="flex items-start gap-3 p-3 bg-[#0A0817] border border-black">
-                  <span className="font-pixel text-xs text-[#FF2E93]">▶</span>
-                  <span className="text-xs font-sans text-[#E0E7FF]">
+                <div key={idx} className="flex items-start gap-3 p-3 border border-[#1C1B1A]/10 bg-[#FAF8F5]">
+                  <span className="font-mono text-xs text-[#A63A24] font-bold">—</span>
+                  <span className="text-xs font-sans text-[#1C1B1A]/90">
                     {feature}
                   </span>
                 </div>
@@ -214,11 +209,11 @@ export const ProjectDetailPage: React.FC = () => {
         )}
 
         {/* Full Long Description */}
-        <div className="pixel-card p-6 bg-[#121026] space-y-4">
-          <h3 className="font-pixel text-xs text-[#FFD700] uppercase">
-            COMPREHENSIVE MISSION OVERVIEW
+        <div className="editorial-card p-6 sm:p-8 space-y-4">
+          <h3 className="font-serif font-bold text-2xl text-[#1C1B1A]">
+            Comprehensive Overview
           </h3>
-          <p className="text-sm font-sans text-[#E0E7FF] leading-relaxed whitespace-pre-line">
+          <p className="text-sm font-sans text-[#1C1B1A]/80 leading-relaxed whitespace-pre-line">
             {project.description}
           </p>
         </div>

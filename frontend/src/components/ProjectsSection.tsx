@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Project, DOMAIN_CATEGORIES } from '../types';
 import { ProjectFallbackImage } from './pixel/ProjectFallbackImage';
-import { PixelStar, PixelSword } from './pixel/PixelDecorations';
-import { playSelectSound } from '../utils/sound';
 import { Github, ExternalLink, ArrowUpRight } from 'lucide-react';
 
 interface ProjectsSectionProps {
@@ -26,27 +24,25 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects, load
       : projects.filter((p) => p.category.toLowerCase() === selectedCategory.toLowerCase());
 
   return (
-    <section id="projects" className="py-16 border-b-4 border-[#2A2650]">
+    <section id="projects" className="py-20 border-b border-[#1C1B1A]/20 bg-[#FAF8F5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Level Header */}
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-8 p-3 bg-[#121026] border-4 border-black shadow-[4px_4px_0px_0px_#000] font-pixel text-xs">
-          <div className="flex items-center gap-2 text-[#FF2E93]">
-            <span>LEVEL 03</span>
-            <span className="text-[#8B8BAE]">•</span>
-            <span className="text-[#FFD700]">PROJECT WORLD & MISSIONS</span>
-          </div>
-          <div className="flex items-center gap-2 text-[10px] text-[#00FF66]">
-            <PixelStar size={16} /> MISSIONS: {projects.length}
-          </div>
+        {/* Section Header */}
+        <div className="flex items-center gap-4 pb-4 border-b border-[#1C1B1A]/20 mb-8">
+          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#A63A24]">
+            SECTION N° 03
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1C1B1A]">
+            Selected Work & Case Studies
+          </h2>
         </div>
 
-        <p className="font-pixel text-xs text-[#E0E7FF] max-w-3xl mb-8 leading-relaxed">
-          SELECTED MISSION CARDS SHOWCASING APPLIED ARTIFICIAL INTELLIGENCE, COMPUTER VISION, DATA ANALYTICS, AND FULL-STACK SYSTEMS.
+        <p className="text-sm font-sans text-[#1C1B1A]/70 max-w-2xl mb-10">
+          Featured engineering files in computer vision fatigue monitoring, AI climate risk prediction platforms, and full-stack enterprise systems.
         </p>
 
         {/* Category Filters */}
-        <div className="flex flex-wrap gap-2 mb-10 pb-4 border-b-2 border-[#2A2650]">
+        <div className="flex flex-wrap gap-2 mb-12 pb-6 border-b border-[#1C1B1A]/15">
           {categoryList.map((cat) => {
             const count =
               cat === 'All'
@@ -59,14 +55,11 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects, load
             return (
               <button
                 key={cat}
-                onClick={() => {
-                  playSelectSound();
-                  setSelectedCategory(cat);
-                }}
-                className={`font-pixel text-[10px] uppercase px-3 py-2 border-2 border-black shadow-[2px_2px_0px_#000] transition-all ${
+                onClick={() => setSelectedCategory(cat)}
+                className={`text-[11px] font-mono font-bold tracking-widest uppercase px-3.5 py-1.5 border transition-all ${
                   isSelected
-                    ? 'bg-[#FF2E93] text-white border-black shadow-[3px_3px_0px_#000]'
-                    : 'bg-[#1E1A3C] text-[#00F0FF] hover:bg-[#25204C] hover:text-[#00FF66]'
+                    ? 'bg-[#1C1B1A] text-[#FAF8F5] border-[#1C1B1A]'
+                    : 'border-[#1C1B1A]/20 text-[#1C1B1A]/70 hover:border-[#1C1B1A] hover:text-[#1C1B1A]'
                 }`}
               >
                 {cat} ({count})
@@ -75,19 +68,18 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects, load
           })}
         </div>
 
-        {/* Mission Cards Grid */}
+        {/* Editorial Case Studies Grid */}
         {loading ? (
-          <div className="text-center py-12 font-pixel text-xs text-[#00FF66] animate-pulse">
-            LOADING MISSIONS CATALOG...
+          <div className="text-center py-12 font-mono text-xs text-[#1C1B1A]/60">
+            LOADING CASE STUDIES...
           </div>
         ) : filteredProjects.length === 0 ? (
-          <div className="text-center py-12 font-pixel text-xs border-4 border-dashed border-[#2A2650] text-[#8B8BAE]">
-            NO MISSIONS FOUND IN THIS DOMAIN.
+          <div className="text-center py-12 font-mono text-xs border border-dashed border-[#1C1B1A]/20">
+            NO PROJECTS FOUND IN THIS CATEGORY.
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project, idx) => {
-              const missionNumber = String(idx + 1).padStart(2, '0');
               const hasLiveDemo = Boolean(project.liveUrl && project.liveUrl.trim() !== '');
 
               return (
@@ -96,93 +88,92 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects, load
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: idx * 0.1 }}
-                  className="pixel-card flex flex-col justify-between group bg-[#121026] hover:border-[#00FF66]"
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="editorial-card flex flex-col justify-between group"
                 >
                   <div>
-                    {/* Mission Header Bar */}
-                    <div className="flex items-center justify-between px-4 py-2 bg-[#1E1A3C] border-b-4 border-black font-pixel text-[10px]">
-                      <span className="text-[#FF2E93] flex items-center gap-1">
-                        <PixelSword size={12} /> MISSION {missionNumber}
-                      </span>
-                      <span className="text-[#00FF66] bg-[#0A0817] px-2 py-0.5 border border-black uppercase">
-                        {project.category}
-                      </span>
+                    {/* Project Image Header (Fallback logic guarantees unique artwork per project) */}
+                    <div className="relative aspect-[16/10] overflow-hidden border-b border-[#1C1B1A]/20 bg-[#F4F0E8]">
+                      {project.imageUrl && project.imageUrl.trim() !== '' ? (
+                        <img
+                          src={project.imageUrl}
+                          alt={project.title}
+                          className="w-full h-full object-cover filter grayscale contrast-105 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                        />
+                      ) : (
+                        <ProjectFallbackImage
+                          imageUrl={null}
+                          title={project.title}
+                          category={project.category}
+                          className="w-full h-full"
+                        />
+                      )}
+                      <div className="absolute top-3 left-3">
+                        <span className="editorial-tag bg-white/90 backdrop-blur-sm">
+                          {project.category}
+                        </span>
+                      </div>
                     </div>
 
-                    {/* Project-Specific Image Header (Fallback logic ensures 100% distinct visuals per project) */}
-                    <ProjectFallbackImage
-                      imageUrl={project.imageUrl}
-                      title={project.title}
-                      category={project.category}
-                      className="aspect-[16/9]"
-                    />
-
-                    {/* Card Body */}
-                    <div className="p-5 space-y-4">
-                      <div className="space-y-2">
-                        <h3 className="font-pixel text-sm text-[#FFD700] leading-snug group-hover:text-[#00FF66] transition-colors line-clamp-2">
+                    {/* Card Content */}
+                    <div className="p-6 space-y-4">
+                      <div className="space-y-1">
+                        <h3 className="font-serif font-bold text-xl text-[#1C1B1A] group-hover:text-[#A63A24] transition-colors line-clamp-1">
                           {project.title}
                         </h3>
-                        <p className="text-xs text-[#E0E7FF] leading-relaxed font-sans line-clamp-3">
+                        <p className="text-xs text-[#1C1B1A]/70 leading-relaxed font-sans line-clamp-3">
                           {project.shortDescription}
                         </p>
                       </div>
 
-                      {/* Technology Badges */}
-                      <div className="flex flex-wrap gap-1.5 pt-2 border-t border-[#2A2650]">
+                      {/* Technology Tags */}
+                      <div className="flex flex-wrap gap-1.5 pt-2">
                         {(project.technologiesList || []).map((tech) => (
-                          <span
-                            key={tech}
-                            className="font-pixel text-[9px] bg-[#1E1A3C] text-[#00F0FF] border border-black px-2 py-0.5"
-                          >
-                            +{tech}
+                          <span key={tech} className="editorial-tag text-[9px] py-0.5 px-2">
+                            {tech}
                           </span>
                         ))}
                       </div>
                     </div>
                   </div>
 
-                  {/* Mission Action Buttons */}
-                  <div className="p-4 pt-0 border-t-2 border-black bg-[#0A0817] flex flex-wrap items-center justify-between gap-2 mt-4">
-                    <div className="flex items-center gap-2 pt-3">
+                  {/* Action Links */}
+                  <div className="p-6 pt-0 border-t border-[#1C1B1A]/15 mt-4 flex items-center justify-between">
+                    <div className="flex items-center gap-3 pt-4">
                       {project.githubUrl && (
                         <a
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          onClick={() => playSelectSound()}
-                          className="px-2.5 py-1.5 bg-[#1E1A3C] text-[#00FF66] border-2 border-black shadow-[2px_2px_0px_#000] font-pixel text-[10px] inline-flex items-center gap-1 hover:bg-[#FF2E93] hover:text-white"
-                          title="View Source Code"
+                          className="inline-flex items-center gap-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#1C1B1A] hover:underline"
+                          title="View GitHub Repository"
                         >
-                          <Github className="w-3 h-3" />
-                          <span>GITHUB</span>
+                          <Github className="w-3.5 h-3.5" />
+                          <span>GitHub</span>
                         </a>
                       )}
 
-                      {/* LIVE DEMO BUTTON: Only displayed if liveUrl exists! */}
+                      {/* OPTIONAL LIVE DEMO BUTTON: Displayed ONLY if liveUrl exists */}
                       {hasLiveDemo && (
                         <a
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          onClick={() => playSelectSound()}
-                          className="px-2.5 py-1.5 bg-[#FFD700] text-black border-2 border-black shadow-[2px_2px_0px_#000] font-pixel text-[10px] inline-flex items-center gap-1 hover:bg-[#FFE033] animate-pulse"
-                          title="Play Live Demo"
+                          className="inline-flex items-center gap-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#A63A24] hover:underline"
+                          title="View Live Demo"
                         >
-                          <ExternalLink className="w-3 h-3" />
-                          <span>PLAY DEMO</span>
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          <span>Live Demo</span>
                         </a>
                       )}
                     </div>
 
                     <Link
                       to={`/projects/${project.slug}`}
-                      onClick={() => playSelectSound()}
-                      className="pt-3 font-pixel text-[10px] text-[#FF2E93] hover:text-[#00FF66] inline-flex items-center gap-1"
+                      className="pt-4 inline-flex items-center gap-1 text-xs font-mono font-bold uppercase text-[#1C1B1A] hover:translate-x-0.5 transition-transform"
                     >
                       <span>DETAILS</span>
-                      <ArrowUpRight className="w-3 h-3" />
+                      <ArrowUpRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
 
