@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Education } from '../types';
+import { PixelStar } from './pixel/PixelDecorations';
 
 interface EducationSectionProps {
   education: Education[];
@@ -9,25 +10,27 @@ interface EducationSectionProps {
 
 export const EducationSection: React.FC<EducationSectionProps> = ({ education, loading }) => {
   return (
-    <section id="education" className="py-20 border-b border-[#1C1B1A]/15 dark:border-[#EAE7E1]/15">
+    <section id="education" className="py-16 border-b-4 border-[#2A2650]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="flex items-center gap-4 pb-4 border-b border-[#1C1B1A]/20 dark:border-[#EAE7E1]/20 mb-8">
-          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
-            SECTION 08
-          </span>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1C1B1A] dark:text-[#EAE7E1]">
-            Academic Foundation
-          </h2>
+        {/* Level Header */}
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-8 p-3 bg-[#121026] border-4 border-black shadow-[4px_4px_0px_0px_#000] font-pixel text-xs">
+          <div className="flex items-center gap-2 text-[#3B82F6]">
+            <span>LEVEL 08</span>
+            <span className="text-[#8B8BAE]">•</span>
+            <span className="text-[#FFD700]">ACADEMIC EDUCATION VAULT</span>
+          </div>
+          <div className="flex items-center gap-2 text-[10px] text-[#00FF66]">
+            <PixelStar size={16} /> RECORDS: {education.length}
+          </div>
         </div>
 
-        <p className="text-sm font-sans text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70 max-w-2xl mb-12">
-          Degrees, coursework specializations, and academic performance metrics.
+        <p className="font-pixel text-xs text-[#E0E7FF] max-w-3xl mb-8 leading-relaxed">
+          ACADEMIC DEGREES, COURSEWORK SPECIALIZATIONS, AND GRADE PERFORMANCE METRICS.
         </p>
 
         {loading ? (
-          <div className="text-center py-12 font-mono text-xs text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
+          <div className="text-center py-12 font-pixel text-xs text-[#00FF66] animate-pulse">
             LOADING ACADEMIC RECORDS...
           </div>
         ) : (
@@ -39,30 +42,30 @@ export const EducationSection: React.FC<EducationSectionProps> = ({ education, l
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="editorial-card p-6 sm:p-8"
+                className="pixel-card p-6 bg-[#121026] hover:border-[#3B82F6]"
               >
-                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-[#1C1B1A]/15 dark:border-[#EAE7E1]/15 mb-4">
-                  <div className="space-y-1">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#1C1B1A]/50 dark:text-[#EAE7E1]/50 block">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b-2 border-black mb-4">
+                  <div className="space-y-2">
+                    <span className="font-pixel text-[10px] text-[#00F0FF] block">
                       {item.startDate} – {item.endDate}
                     </span>
-                    <h3 className="font-serif font-bold text-2xl text-[#1C1B1A] dark:text-[#EAE7E1]">
+                    <h3 className="font-pixel text-base text-[#FFD700] leading-snug">
                       {item.degree}
                     </h3>
-                    <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-[#A63A24] dark:text-amber-400">
+                    <h4 className="font-pixel text-xs text-[#00FF66] uppercase">
                       {item.institution}
                     </h4>
                   </div>
 
                   {item.grade && (
-                    <div className="editorial-tag self-start sm:self-auto font-bold bg-[#1C1B1A] text-[#FAF8F5] dark:bg-[#EAE7E1] dark:text-[#141312]">
-                      SCORE: {item.grade}
+                    <div className="font-pixel text-xs bg-[#FF2E93] text-white px-3 py-1.5 border-2 border-black shadow-[2px_2px_0px_#000] self-start sm:self-auto">
+                      GRADE: {item.grade}
                     </div>
                   )}
                 </div>
 
                 {item.description && (
-                  <p className="text-sm font-sans text-[#1C1B1A]/80 dark:text-[#EAE7E1]/80 leading-relaxed">
+                  <p className="text-sm font-sans text-[#E0E7FF] leading-relaxed">
                     {item.description}
                   </p>
                 )}

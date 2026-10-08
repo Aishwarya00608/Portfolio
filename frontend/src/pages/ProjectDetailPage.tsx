@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getProjectBySlug } from '../services/api';
 import { Project } from '../types';
-import { Navbar } from '../components/Navbar';
+import { GameHUD } from '../components/GameHUD';
 import { Footer } from '../components/Footer';
-import { useSocialLinks } from '../hooks/usePortfolioData';
+import { useSocialLinks, useStats, useProfile } from '../hooks/usePortfolioData';
+import { ProjectFallbackImage } from '../components/pixel/ProjectFallbackImage';
+import { playSelectSound } from '../utils/sound';
 import { ArrowLeft, Github, ExternalLink } from 'lucide-react';
 
 export const ProjectDetailPage: React.FC = () => {
@@ -13,6 +15,8 @@ export const ProjectDetailPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { socialLinks } = useSocialLinks();
+  const { stats } = useStats();
+  const { profile } = useProfile();
 
   useEffect(() => {
     if (slug) {
@@ -26,23 +30,28 @@ export const ProjectDetailPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FAF8F5] dark:bg-[#141312] font-mono text-xs text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
-        LOADING PROJECT DISPATCH...
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#0A0817] font-pixel text-xs text-[#00FF66]">
+        <div className="w-10 h-10 border-4 border-[#FF2E93] border-t-transparent animate-spin mb-4" />
+        <span>LOADING MISSION DISPATCH DATA...</span>
       </div>
     );
   }
 
   if (error || !project) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FAF8F5] dark:bg-[#141312] p-4 text-center font-sans">
-        <div className="max-w-md editorial-card p-8 space-y-4">
-          <h2 className="font-serif font-bold text-2xl text-[#1C1B1A] dark:text-[#EAE7E1]">Project Not Found</h2>
-          <p className="text-xs text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70">
-            The requested project record could not be retrieved.
+      <div className="min-h-screen flex items-center justify-center bg-[#0A0817] p-4 font-pixel text-xs text-white">
+        <div className="max-w-md pixel-card p-8 text-center space-y-4 bg-[#121026]">
+          <h2 className="text-xl text-[#FF2E93]">MISSION NOT FOUND</h2>
+          <p className="text-xs text-[#8B8BAE]">
+            THE REQUESTED MISSION RECORD COULD NOT BE RETRIEVED.
           </p>
-          <Link to="/" className="btn-editorial-primary text-xs inline-flex items-center gap-2">
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>RETURN TO PORTFOLIO</span>
+          <Link
+            to="/"
+            onClick={() => playSelectSound()}
+            className="btn-pixel-primary text-xs inline-flex items-center gap-2"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>RETURN TO PORTFOLIO WORLD</span>
           </Link>
         </div>
       </div>
@@ -52,117 +61,121 @@ export const ProjectDetailPage: React.FC = () => {
   const hasLiveDemo = Boolean(project.liveUrl && project.liveUrl.trim() !== '');
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] dark:bg-[#141312] text-[#1C1B1A] dark:text-[#EAE7E1] font-sans">
-      <Navbar />
+    <div className="min-h-screen bg-[#0A0817] text-[#E0E7FF] font-sans scanlines">
+      <GameHUD stats={stats} profile={profile} />
 
-      <main className="pt-28 pb-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <main className="pt-8 pb-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Back Link */}
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70 hover:text-[#1C1B1A] dark:hover:text-[#EAE7E1] transition-colors"
+          onClick={() => playSelectSound()}
+          className="inline-flex items-center gap-2 font-pixel text-xs text-[#00F0FF] hover:text-[#00FF66] transition-colors"
         >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          <span>BACK TO ALL PROJECTS</span>
+          <ArrowLeft className="w-4 h-4" />
+          <span>← BACK TO ALL MISSIONS</span>
         </Link>
 
         {/* Header Block */}
-        <div className="space-y-6 border-b border-[#1C1B1A]/15 dark:border-[#EAE7E1]/15 pb-8">
-          <div className="flex items-center justify-between">
-            <span className="editorial-tag">{project.category}</span>
+        <div className="pixel-card p-6 sm:p-8 bg-[#121026] space-y-6">
+          <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b-2 border-black font-pixel text-xs">
+            <span className="text-[#FF2E93] bg-[#0A0817] px-2.5 py-1 border border-black uppercase">
+              {project.category}
+            </span>
             {(project.startDate || project.endDate) && (
-              <span className="text-xs font-mono text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
-                {project.startDate} – {project.endDate}
+              <span className="text-[#8B8BAE] text-[10px]">
+                MISSION DATES: {project.startDate} – {project.endDate}
               </span>
             )}
           </div>
 
-          <h1 className="font-serif font-bold text-4xl sm:text-6xl text-[#1C1B1A] dark:text-[#EAE7E1]">
+          <h1 className="font-pixel text-2xl sm:text-4xl text-[#FFD700] leading-snug drop-shadow-[3px_3px_0px_#000]">
             {project.title}
           </h1>
 
-          <p className="font-display italic text-xl sm:text-2xl text-[#1C1B1A]/90 dark:text-[#EAE7E1]/90 leading-snug">
+          <p className="font-pixel text-xs sm:text-sm text-[#00F0FF] leading-relaxed border-l-4 border-[#FF2E93] pl-3 py-1">
             "{project.shortDescription}"
           </p>
 
           {/* Action CTAs */}
-          <div className="flex flex-wrap items-center gap-4 pt-4">
+          <div className="flex flex-wrap items-center gap-4 pt-4 border-t-2 border-black">
             {project.githubUrl && (
               <a
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-editorial-primary text-xs"
+                onClick={() => playSelectSound()}
+                className="btn-pixel-primary text-xs"
               >
-                <Github className="w-3.5 h-3.5" />
+                <Github className="w-4 h-4" />
                 <span>GITHUB REPOSITORY</span>
               </a>
             )}
 
-            {/* OPTIONAL LIVE DEMO BUTTON */}
+            {/* LIVE DEMO BUTTON: Only displayed if liveUrl exists */}
             {hasLiveDemo && (
               <a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-editorial-secondary text-xs"
+                onClick={() => playSelectSound()}
+                className="btn-pixel-gold text-xs"
               >
-                <ExternalLink className="w-3.5 h-3.5" />
-                <span>LIVE DEMO</span>
+                <ExternalLink className="w-4 h-4" />
+                <span>PLAY LIVE DEMO</span>
               </a>
             )}
           </div>
         </div>
 
-        {/* Main Cover Image */}
-        {project.imageUrl && (
-          <div className="editorial-card overflow-hidden aspect-[16/9] bg-[#E8E4DC] dark:bg-[#262422]">
-            <img
-              src={project.imageUrl}
-              alt={project.title}
-              className="w-full h-full object-cover filter contrast-105"
-            />
-          </div>
-        )}
+        {/* Main Cover Image Banner */}
+        <div className="pixel-card overflow-hidden bg-[#121026]">
+          <ProjectFallbackImage
+            imageUrl={project.imageUrl}
+            title={project.title}
+            category={project.category}
+            className="w-full aspect-[16/9]"
+          />
+        </div>
 
-        {/* Technologies Grid */}
-        <div className="editorial-card p-6 sm:p-8 space-y-4">
-          <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
-            TECHNOLOGY STACK
+        {/* Technology Stack Grid */}
+        <div className="pixel-card p-6 bg-[#121026] space-y-4">
+          <h3 className="font-pixel text-xs text-[#00FF66] uppercase">
+            EQUIPPED TECHNOLOGY STACK
           </h3>
           <div className="flex flex-wrap gap-2">
             {(project.technologiesList || []).map((tech) => (
-              <span key={tech} className="editorial-tag">
-                {tech}
+              <span key={tech} className="pixel-badge">
+                +{tech}
               </span>
             ))}
           </div>
         </div>
 
         {/* Problem & Solution Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {project.problem && (
-            <div className="editorial-card p-6 sm:p-8 space-y-3">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#A63A24] dark:text-amber-400 block">
-                CHALLENGE & PROBLEM
+            <div className="pixel-card p-6 bg-[#121026] space-y-3">
+              <span className="font-pixel text-[10px] text-[#FF2E93] uppercase block">
+                MISSION CHALLENGE & PROBLEM
               </span>
-              <h3 className="font-serif font-bold text-xl text-[#1C1B1A] dark:text-[#EAE7E1]">
+              <h3 className="font-pixel text-sm text-[#FFD700]">
                 Problem Statement
               </h3>
-              <p className="text-xs sm:text-sm font-sans text-[#1C1B1A]/80 dark:text-[#EAE7E1]/80 leading-relaxed">
+              <p className="text-xs sm:text-sm font-sans text-[#E0E7FF] leading-relaxed">
                 {project.problem}
               </p>
             </div>
           )}
 
           {project.solution && (
-            <div className="editorial-card p-6 sm:p-8 space-y-3">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-600 dark:text-emerald-400 block">
-                ENGINEERED APPROACH
+            <div className="pixel-card p-6 bg-[#121026] space-y-3">
+              <span className="font-pixel text-[10px] text-[#00FF66] uppercase block">
+                ENGINEERED SOLUTION
               </span>
-              <h3 className="font-serif font-bold text-xl text-[#1C1B1A] dark:text-[#EAE7E1]">
+              <h3 className="font-pixel text-sm text-[#FFD700]">
                 System Solution
               </h3>
-              <p className="text-xs sm:text-sm font-sans text-[#1C1B1A]/80 dark:text-[#EAE7E1]/80 leading-relaxed">
+              <p className="text-xs sm:text-sm font-sans text-[#E0E7FF] leading-relaxed">
                 {project.solution}
               </p>
             </div>
@@ -171,11 +184,11 @@ export const ProjectDetailPage: React.FC = () => {
 
         {/* System Architecture */}
         {project.architecture && (
-          <div className="editorial-card p-6 sm:p-8 space-y-4">
-            <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
+          <div className="pixel-card p-6 bg-[#121026] space-y-4">
+            <h3 className="font-pixel text-xs text-[#00F0FF] uppercase">
               SYSTEM ARCHITECTURE & PIPELINE
             </h3>
-            <div className="p-4 border border-[#1C1B1A]/20 dark:border-[#EAE7E1]/20 font-mono text-xs text-[#1C1B1A] dark:text-[#EAE7E1] bg-[#FAF8F5] dark:bg-[#141312] leading-relaxed">
+            <div className="p-4 bg-[#0A0817] border-2 border-black font-pixel text-xs text-[#00FF66] leading-relaxed">
               {project.architecture}
             </div>
           </div>
@@ -183,15 +196,15 @@ export const ProjectDetailPage: React.FC = () => {
 
         {/* Detailed Features */}
         {(project.featuresList || []).length > 0 && (
-          <div className="editorial-card p-6 sm:p-8 space-y-6">
-            <h3 className="font-serif font-bold text-2xl text-[#1C1B1A] dark:text-[#EAE7E1]">
-              Key System Features
+          <div className="pixel-card p-6 bg-[#121026] space-y-4">
+            <h3 className="font-pixel text-xs text-[#FFD700] uppercase">
+              KEY MISSION FEATURES
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {project.featuresList?.map((feature, idx) => (
-                <div key={idx} className="flex items-start gap-3 p-3 border border-[#1C1B1A]/10 dark:border-[#EAE7E1]/10">
-                  <span className="font-mono text-xs text-[#A63A24] dark:text-amber-400 font-bold">—</span>
-                  <span className="text-xs font-sans text-[#1C1B1A]/90 dark:text-[#EAE7E1]/90">
+                <div key={idx} className="flex items-start gap-3 p-3 bg-[#0A0817] border border-black">
+                  <span className="font-pixel text-xs text-[#FF2E93]">▶</span>
+                  <span className="text-xs font-sans text-[#E0E7FF]">
                     {feature}
                   </span>
                 </div>
@@ -201,11 +214,11 @@ export const ProjectDetailPage: React.FC = () => {
         )}
 
         {/* Full Long Description */}
-        <div className="editorial-card p-6 sm:p-8 space-y-4">
-          <h3 className="font-serif font-bold text-2xl text-[#1C1B1A] dark:text-[#EAE7E1]">
-            Comprehensive Overview
+        <div className="pixel-card p-6 bg-[#121026] space-y-4">
+          <h3 className="font-pixel text-xs text-[#FFD700] uppercase">
+            COMPREHENSIVE MISSION OVERVIEW
           </h3>
-          <p className="text-sm font-sans text-[#1C1B1A]/80 dark:text-[#EAE7E1]/80 leading-relaxed whitespace-pre-line">
+          <p className="text-sm font-sans text-[#E0E7FF] leading-relaxed whitespace-pre-line">
             {project.description}
           </p>
         </div>

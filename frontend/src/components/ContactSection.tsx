@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { submitContact } from '../services/api';
-import { Mail, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { Mail, Send, CheckCircle, AlertCircle, Github, Linkedin } from 'lucide-react';
+import { PixelHeart, PixelTrophy, PixelStar } from './pixel/PixelDecorations';
+import { playSelectSound } from '../utils/sound';
 
 export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +18,7 @@ export const ContactSection: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    playSelectSound();
     if (!formData.name || !formData.email || !formData.message) {
       setStatus({ type: 'error', message: 'Please fill in all required fields.' });
       return;
@@ -30,8 +33,8 @@ export const ContactSection: React.FC = () => {
       setFormData({ name: '', email: '', subject: '', message: '' });
 
       confetti({
-        particleCount: 80,
-        spread: 70,
+        particleCount: 100,
+        spread: 80,
         origin: { y: 0.6 },
       });
     } catch (err: any) {
@@ -45,146 +48,172 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-20 border-b border-[#1C1B1A]/15 dark:border-[#EAE7E1]/15">
+    <section id="contact" className="py-16 border-b-4 border-[#2A2650]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="flex items-center gap-4 pb-4 border-b border-[#1C1B1A]/20 dark:border-[#EAE7E1]/20 mb-8">
-          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
-            SECTION 09
-          </span>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1C1B1A] dark:text-[#EAE7E1]">
-            Initiate Conversation
-          </h2>
+        {/* Level Header */}
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-8 p-3 bg-[#121026] border-4 border-black shadow-[4px_4px_0px_0px_#000] font-pixel text-xs">
+          <div className="flex items-center gap-2 text-[#00FF66]">
+            <span>FINAL LEVEL</span>
+            <span className="text-[#8B8BAE]">•</span>
+            <span className="text-[#FF2E93]">LET'S BUILD SOMETHING</span>
+          </div>
+          <div className="flex items-center gap-2 text-[10px] text-[#FFD700]">
+            <PixelHeart size={16} /> CONTACT DISPATCH
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pt-4">
-          
-          {/* Left Column: Direct Contact Info */}
-          <div className="lg:col-span-5 space-y-6">
-            <h3 className="font-display italic text-3xl sm:text-4xl text-[#1C1B1A] dark:text-[#EAE7E1] leading-tight">
-              Have a research inquiry, technical project, or opportunity?
-            </h3>
-            
-            <p className="text-sm font-sans text-[#1C1B1A]/80 dark:text-[#EAE7E1]/80 leading-relaxed">
-              I am open to collaborations in AI/ML, Computer Vision, Data Science, and Full-Stack Engineering. Feel free to reach out directly.
-            </p>
-
-            <div className="p-6 border border-[#1C1B1A]/20 dark:border-[#EAE7E1]/20 bg-[#FAF8F5] dark:bg-[#191817] space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#1C1B1A]/50 dark:text-[#EAE7E1]/50 block">
-                DIRECT EMAIL ADDRESS
-              </span>
-              <a
-                href="mailto:aishwaryabulusu2006@gmail.com"
-                className="font-mono font-bold text-base sm:text-lg text-[#1C1B1A] dark:text-[#EAE7E1] hover:underline break-all block"
-              >
-                aishwaryabulusu2006@gmail.com
-              </a>
-            </div>
+        {/* Final Level Card Banner */}
+        <div className="pixel-card p-6 sm:p-8 bg-[#121026] text-center mb-10 space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#1E1A3C] text-[#FFD700] border-2 border-black font-pixel text-xs">
+            <PixelTrophy size={14} /> CONGRATULATIONS! YOU REACHED THE FINAL LEVEL
           </div>
 
-          {/* Right Column: Contact Form */}
-          <div className="lg:col-span-7">
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="editorial-card p-6 sm:p-8"
+          <h2 className="font-pixel text-2xl sm:text-4xl text-[#00FF66] drop-shadow-[3px_3px_0px_#000]">
+            LET'S BUILD SOMETHING GREAT
+          </h2>
+
+          <p className="font-pixel text-xs text-[#E0E7FF] max-w-2xl mx-auto leading-relaxed">
+            HAVE A RESEARCH INQUIRY, AI/ML PROJECT, OR COLLABORATION OPPORTUNITY? FEEL FREE TO REACH OUT DIRECTLY OR SEND A DISPATCH MESSAGE BELOW.
+          </p>
+
+          {/* Contact Direct Actions */}
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-2 font-pixel text-xs">
+            <a
+              href="mailto:aishwaryabulusu2006@gmail.com"
+              onClick={() => playSelectSound()}
+              className="btn-pixel-primary text-xs"
             >
-              {status && (
-                <div
-                  className={`mb-6 p-4 border text-xs font-mono flex items-center gap-2 ${
-                    status.type === 'success'
-                      ? 'border-emerald-600 bg-emerald-50/50 text-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200'
-                      : 'border-rose-600 bg-rose-50/50 text-rose-900 dark:bg-rose-950/40 dark:text-rose-200'
-                  }`}
-                >
-                  {status.type === 'success' ? (
-                    <CheckCircle className="w-4 h-4 shrink-0 text-emerald-600" />
-                  ) : (
-                    <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
-                  )}
-                  <span>{status.message}</span>
-                </div>
-              )}
+              <Mail className="w-4 h-4" />
+              <span>EMAIL: aishwaryabulusu2006@gmail.com</span>
+            </a>
+            <a
+              href="https://linkedin.com/in/aishwarya-bulusu"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => playSelectSound()}
+              className="btn-pixel-secondary text-xs"
+            >
+              <Linkedin className="w-4 h-4" />
+              <span>LINKEDIN</span>
+            </a>
+            <a
+              href="https://github.com/Aishwarya00608"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => playSelectSound()}
+              className="btn-pixel-gold text-xs"
+            >
+              <Github className="w-4 h-4" />
+              <span>GITHUB</span>
+            </a>
+          </div>
+        </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4 font-sans">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-[10px] font-mono font-bold uppercase tracking-widest text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70 mb-1">
-                      Your Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Jane Doe"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-3.5 py-2.5 bg-transparent border border-[#1C1B1A]/30 dark:border-[#EAE7E1]/30 text-xs text-[#1C1B1A] dark:text-[#EAE7E1] focus:outline-none focus:border-[#1C1B1A] dark:focus:border-[#EAE7E1]"
-                    />
-                  </div>
+        {/* Contact Form */}
+        <div className="max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="pixel-card p-6 sm:p-8 bg-[#121026]"
+          >
+            <div className="flex items-center gap-2 pb-3 mb-6 border-b-2 border-black font-pixel text-xs text-[#00F0FF]">
+              <PixelStar size={16} /> SEND DISPATCH MESSAGE
+            </div>
 
-                  <div>
-                    <label className="block text-[10px] font-mono font-bold uppercase tracking-widest text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70 mb-1">
-                      Your Email *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="jane@example.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-3.5 py-2.5 bg-transparent border border-[#1C1B1A]/30 dark:border-[#EAE7E1]/30 text-xs text-[#1C1B1A] dark:text-[#EAE7E1] focus:outline-none focus:border-[#1C1B1A] dark:focus:border-[#EAE7E1]"
-                    />
-                  </div>
-                </div>
+            {status && (
+              <div
+                className={`mb-6 p-4 border-2 border-black font-pixel text-xs flex items-center gap-2 ${
+                  status.type === 'success'
+                    ? 'bg-[#00FF66] text-black shadow-[3px_3px_0px_#000]'
+                    : 'bg-[#FF2E93] text-white shadow-[3px_3px_0px_#000]'
+                }`}
+              >
+                {status.type === 'success' ? (
+                  <CheckCircle className="w-5 h-5 shrink-0" />
+                ) : (
+                  <AlertCircle className="w-5 h-5 shrink-0" />
+                )}
+                <span>{status.message}</span>
+              </div>
+            )}
 
+            <form onSubmit={handleSubmit} className="space-y-4 font-sans text-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] font-mono font-bold uppercase tracking-widest text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70 mb-1">
-                    Subject
+                  <label className="block font-pixel text-[10px] uppercase text-[#00FF66] mb-1.5">
+                    YOUR NAME *
                   </label>
                   <input
                     type="text"
-                    placeholder="Project Inquiry / Opportunity"
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className="w-full px-3.5 py-2.5 bg-transparent border border-[#1C1B1A]/30 dark:border-[#EAE7E1]/30 text-xs text-[#1C1B1A] dark:text-[#EAE7E1] focus:outline-none focus:border-[#1C1B1A] dark:focus:border-[#EAE7E1]"
+                    required
+                    placeholder="Jane Doe"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full px-4 py-3 bg-[#0A0817] border-2 border-black text-xs text-white focus:outline-none focus:border-[#FF2E93]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-mono font-bold uppercase tracking-widest text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70 mb-1">
-                    Message *
+                  <label className="block font-pixel text-[10px] uppercase text-[#00FF66] mb-1.5">
+                    YOUR EMAIL *
                   </label>
-                  <textarea
+                  <input
+                    type="email"
                     required
-                    rows={4}
-                    placeholder="Write your message here..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-3.5 py-2.5 bg-transparent border border-[#1C1B1A]/30 dark:border-[#EAE7E1]/30 text-xs text-[#1C1B1A] dark:text-[#EAE7E1] focus:outline-none focus:border-[#1C1B1A] dark:focus:border-[#EAE7E1]"
+                    placeholder="jane@example.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full px-4 py-3 bg-[#0A0817] border-2 border-black text-xs text-white focus:outline-none focus:border-[#FF2E93]"
                   />
                 </div>
+              </div>
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="btn-editorial-primary w-full py-3"
-                >
-                  {loading ? (
-                    <span>SENDING MESSAGE...</span>
-                  ) : (
-                    <span className="flex items-center gap-2">
-                      <span>SEND DISPATCH</span>
-                      <Send className="w-3.5 h-3.5" />
-                    </span>
-                  )}
-                </button>
-              </form>
-            </motion.div>
-          </div>
+              <div>
+                <label className="block font-pixel text-[10px] uppercase text-[#00FF66] mb-1.5">
+                  SUBJECT
+                </label>
+                <input
+                  type="text"
+                  placeholder="Project Inquiry / AI Opportunity"
+                  value={formData.subject}
+                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                  className="w-full px-4 py-3 bg-[#0A0817] border-2 border-black text-xs text-white focus:outline-none focus:border-[#FF2E93]"
+                />
+              </div>
 
+              <div>
+                <label className="block font-pixel text-[10px] uppercase text-[#00FF66] mb-1.5">
+                  MESSAGE *
+                </label>
+                <textarea
+                  required
+                  rows={4}
+                  placeholder="Write your message..."
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full px-4 py-3 bg-[#0A0817] border-2 border-black text-xs text-white focus:outline-none focus:border-[#FF2E93]"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="btn-pixel-primary w-full py-4 text-xs font-pixel"
+              >
+                {loading ? (
+                  <span>TRANSMITTING DISPATCH...</span>
+                ) : (
+                  <span className="flex items-center justify-center gap-2">
+                    <span>TRANSMIT DISPATCH</span>
+                    <Send className="w-4 h-4" />
+                  </span>
+                )}
+              </button>
+            </form>
+          </motion.div>
         </div>
 
       </div>

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Hackathon } from '../types';
-import { ExternalLink } from 'lucide-react';
-import { getCertificateViewUrl } from '../services/api';
+import { CertificateViewerModal } from './CertificateViewerModal';
+import { PixelSword, PixelTrophy } from './pixel/PixelDecorations';
+import { playSelectSound } from '../utils/sound';
 
 interface HackathonsSectionProps {
   hackathons: Hackathon[];
@@ -10,40 +11,39 @@ interface HackathonsSectionProps {
 }
 
 export const HackathonsSection: React.FC<HackathonsSectionProps> = ({ hackathons, loading }) => {
+  const [selectedCert, setSelectedCert] = useState<{ url: string; title: string } | null>(null);
+
   if (!loading && hackathons.length === 0) return null;
 
-  const handleViewCert = (url?: string) => {
-    if (!url) return;
-    const viewUrl = getCertificateViewUrl(url);
-    window.open(viewUrl, '_blank', 'noopener,noreferrer');
-  };
-
   return (
-    <section id="hackathons" className="py-20 border-b border-[#1C1B1A]/15 dark:border-[#EAE7E1]/15">
+    <section id="hackathons" className="py-16 border-b-4 border-[#2A2650]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="flex items-center gap-4 pb-4 border-b border-[#1C1B1A]/20 dark:border-[#EAE7E1]/20 mb-8">
-          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
-            SECTION 06
-          </span>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1C1B1A] dark:text-[#EAE7E1]">
-            Hackathons & Coding Competitions
-          </h2>
+        {/* Level Header */}
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-8 p-3 bg-[#121026] border-4 border-black shadow-[4px_4px_0px_0px_#000] font-pixel text-xs">
+          <div className="flex items-center gap-2 text-[#EF4444]">
+            <span>LEVEL 06</span>
+            <span className="text-[#8B8BAE]">•</span>
+            <span className="text-[#FFD700]">HACKATHON BATTLE ARENA</span>
+          </div>
+          <div className="flex items-center gap-2 text-[10px] text-[#00FF66]">
+            <PixelSword size={16} /> ARENAS: {hackathons.length}
+          </div>
         </div>
 
-        <p className="text-sm font-sans text-[#1C1B1A]/70 dark:text-[#EAE7E1]/70 max-w-2xl mb-12">
-          Competitive innovation, rapid prototyping sprints, and high-intensity software hackathons.
+        <p className="font-pixel text-xs text-[#E0E7FF] max-w-3xl mb-8 leading-relaxed">
+          COMPETITIVE INNOVATION SPRINTS, HIGH-INTENSITY SOFTWARE BATTLES, AND PROTOTYPING ARENAS.
         </p>
 
         {loading ? (
-          <div className="text-center py-12 font-mono text-xs text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
-            LOADING HACKATHONS LOG...
+          <div className="text-center py-12 font-pixel text-xs text-[#00FF66] animate-pulse">
+            LOADING ARENA RECORDS...
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {hackathons.map((hack, idx) => {
               const certUrl = hack.certificateUrl || hack.projectUrl;
+              const hasCert = Boolean(certUrl && certUrl.trim() !== '');
 
               return (
                 <motion.div
@@ -52,58 +52,62 @@ export const HackathonsSection: React.FC<HackathonsSectionProps> = ({ hackathons
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.1 }}
-                  className="editorial-card p-6 flex flex-col justify-between group"
+                  className="pixel-card p-6 bg-[#121026] flex flex-col justify-between group hover:border-[#EF4444]"
                 >
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="editorial-tag">COMPETITIVE SPRINT</span>
-                      {hack.date && (
-                        <span className="text-[10px] font-mono text-[#1C1B1A]/50 dark:text-[#EAE7E1]/50">
-                          {hack.date}
-                        </span>
-                      )}
+                    <div className="flex items-center justify-between pb-2 border-b-2 border-black font-pixel text-[10px]">
+                      <span className="text-[#EF4444] flex items-center gap-1">
+                        <PixelSword size={12} /> BATTLE ARENA
+                      </span>
+                      {hack.date && <span className="text-[#8B8BAE]">{hack.date}</span>}
                     </div>
 
                     <div className="space-y-1">
-                      <h3 className="font-serif font-bold text-xl text-[#1C1B1A] dark:text-[#EAE7E1] group-hover:text-[#A63A24] dark:group-hover:text-amber-400 transition-colors">
+                      <h3 className="font-pixel text-sm text-[#FFD700] leading-snug group-hover:text-[#00FF66] transition-colors">
                         {hack.name}
                       </h3>
                       {hack.organizer && (
-                        <h4 className="font-mono text-xs uppercase text-[#1C1B1A]/60 dark:text-[#EAE7E1]/60">
-                          {hack.organizer}
+                        <h4 className="font-pixel text-xs text-[#00F0FF] uppercase">
+                          ORGANIZER: {hack.organizer}
                         </h4>
                       )}
                     </div>
 
                     {hack.projectName && (
-                      <div className="p-2 border border-[#1C1B1A]/15 dark:border-[#EAE7E1]/15 text-xs font-mono">
-                        <span className="text-[#1C1B1A]/50 dark:text-[#EAE7E1]/50 uppercase block text-[10px]">BUILD:</span>
-                        <span className="font-bold text-[#1C1B1A] dark:text-[#EAE7E1]">{hack.projectName}</span>
+                      <div className="p-3 bg-[#0A0817] border border-black font-pixel text-[10px] space-y-1">
+                        <span className="text-[#8B8BAE] uppercase block">PROJECT BUILT:</span>
+                        <span className="text-[#00FF66]">{hack.projectName}</span>
                       </div>
                     )}
 
                     {hack.description && (
-                      <p className="text-xs font-sans text-[#1C1B1A]/75 dark:text-[#EAE7E1]/75 leading-relaxed">
+                      <p className="text-xs text-[#E0E7FF] font-sans leading-relaxed">
                         {hack.description}
                       </p>
                     )}
                   </div>
 
-                  <div className="pt-4 mt-6 border-t border-[#1C1B1A]/15 dark:border-[#EAE7E1]/15 flex items-center justify-between">
+                  {/* Result & Certificate Action */}
+                  <div className="pt-4 mt-4 border-t-2 border-black flex flex-wrap items-center justify-between gap-2 font-pixel text-[10px]">
                     {hack.result ? (
-                      <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-                        ★ {hack.result}
+                      <span className="text-[#FFD700] bg-[#1E1A3C] px-2 py-0.5 border border-black">
+                        🏆 RESULT: {hack.result}
                       </span>
                     ) : <span />}
 
-                    {/* View Certificate / Badge Button (Requirement 9) */}
-                    {certUrl && (
+                    {hasCert && (
                       <button
-                        onClick={() => handleViewCert(certUrl)}
-                        className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#1C1B1A] dark:text-[#EAE7E1] hover:underline"
+                        onClick={() => {
+                          playSelectSound();
+                          setSelectedCert({
+                            url: certUrl!,
+                            title: `${hack.name} - ${hack.result || 'Certificate'}`,
+                          });
+                        }}
+                        className="btn-pixel-gold py-1 px-2.5 text-[9px]"
                       >
-                        <span>View Certificate</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
+                        <PixelTrophy size={12} />
+                        <span>VIEW CERTIFICATE</span>
                       </button>
                     )}
                   </div>
@@ -112,6 +116,14 @@ export const HackathonsSection: React.FC<HackathonsSectionProps> = ({ hackathons
             })}
           </div>
         )}
+
+        {/* Certificate Viewer Modal */}
+        <CertificateViewerModal
+          isOpen={Boolean(selectedCert)}
+          onClose={() => setSelectedCert(null)}
+          title={selectedCert?.title || ''}
+          certificateUrl={selectedCert?.url}
+        />
 
       </div>
     </section>
