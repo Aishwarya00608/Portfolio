@@ -37,9 +37,9 @@ export const HomePage: React.FC = () => {
   const { stats } = useStats();
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#1C1B1A] font-sans">
+    <div className="min-h-screen bg-[#080808] text-[#F5F5F5] font-sans pb-12">
       <Navbar />
-      <main>
+      <main className="space-y-4">
         <Hero profile={profile} socialLinks={socialLinks} />
         <About profile={profile} stats={stats} />
         <SkillsSection skills={skills} loading={skillsLoading} />

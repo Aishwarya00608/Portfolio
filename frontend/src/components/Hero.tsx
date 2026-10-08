@@ -28,131 +28,81 @@ export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
     '4th-year B.Tech Computer Science student specializing in Data Science, AI/ML, Computer Vision, Data Analytics, Full-Stack Engineering, and Cyber Security.';
 
   return (
-    <section id="hero" className="relative pt-24 pb-16 border-b border-[#1C1B1A]/20 overflow-hidden bg-[#FAF8F5]">
+    <section id="hero" className="pt-24 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Magazine Cover Issue Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#1C1B1A]/20 font-mono text-[11px] uppercase tracking-widest text-[#1C1B1A]/70">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-[#A63A24]">VOL. 2026</span>
-            <span>•</span>
-            <span>ISSUE N° 04</span>
-          </div>
-          <div className="font-serif italic text-[#1C1B1A]">Computer Science & Artificial Intelligence Journal</div>
-          <div>HYDERABAD, INDIA</div>
-        </div>
-
-        {/* Oversized Magazine Heading */}
-        <div className="py-8 text-center lg:text-left border-b border-[#1C1B1A]/20">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="font-display text-5xl sm:text-7xl lg:text-9xl font-normal leading-[0.88] text-[#1C1B1A] tracking-tight uppercase"
-          >
-            PORTFOLIO
-          </motion.h1>
-        </div>
-
-        {/* Magazine Cover Spread Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start pt-10">
+        {/* Main Large Horizontal Hero Panel */}
+        <div className="black-panel">
           
-          {/* Left Column: Magazine Framed Photograph & Metadata */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-5 relative"
-          >
-            <div className="editorial-card p-3 bg-white shadow-editorial">
-              {/* Photo Container */}
-              <div className="aspect-[4/5] overflow-hidden bg-[#F4F0E8] relative border border-[#1C1B1A]/10">
-                <img
-                  src={
-                    profile?.profileImage ||
-                    'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop'
-                  }
-                  alt={name}
-                  className="w-full h-full object-cover object-top filter grayscale contrast-105 hover:grayscale-0 transition-all duration-700"
-                />
-
-                {/* Decorative Photo Tag */}
-                <div className="absolute top-3 left-3 bg-[#FAF8F5]/90 backdrop-blur-sm border border-[#1C1B1A]/30 px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-[#1C1B1A]">
-                  ✦ COVER FEATURE
-                </div>
-              </div>
-
-              {/* Photo Caption */}
-              <div className="mt-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-[#1C1B1A]/70 pt-2 border-t border-[#1C1B1A]/15">
-                <span>FIG 1.1 — BULUSU V. AISWARYA</span>
-                <span className="font-bold text-[#A63A24]">B.TECH CSE & AI</span>
-              </div>
+          {/* Metadata Top Bar */}
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-[#262626] font-mono text-xs uppercase tracking-widest text-[#A0A0A0]">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block" />
+              <span className="text-white font-bold">2026 EDITION</span>
             </div>
-          </motion.div>
+            <div>AI / ML / COMPUTER VISION</div>
+            <div>HYDERABAD, INDIA</div>
+          </div>
 
-          {/* Right Column: Name, Statement, Introduction & Actions */}
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="lg:col-span-7 space-y-6 flex flex-col justify-between h-full"
-          >
-            <div className="space-y-5">
-              
+          {/* Hero Spread Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center pt-8">
+            
+            {/* Left: Oversized Typography & Info */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="lg:col-span-7 space-y-6"
+            >
               <div className="space-y-1">
-                <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#A63A24]">
-                  ENGINEER • RESEARCHER • DEVELOPER
+                <span className="font-serif italic text-4xl sm:text-6xl text-[#A0A0A0] block">
+                  Aiswarya's
                 </span>
-                <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#1C1B1A] leading-tight">
-                  {name}
-                </h2>
+                <h1 className="font-sans font-extrabold text-5xl sm:text-7xl lg:text-8xl text-white tracking-tighter uppercase leading-none">
+                  PORTFOLIO
+                </h1>
               </div>
 
-              {/* Headline */}
-              <p className="font-display italic text-2xl sm:text-3xl text-[#1C1B1A]/90 leading-snug">
-                "{headline}"
-              </p>
+              <div className="space-y-3 pt-2">
+                <p className="font-mono text-xs text-white uppercase tracking-widest bg-[#181818] border border-[#262626] px-3 py-1.5 inline-block rounded-full">
+                  B.TECH CSE • SPECIALIZATION IN AI / ML & COMPUTER VISION
+                </p>
 
-              {/* Bio */}
-              <p className="text-base text-[#1C1B1A]/80 leading-relaxed font-sans max-w-2xl">
-                {bio}
-              </p>
-
-              {/* Focus Tags */}
-              <div className="flex flex-wrap gap-2 pt-2">
-                {['AI / ML', 'Computer Vision', 'Data Science', 'Full Stack', 'Cyber Security'].map((tag) => (
-                  <span key={tag} className="editorial-tag">
-                    {tag}
-                  </span>
-                ))}
+                <p className="text-sm sm:text-base text-[#D5D5D5] leading-relaxed font-sans max-w-xl">
+                  {bio}
+                </p>
               </div>
-            </div>
 
-            {/* Resume Download & Socials CTA */}
-            <div className="pt-6 border-t border-[#1C1B1A]/20 space-y-4">
-              <div className="flex flex-wrap items-center gap-4">
+              {/* Direct Email Address */}
+              <div className="font-mono text-xs text-[#A0A0A0] pt-2 flex items-center gap-2">
+                <span>EMAIL:</span>
+                <a
+                  href="mailto:aishwaryabulusu2006@gmail.com"
+                  className="text-white hover:underline font-bold"
+                >
+                  aishwaryabulusu2006@gmail.com
+                </a>
+              </div>
+
+              {/* Resume & Actions */}
+              <div className="pt-4 flex flex-wrap items-center gap-4">
                 <a
                   href={getResumeDownloadUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-editorial-primary text-xs"
+                  className="btn-black-primary text-xs"
                 >
                   <Download className="w-4 h-4" />
                   <span>DOWNLOAD RESUME (PDF)</span>
                 </a>
 
-                <a href="#projects" className="btn-editorial-secondary text-xs">
-                  <span>EXPLORE WORK</span>
+                <a href="#projects" className="btn-black-secondary text-xs">
+                  <span>SELECTED WORK</span>
                   <ArrowDownRight className="w-4 h-4" />
                 </a>
-              </div>
 
-              {/* Social Links */}
-              <div className="flex items-center gap-4 pt-2 font-mono text-xs">
-                <span className="text-[#1C1B1A]/60 uppercase tracking-widest text-[10px]">
-                  CONNECT:
-                </span>
-                <div className="flex items-center gap-2">
+                {/* Minimal Icon Buttons */}
+                <div className="flex items-center gap-2 ml-2">
                   {socialLinks.length > 0 ? (
                     socialLinks.map((link) => (
                       <a
@@ -160,7 +110,7 @@ export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 border border-[#1C1B1A]/30 hover:border-[#1C1B1A] bg-white text-[#1C1B1A] hover:bg-[#FAF8F5] transition-colors"
+                        className="p-3 bg-[#181818] border border-[#262626] rounded-full text-[#A0A0A0] hover:text-white hover:border-white transition-all"
                         title={link.platform}
                       >
                         {getSocialIcon(link.platform)}
@@ -172,7 +122,7 @@ export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
                         href="https://github.com/Aishwarya00608"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 border border-[#1C1B1A]/30 hover:border-[#1C1B1A] bg-white text-[#1C1B1A] hover:bg-[#FAF8F5] transition-colors"
+                        className="p-3 bg-[#181818] border border-[#262626] rounded-full text-[#A0A0A0] hover:text-white hover:border-white transition-all"
                       >
                         <Github className="w-4 h-4" />
                       </a>
@@ -180,13 +130,13 @@ export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
                         href="https://linkedin.com/in/aishwarya-bulusu"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 border border-[#1C1B1A]/30 hover:border-[#1C1B1A] bg-white text-[#1C1B1A] hover:bg-[#FAF8F5] transition-colors"
+                        className="p-3 bg-[#181818] border border-[#262626] rounded-full text-[#A0A0A0] hover:text-white hover:border-white transition-all"
                       >
                         <Linkedin className="w-4 h-4" />
                       </a>
                       <a
                         href="mailto:aishwaryabulusu2006@gmail.com"
-                        className="p-2 border border-[#1C1B1A]/30 hover:border-[#1C1B1A] bg-white text-[#1C1B1A] hover:bg-[#FAF8F5] transition-colors"
+                        className="p-3 bg-[#181818] border border-[#262626] rounded-full text-[#A0A0A0] hover:text-white hover:border-white transition-all"
                       >
                         <Mail className="w-4 h-4" />
                       </a>
@@ -194,11 +144,37 @@ export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
                   )}
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-          </motion.div>
+            {/* Right: Rounded Rectangular Editorial Profile Frame */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="lg:col-span-5 relative"
+            >
+              <div className="bg-[#181818] border border-[#262626] rounded-3xl p-4 shadow-card-glow">
+                <div className="aspect-[4/5] rounded-2xl overflow-hidden bg-[#141414] relative border border-[#333333]">
+                  <img
+                    src={
+                      profile?.profileImage ||
+                      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop'
+                    }
+                    alt={name}
+                    className="w-full h-full object-cover object-top filter grayscale contrast-105 hover:grayscale-0 transition-all duration-700"
+                  />
+                  <div className="absolute bottom-3 left-3 right-3 bg-[#111111]/90 backdrop-blur-md border border-[#333333] rounded-xl px-3 py-2 flex items-center justify-between font-mono text-[10px] uppercase text-[#A0A0A0]">
+                    <span>FIG 1.1 — AISWARYA BULUSU</span>
+                    <span className="text-white font-bold">B.TECH CSE</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+          </div>
 
         </div>
+
       </div>
     </section>
   );

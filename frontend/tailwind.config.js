@@ -8,34 +8,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        cream: {
-          50: '#FFFDFA',
-          100: '#FAF8F5',
-          200: '#F4F0E8',
-          300: '#E8E1D5',
-          800: '#2A2724',
-          900: '#141312',
+        dark: {
+          bg: '#080808',       // Outer dark background
+          panel: '#111111',    // Rounded magazine panel surface
+          card: '#181818',     // Sub-card background
+          border: '#262626',   // Thin elegant border
+          borderLight: '#333333',
         },
-        blush: {
-          50: '#FFF8F9',
-          100: '#FDF2F4',
-          200: '#FADEE1',
-          500: '#D98293',
-          700: '#C26D7F',
+        text: {
+          primary: '#FFFFFF',
+          secondary: '#F5F5F5',
+          muted: '#A0A0A0',
         },
-        sage: {
-          100: '#F1F4F0',
-          500: '#8A9A86',
-          700: '#5A6B56',
-        },
-        editorial: {
-          bg: '#FAF8F5',
-          card: '#FFFFFF',
-          text: '#1C1B1A',
-          accent: '#A63A24', // Rust crimson accent
-          muted: '#78716C',
-          border: 'rgba(28, 27, 26, 0.18)',
-          tape: 'rgba(232, 225, 213, 0.7)',
+        accent: {
+          pink: '#DB2777',
+          cream: '#FAF8F5',
+          sage: '#8A9A86',
         }
       },
       fontFamily: {
@@ -56,13 +44,13 @@ export default {
         },
       },
       boxShadow: {
-        'editorial': '4px 4px 0px 0px rgba(28, 27, 26, 0.85)',
-        'editorial-hover': '6px 6px 0px 0px rgba(28, 27, 26, 1)',
-        'editorial-soft': '0 10px 30px -5px rgba(28, 27, 26, 0.08)',
+        'panel': '0 20px 50px rgba(0, 0, 0, 0.8)',
+        'card-glow': '0 0 30px rgba(255, 255, 255, 0.03)',
       }
     },
   },
   plugins: [],
 }
+
 
 

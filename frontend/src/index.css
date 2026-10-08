@@ -4,9 +4,10 @@
 
 @layer base {
   body {
-    @apply bg-[#FAF8F5] text-[#1C1B1A] selection:bg-[#1C1B1A] selection:text-[#FAF8F5];
-    background-image: radial-gradient(rgba(28, 27, 26, 0.05) 1px, transparent 1px);
-    background-size: 24px 24px;
+    @apply bg-[#080808] text-[#F5F5F5] selection:bg-white selection:text-black;
+    background-image: 
+      radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 28px 28px;
   }
 
   h1, h2, h3, h4 {
@@ -14,58 +15,51 @@
   }
 }
 
-/* Custom Scrollbar */
+/* Custom Dark Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF8F5;
+  background: #080808;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1C1B1A;
+  background: #262626;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #404040;
 }
 
-/* Editorial Typography & Utility Classes */
+/* Typography Helpers */
 .font-display {
   font-family: 'Instrument Serif', 'Playfair Display', Georgia, serif;
 }
 
-/* Editorial Cards & Magazine Elements */
-.editorial-card {
-  @apply bg-white border border-[#1C1B1A]/20 p-6 sm:p-8 transition-all duration-300 hover:border-[#1C1B1A] hover:shadow-editorial relative;
+/* Black Panel Containers */
+.black-panel {
+  @apply bg-[#111111] border border-[#262626] rounded-3xl p-6 sm:p-10 shadow-panel relative overflow-hidden;
 }
 
-.editorial-tag {
-  @apply text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 border border-[#1C1B1A]/20 bg-[#FAF8F5] text-[#1C1B1A]/80 inline-block;
+.black-card {
+  @apply bg-[#181818] border border-[#262626] rounded-2xl p-6 transition-all duration-300 hover:border-[#404040] hover:bg-[#1E1E1E] relative;
 }
 
-.editorial-tape {
-  position: relative;
-}
-.editorial-tape::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-1.5deg);
-  width: 90px;
-  height: 20px;
-  background-color: rgba(232, 225, 213, 0.8);
-  border: 1px dashed rgba(28, 27, 26, 0.2);
-  z-index: 10;
+.black-tag {
+  @apply text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-[#333333] bg-[#141414] text-[#D5D5D5] inline-block;
 }
 
-/* Editorial Button Utilities */
-.btn-editorial-primary {
-  @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#1C1B1A] text-[#FAF8F5] text-xs font-mono font-bold uppercase tracking-widest border border-[#1C1B1A] shadow-editorial hover:bg-[#A63A24] hover:border-[#A63A24] hover:shadow-editorial-hover hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer;
+/* Button Utilities */
+.btn-black-primary {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white text-black text-xs font-mono font-bold uppercase tracking-widest rounded-full border border-white hover:bg-[#E5E5E5] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer;
 }
 
-.btn-editorial-secondary {
-  @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-transparent text-[#1C1B1A] text-xs font-mono font-bold uppercase tracking-widest border border-[#1C1B1A]/40 hover:border-[#1C1B1A] hover:bg-[#F4F0E8] hover:shadow-editorial hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer;
+.btn-black-secondary {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#181818] text-white text-xs font-mono font-bold uppercase tracking-widest rounded-full border border-[#333333] hover:border-white hover:bg-[#222222] transition-all cursor-pointer;
 }
 
-.btn-editorial-accent {
-  @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#FDF2F4] text-[#C26D7F] text-xs font-mono font-bold uppercase tracking-widest border border-[#C26D7F]/40 hover:border-[#C26D7F] hover:bg-[#FADEE1] transition-all cursor-pointer;
+.btn-black-ghost {
+  @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-xs font-mono font-bold uppercase tracking-widest text-[#A0A0A0] hover:text-white transition-colors cursor-pointer;
 }
+
 
 

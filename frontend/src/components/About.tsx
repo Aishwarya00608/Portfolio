@@ -14,9 +14,9 @@ export const About: React.FC<AboutProps> = ({ profile, stats }) => {
     'I am a dedicated 4th-year Computer Science Engineering student specializing in intelligent systems, machine learning pipelines, and modern web application development. My analytical mindset drives me to build computer vision fatigue monitors, role-based enterprise portals, and AI climate risk prediction systems. I thrive at the intersection of data-driven insights and elegant full-stack solutions.';
 
   const statItems = [
-    { label: 'SELECTED PROJECTS', value: stats ? stats.projects : 3, icon: <FolderGit2 className="w-4 h-4 text-[#A63A24]" /> },
-    { label: 'CERTIFICATIONS', value: stats ? stats.certifications : 11, icon: <Award className="w-4 h-4 text-[#A63A24]" /> },
-    { label: 'INTERNSHIPS', value: stats ? stats.internships : 2, icon: <Briefcase className="w-4 h-4 text-[#A63A24]" /> },
+    { label: 'SELECTED PROJECTS', value: stats ? stats.projects : 3, icon: <FolderGit2 className="w-4 h-4 text-white" /> },
+    { label: 'CERTIFICATIONS', value: stats ? stats.certifications : 11, icon: <Award className="w-4 h-4 text-white" /> },
+    { label: 'INTERNSHIPS', value: stats ? stats.internships : 2, icon: <Briefcase className="w-4 h-4 text-white" /> },
   ];
 
   const focusAreas = [
@@ -31,116 +31,92 @@ export const About: React.FC<AboutProps> = ({ profile, stats }) => {
   ];
 
   return (
-    <section id="about" className="py-20 border-b border-[#1C1B1A]/20 bg-[#FAF8F5]">
+    <section id="about" className="py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="flex items-center gap-4 pb-4 border-b border-[#1C1B1A]/20 mb-12">
-          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#A63A24]">
-            SECTION N° 01
-          </span>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1C1B1A]">
-            About & Perspective
-          </h2>
-        </div>
-
-        {/* Asymmetric Editorial Magazine Spread */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        {/* About Editorial Panel */}
+        <div className="black-panel">
           
-          {/* Left: Huge "WHO AM I?" Headline */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-4 space-y-4"
-          >
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[#1C1B1A]/60 block">
-              EDITORIAL PROFILE
-            </span>
-            <h3 className="font-display italic text-4xl sm:text-6xl text-[#1C1B1A] leading-none">
-              Who Am I?
-            </h3>
-            <p className="font-serif text-lg text-[#1C1B1A]/80 leading-snug pt-2">
-              Bridging analytical data science with clean software architecture.
-            </p>
-          </motion.div>
+          {/* Section Marker */}
+          <div className="flex items-center gap-3 pb-6 border-b border-[#262626] font-mono text-xs uppercase tracking-widest text-[#A0A0A0]">
+            <span className="text-white font-bold">01 /</span>
+            <span>WHO I AM</span>
+          </div>
 
-          {/* Center: Biography & Domains */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="lg:col-span-5 space-y-6"
-          >
-            <div className="editorial-card p-6 bg-white space-y-4">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#A63A24] block">
-                BIOGRAPHY & BACKGROUND
-              </span>
-              <p className="text-sm font-sans text-[#1C1B1A]/85 leading-relaxed">
-                {bio}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start pt-8">
+            
+            {/* Left: Large Statement */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-5 space-y-4"
+            >
+              <h2 className="font-serif italic text-3xl sm:text-5xl text-[#A0A0A0] leading-tight">
+                Computer Science
+              </h2>
+              <h3 className="font-sans font-extrabold text-3xl sm:text-4xl text-white uppercase leading-snug">
+                STUDENT BUILDING WITH AI.
+              </h3>
+              <p className="text-xs font-mono text-[#A0A0A0] uppercase tracking-widest pt-2">
+                BRIDGING DATA SCIENCE WITH SCALABLE SOFTWARE SYSTEMS.
               </p>
-            </div>
+            </motion.div>
 
-            {/* Core Domains */}
-            <div className="p-6 border border-[#1C1B1A]/20 bg-white space-y-3">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#1C1B1A]/60 block">
-                PRIMARY FOCUS & CORE DOMAINS
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {focusAreas.map((area) => (
-                  <span key={area} className="editorial-tag">
-                    {area}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right: Key Stats & Academic Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-3 space-y-4"
-          >
-            {/* Stats Index */}
-            <div className="space-y-3">
-              {statItems.map((item) => (
-                <div key={item.label} className="p-4 border border-[#1C1B1A]/20 bg-white flex items-center justify-between">
-                  <div>
-                    <span className="font-mono text-[9px] uppercase tracking-widest text-[#1C1B1A]/60 block">
-                      {item.label}
-                    </span>
-                    <span className="font-serif text-2xl font-bold text-[#1C1B1A]">
-                      {item.value}
-                    </span>
-                  </div>
-                  {item.icon}
-                </div>
-              ))}
-            </div>
-
-            {/* Academic Highlight Box */}
-            <div className="p-5 border border-[#1C1B1A]/20 bg-[#FAF8F5] flex items-start gap-3">
-              <GraduationCap className="w-5 h-5 text-[#A63A24] shrink-0 mt-0.5" />
-              <div className="space-y-1 font-sans">
-                <span className="font-mono text-[9px] uppercase tracking-widest text-[#1C1B1A]/60 block">
-                  EDUCATION
+            {/* Right: Bio & Focus Domains */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="lg:col-span-7 space-y-6"
+            >
+              <div className="black-card space-y-3">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#A0A0A0] block">
+                  BIOGRAPHY & BACKGROUND
                 </span>
-                <h4 className="font-serif font-bold text-sm text-[#1C1B1A]">
-                  B.Tech in CSE
-                </h4>
-                <p className="text-xs text-[#1C1B1A]/70">
-                  JNTUH • 2023–2027 (8.7 CGPA)
+                <p className="text-sm font-sans text-[#D5D5D5] leading-relaxed">
+                  {bio}
                 </p>
               </div>
-            </div>
-          </motion.div>
+
+              {/* Focus Domains */}
+              <div className="black-card space-y-3">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#A0A0A0] block">
+                  CORE SPECIALIZATIONS
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {focusAreas.map((area) => (
+                    <span key={area} className="black-tag">
+                      {area}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Stats & Academic Index */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                {statItems.map((item) => (
+                  <div key={item.label} className="black-card p-4 flex items-center justify-between">
+                    <div>
+                      <span className="font-mono text-[9px] uppercase tracking-widest text-[#A0A0A0] block">
+                        {item.label}
+                      </span>
+                      <span className="font-serif text-2xl font-bold text-white">
+                        {item.value}
+                      </span>
+                    </div>
+                    {item.icon}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+          </div>
 
         </div>
+
       </div>
     </section>
   );
