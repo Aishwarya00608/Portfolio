@@ -8,22 +8,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        dark: {
-          bg: '#080808',       // Outer dark background
-          panel: '#111111',    // Rounded magazine panel surface
-          card: '#181818',     // Sub-card background
-          border: '#262626',   // Thin elegant border
-          borderLight: '#333333',
-        },
-        text: {
-          primary: '#FFFFFF',
-          secondary: '#F5F5F5',
-          muted: '#A0A0A0',
-        },
-        accent: {
-          pink: '#DB2777',
-          cream: '#FAF8F5',
-          sage: '#8A9A86',
+        pastel: {
+          blue: '#E0F2FE',       // Powder blue
+          blueHeader: '#BAE6FD', // Baby blue
+          pink: '#FCE7F3',       // Soft blush pink
+          rose: '#F472B6',       // Muted rose
+          lavender: '#F3E8FF',   // Pale lavender
+          cream: '#FAF7F2',      // Warm cream
+          ivory: '#FFFBEB',      // Ivory
+          peach: '#FFEDD5',      // Soft peach
+          sage: '#DCFCE7',       // Muted sage
+          beige: '#FEF3C7',      // Light beige
+          yellow: '#FEF08A',     // Sticky note yellow
+          charcoal: '#1E293B',   // Dark contrast text
+          muted: '#64748B',      // Muted text
+          border: '#CBD5E1',     // Soft border
+          window: '#FFFFFF',     // Browser window body
         }
       },
       fontFamily: {
@@ -33,24 +33,12 @@ export default {
         mono: ['Fira Code', 'monospace'],
         hand: ['Caveat', 'cursive'],
       },
-      animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-      },
-      keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-8px)' },
-        },
-      },
       boxShadow: {
-        'panel': '0 20px 50px rgba(0, 0, 0, 0.8)',
-        'card-glow': '0 0 30px rgba(255, 255, 255, 0.03)',
+        'window': '0 20px 40px -15px rgba(30, 41, 59, 0.08), 0 8px 16px -8px rgba(30, 41, 59, 0.04)',
+        'window-lg': '0 25px 50px -12px rgba(15, 23, 42, 0.12)',
+        'sticker': '2px 4px 10px rgba(0, 0, 0, 0.06)',
       }
     },
   },
   plugins: [],
 }
-
-
-

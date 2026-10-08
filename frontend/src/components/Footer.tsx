@@ -22,14 +22,14 @@ export const Footer: React.FC<FooterProps> = ({ socialLinks }) => {
   };
 
   return (
-    <footer className="py-8 bg-[#FAF7F2] border-t border-[#E6DEC8] font-mono text-xs text-[#6E625A]">
+    <footer className="py-8 bg-[#FAF7F2] border-t-2 border-[#CBD5E1] font-mono text-xs text-[#64748B]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
-          <p className="font-serif italic font-bold text-sm text-[#2B2522]">
-            Designed & Engineered by Bulusu Vyaghri Aiswarya ✦
+          <p className="font-serif italic font-bold text-sm text-[#1E293B]">
+            Aiswarya's Digital Workspace ✦ AI / ML / Computer Science
           </p>
-          <p className="text-[10px] text-[#6E625A] mt-1 uppercase tracking-widest">
-            aishwaryabulusu2006@gmail.com • VOL. 2026 EDITORIAL EDITION
+          <p className="text-[10px] text-[#64748B] mt-1 uppercase tracking-widest">
+            aishwaryabulusu2006@gmail.com • VOL. 2026 DIGITAL SCRAPBOOK
           </p>
         </div>
 
@@ -42,7 +42,7 @@ export const Footer: React.FC<FooterProps> = ({ socialLinks }) => {
                 href={link.platform.toLowerCase() === 'email' && !link.url.startsWith('mailto:') ? `mailto:${link.url}` : link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 bg-[#FAF4EB] border border-[#E6DEC8] rounded-full text-[#6E625A] hover:text-[#2B2522] hover:border-[#2B2522] transition-all"
+                className="p-2.5 bg-white border border-[#CBD5E1] rounded-full text-[#64748B] hover:text-[#1E293B] hover:border-[#1E293B] shadow-sticker transition-all"
                 title={link.platform}
               >
                 {getSocialIcon(link.platform)}
@@ -54,7 +54,7 @@ export const Footer: React.FC<FooterProps> = ({ socialLinks }) => {
                 href="https://github.com/Aishwarya00608"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 bg-[#FAF4EB] border border-[#E6DEC8] rounded-full text-[#6E625A] hover:text-[#2B2522] hover:border-[#2B2522] transition-all"
+                className="p-2.5 bg-white border border-[#CBD5E1] rounded-full text-[#64748B] hover:text-[#1E293B] hover:border-[#1E293B] shadow-sticker transition-all"
               >
                 <Github className="w-4 h-4" />
               </a>
@@ -62,13 +62,13 @@ export const Footer: React.FC<FooterProps> = ({ socialLinks }) => {
                 href="https://linkedin.com/in/aishwarya-bulusu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 bg-[#FAF4EB] border border-[#E6DEC8] rounded-full text-[#6E625A] hover:text-[#2B2522] hover:border-[#2B2522] transition-all"
+                className="p-2.5 bg-white border border-[#CBD5E1] rounded-full text-[#64748B] hover:text-[#1E293B] hover:border-[#1E293B] shadow-sticker transition-all"
               >
                 <Linkedin className="w-4 h-4" />
               </a>
               <a
                 href="mailto:aishwaryabulusu2006@gmail.com"
-                className="p-2.5 bg-[#FAF4EB] border border-[#E6DEC8] rounded-full text-[#6E625A] hover:text-[#2B2522] hover:border-[#2B2522] transition-all"
+                className="p-2.5 bg-white border border-[#CBD5E1] rounded-full text-[#64748B] hover:text-[#1E293B] hover:border-[#1E293B] shadow-sticker transition-all"
               >
                 <Mail className="w-4 h-4" />
               </a>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Cpu, Code2, Eye, ShieldCheck, Globe, Database, Terminal, Sparkles } from 'lucide-react';
 
 interface ProjectFallbackImageProps {
   imageUrl?: string | null;
@@ -26,13 +27,12 @@ export const ProjectFallbackImage: React.FC<ProjectFallbackImageProps> = ({
   // If actual custom image exists in CMS, use it!
   if (imageUrl && imageUrl.trim() !== '') {
     return (
-      <div className={`relative overflow-hidden bg-[#0A0817] border-b-4 border-black ${className}`}>
+      <div className={`relative overflow-hidden bg-[#FAF7F2] border-b-2 border-[#CBD5E1] ${className}`}>
         <img
           src={imageUrl}
           alt={title}
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0817] via-transparent to-transparent opacity-60" />
       </div>
     );
   }
@@ -40,123 +40,52 @@ export const ProjectFallbackImage: React.FC<ProjectFallbackImageProps> = ({
   // Otherwise, compute a unique, project-specific seed from title & category
   const seed = stringHash(`${title}_${category}`);
   
-  // Palette options for pixel fallback art
+  // Pastel Scrapbook Palette options
   const colorPalettes = [
-    { bg: '#0F172A', accent: '#00FF66', secondary: '#00F0FF', grid: '#1E293B', icon: 'AI_BRAIN' },
-    { bg: '#1E1B4B', accent: '#FF2E93', secondary: '#FFD700', grid: '#312E81', icon: 'VISION_EYE' },
-    { bg: '#172554', accent: '#38BDF8', secondary: '#00FF66', grid: '#1E3A8A', icon: 'CYBER_CITY' },
-    { bg: '#31124B', accent: '#A855F7', secondary: '#FF2E93', grid: '#4C1D95', icon: 'DATA_MATRIX' },
-    { bg: '#064E3B', accent: '#34D399', secondary: '#FACC15', grid: '#065F46', icon: 'CLIMATE_GLOBE' },
-    { bg: '#451A03', accent: '#F59E0B', secondary: '#00F0FF', grid: '#78350F', icon: 'SHIELD_SECURITY' },
+    { bg: '#E0F2FE', headerBg: '#BAE6FD', text: '#0369A1', border: '#7DD3FC', tagBg: '#F0F9FF', icon: <Cpu className="w-8 h-8 text-[#0284C7]" /> },
+    { bg: '#FCE7F3', headerBg: '#FBCFE8', text: '#BE185D', border: '#F472B6', tagBg: '#FFF1F2', icon: <Eye className="w-8 h-8 text-[#E11D48]" /> },
+    { bg: '#F3E8FF', headerBg: '#E9D5FF', text: '#7E22CE', border: '#C084FC', tagBg: '#FAF5FF', icon: <Sparkles className="w-8 h-8 text-[#9333EA]" /> },
+    { bg: '#DCFCE7', headerBg: '#BBF7D0', text: '#15803D', border: '#86EFAC', tagBg: '#F0FDF4', icon: <Globe className="w-8 h-8 text-[#16A34A]" /> },
+    { bg: '#FFEDD5', headerBg: '#FED7AA', text: '#C2410C', border: '#FDBA74', tagBg: '#FFF7ED', icon: <ShieldCheck className="w-8 h-8 text-[#EA580C]" /> },
+    { bg: '#FEF3C7', headerBg: '#FDE68A', text: '#B45309', border: '#FCD34D', tagBg: '#FFFBEB', icon: <Database className="w-8 h-8 text-[#D97706]" /> },
   ];
 
   const palette = colorPalettes[seed % colorPalettes.length];
-  const patternId = `grid_${seed}`;
 
   return (
-    <div className={`relative overflow-hidden border-b-4 border-black flex flex-col items-center justify-center ${className}`} style={{ backgroundColor: palette.bg }}>
-      {/* Background SVG Grid & Pixel Artifacts */}
-      <svg className="absolute inset-0 w-full h-full opacity-30 image-rendering-pixelated" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id={patternId} width="16" height="16" patternUnits="userSpaceOnUse">
-            <path d="M 16 0 L 0 0 0 16" fill="none" stroke={palette.grid} strokeWidth="1" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill={`url(#${patternId})`} />
-      </svg>
-
-      {/* Floating pixel particles unique to seed */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(6)].map((_, i) => {
-          const top = ((seed * (i + 1) * 17) % 80) + 10;
-          const left = ((seed * (i + 1) * 23) % 80) + 10;
-          return (
-            <div
-              key={i}
-              className="absolute w-2 h-2 border border-black shadow-[2px_2px_0px_#000]"
-              style={{
-                top: `${top}%`,
-                left: `${left}%`,
-                backgroundColor: i % 2 === 0 ? palette.accent : palette.secondary,
-              }}
-            />
-          );
-        })}
-      </div>
-
-      {/* Main Project Centerpiece Pixel Art */}
-      <div className="relative z-10 flex flex-col items-center p-4 text-center">
-        {/* Dynamic Seeded SVG Illustration */}
-        <div className="w-16 h-16 mb-2 flex items-center justify-center p-2 bg-[#0A0817] border-4 border-black shadow-[4px_4px_0px_0px_#000]">
-          <svg viewBox="0 0 32 32" className="w-full h-full image-rendering-pixelated" fill="none">
-            {/* Outline box */}
-            <rect x="2" y="2" width="28" height="28" stroke={palette.accent} strokeWidth="2" fill="#0A0817" />
-            
-            {/* Center icon based on seed */}
-            {palette.icon === 'AI_BRAIN' && (
-              <>
-                <path d="M10 8h12v4H10zM8 12h16v8H8zM12 20h8v4h-8z" fill={palette.accent} />
-                <rect x="12" y="14" width="3" height="3" fill="#0A0817" />
-                <rect x="17" y="14" width="3" height="3" fill="#0A0817" />
-              </>
-            )}
-
-            {palette.icon === 'VISION_EYE' && (
-              <>
-                <path d="M6 14h20v4H6zM10 10h12v4H10zM10 18h12v4H10z" fill={palette.accent} />
-                <rect x="14" y="14" width="4" height="4" fill={palette.secondary} />
-                <rect x="15" y="15" width="2" height="2" fill="#0A0817" />
-              </>
-            )}
-
-            {palette.icon === 'CYBER_CITY' && (
-              <>
-                <rect x="6" y="14" width="6" height="12" fill={palette.accent} />
-                <rect x="14" y="8" width="6" height="18" fill={palette.secondary} />
-                <rect x="22" y="18" width="4" height="8" fill={palette.accent} />
-              </>
-            )}
-
-            {palette.icon === 'DATA_MATRIX' && (
-              <>
-                <rect x="6" y="6" width="6" height="6" fill={palette.accent} />
-                <rect x="14" y="6" width="6" height="6" fill={palette.secondary} />
-                <rect x="22" y="6" width="4" height="6" fill={palette.accent} />
-                <rect x="6" y="14" width="20" height="10" fill={palette.accent} />
-              </>
-            )}
-
-            {palette.icon === 'CLIMATE_GLOBE' && (
-              <>
-                <circle cx="16" cy="16" r="10" fill={palette.accent} />
-                <path d="M10 12h12v2H10zM8 16h16v2H8zM12 20h8v2h-8z" fill={palette.secondary} />
-              </>
-            )}
-
-            {palette.icon === 'SHIELD_SECURITY' && (
-              <>
-                <path d="M8 8h16v8H8zM10 16h12v6H10zM14 22h4v4h-4z" fill={palette.accent} />
-                <rect x="14" y="12" width="4" height="6" fill={palette.secondary} />
-              </>
-            )}
-          </svg>
+    <div className={`relative overflow-hidden border-b-2 border-[#CBD5E1] flex flex-col justify-between p-4 shadow-inner ${className}`} style={{ backgroundColor: palette.bg }}>
+      
+      {/* Top Window Strip */}
+      <div className="flex items-center justify-between pb-2 border-b border-white/60">
+        <div className="flex items-center gap-1.5">
+          <span className="w-2 h-2 rounded-full bg-[#FF5F56]" />
+          <span className="w-2 h-2 rounded-full bg-[#FFBD2E]" />
+          <span className="w-2 h-2 rounded-full bg-[#27C93F]" />
         </div>
-
-        {/* Category & Title Banner */}
-        <span className="font-pixel text-[9px] uppercase px-2 py-0.5 mb-1 bg-[#0A0817] text-[#00FF66] border border-black">
+        <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-[#64748B]">
           {category}
         </span>
-        <h4 className="font-pixel text-xs text-white line-clamp-1 max-w-[220px] drop-shadow-[1px_1px_0px_#000]">
-          {title}
-        </h4>
       </div>
 
-      {/* Decorative Bottom Bar */}
-      <div className="w-full h-2 flex">
-        <div className="h-full flex-1" style={{ backgroundColor: palette.accent }} />
-        <div className="h-full flex-1" style={{ backgroundColor: palette.secondary }} />
-        <div className="h-full flex-1" style={{ backgroundColor: palette.grid }} />
+      {/* Main Center Graphic */}
+      <div className="flex flex-col items-center justify-center my-3 text-center space-y-2">
+        <div className="p-3 bg-white/90 rounded-2xl shadow-sticker border border-white">
+          {palette.icon}
+        </div>
+        <h4 className="font-serif font-bold text-sm text-[#1E293B] line-clamp-1 max-w-[200px]">
+          {title}
+        </h4>
+        <span className="font-mono text-[9px] px-2 py-0.5 rounded-full bg-white/80 text-[#64748B] border border-white/80">
+          CASE STUDY #{seed % 99 + 1}
+        </span>
       </div>
+
+      {/* Bottom Scrapbook Strip */}
+      <div className="pt-2 border-t border-white/60 flex items-center justify-between font-hand text-xs font-bold text-[#64748B]">
+        <span>✦ AI / ML Project</span>
+        <span>Aiswarya's Work</span>
+      </div>
+
     </div>
   );
 };
