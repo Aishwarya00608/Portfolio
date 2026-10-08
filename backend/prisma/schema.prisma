@@ -84,6 +84,7 @@ model Internship {
   achievements    String?
   certificateUrl String?
   companyUrl      String?
+  capstoneUrl     String?
   featured        Boolean  @default(false)
   published       Boolean  @default(true)
   displayOrder    Int      @default(0)

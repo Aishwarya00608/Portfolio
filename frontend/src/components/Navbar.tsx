@@ -33,17 +33,17 @@ export const Navbar: React.FC = () => {
   return (
     <header className="fixed top-4 left-0 right-0 z-50 px-4 max-w-7xl mx-auto">
       <div
-        className={`bg-[#111111]/90 backdrop-blur-md border border-[#262626] rounded-full px-6 py-3 shadow-panel transition-all duration-300 flex items-center justify-between ${
-          scrolled ? 'border-[#333333] shadow-card-glow' : ''
+        className={`bg-[#FAF7F2]/95 backdrop-blur-md border border-[#E6DEC8] rounded-full px-6 py-3 shadow-md transition-all duration-300 flex items-center justify-between ${
+          scrolled ? 'border-[#C4B79C] shadow-lg' : ''
         }`}
       >
         {/* Brand Title */}
         <Link to="/" className="flex items-center gap-2 group">
-          <span className="font-serif italic text-xl font-bold text-white group-hover:text-[#A0A0A0] transition-colors">
+          <span className="font-serif italic text-xl font-bold text-[#2B2522] group-hover:text-[#6E625A] transition-colors">
             Aiswarya
           </span>
-          <span className="font-mono text-[9px] uppercase tracking-widest text-[#A0A0A0] border-l border-[#333333] pl-2 hidden sm:inline-block">
-            2026 EDITION
+          <span className="font-mono text-[9px] uppercase tracking-widest text-[#6E625A] border-l border-[#D5C9B3] pl-2 hidden sm:inline-block">
+            EDITORIAL 2026
           </span>
         </Link>
 
@@ -54,7 +54,7 @@ export const Navbar: React.FC = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="font-mono text-[10px] font-bold tracking-widest text-[#A0A0A0] hover:text-white transition-colors"
+                className="font-mono text-[10px] font-bold tracking-widest text-[#6E625A] hover:text-[#2B2522] transition-colors"
               >
                 {link.name}
               </a>
@@ -66,9 +66,9 @@ export const Navbar: React.FC = () => {
         <div className="flex items-center gap-3">
           <Link
             to={isAuthenticated ? '/admin/dashboard' : '/admin/login'}
-            className="btn-black-ghost text-[10px] px-3 py-1.5 border border-[#333333] rounded-full hover:border-white"
+            className="btn-editorial-secondary text-[10px] px-3.5 py-1.5 border border-[#D5C9B3] rounded-full hover:border-[#2B2522]"
           >
-            <Lock className="w-3 h-3" />
+            <Lock className="w-3 h-3 text-[#9E4933]" />
             <span>{isAuthenticated ? 'CMS' : 'ADMIN'}</span>
           </Link>
 
@@ -76,7 +76,7 @@ export const Navbar: React.FC = () => {
           {isHome && (
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="xl:hidden p-2 text-[#A0A0A0] hover:text-white"
+              className="xl:hidden p-2 text-[#6E625A] hover:text-[#2B2522]"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -86,16 +86,16 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && isHome && (
-        <div className="xl:hidden mt-3 bg-[#111111] border border-[#262626] rounded-3xl p-6 font-mono text-xs space-y-3 animate-fadeIn shadow-panel">
+        <div className="xl:hidden mt-3 bg-[#FAF7F2] border border-[#E6DEC8] rounded-3xl p-6 font-mono text-xs space-y-3 shadow-xl">
           <div className="grid grid-cols-2 gap-2">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-2.5 px-3 bg-[#181818] border border-[#262626] rounded-xl text-white font-bold tracking-widest hover:border-white transition-all"
+                className="block py-2.5 px-3 bg-[#F4EFE6] border border-[#E2D6C3] rounded-xl text-[#2B2522] font-bold tracking-widest hover:border-[#2B2522] transition-all"
               >
-                ▶ {link.name}
+                ✦ {link.name}
               </a>
             ))}
           </div>

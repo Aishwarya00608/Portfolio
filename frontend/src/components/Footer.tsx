@@ -22,14 +22,14 @@ export const Footer: React.FC<FooterProps> = ({ socialLinks }) => {
   };
 
   return (
-    <footer className="py-8 bg-[#080808] font-mono text-xs text-[#A0A0A0]">
+    <footer className="py-8 bg-[#FAF7F2] border-t border-[#E6DEC8] font-mono text-xs text-[#6E625A]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
-          <p className="font-serif italic font-bold text-sm text-white">
+          <p className="font-serif italic font-bold text-sm text-[#2B2522]">
             Designed & Engineered by Bulusu Vyaghri Aiswarya ✦
           </p>
-          <p className="text-[10px] text-[#A0A0A0] mt-1 uppercase tracking-widest">
-            aishwaryabulusu2006@gmail.com • VOL. 2026 EDITION
+          <p className="text-[10px] text-[#6E625A] mt-1 uppercase tracking-widest">
+            aishwaryabulusu2006@gmail.com • VOL. 2026 EDITORIAL EDITION
           </p>
         </div>
 
@@ -42,7 +42,7 @@ export const Footer: React.FC<FooterProps> = ({ socialLinks }) => {
                 href={link.platform.toLowerCase() === 'email' && !link.url.startsWith('mailto:') ? `mailto:${link.url}` : link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 bg-[#111111] border border-[#262626] rounded-full text-[#A0A0A0] hover:text-white hover:border-white transition-all"
+                className="p-2.5 bg-[#FAF4EB] border border-[#E6DEC8] rounded-full text-[#6E625A] hover:text-[#2B2522] hover:border-[#2B2522] transition-all"
                 title={link.platform}
               >
                 {getSocialIcon(link.platform)}
@@ -54,7 +54,7 @@ export const Footer: React.FC<FooterProps> = ({ socialLinks }) => {
                 href="https://github.com/Aishwarya00608"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 bg-[#111111] border border-[#262626] rounded-full text-[#A0A0A0] hover:text-white hover:border-white transition-all"
+                className="p-2.5 bg-[#FAF4EB] border border-[#E6DEC8] rounded-full text-[#6E625A] hover:text-[#2B2522] hover:border-[#2B2522] transition-all"
               >
                 <Github className="w-4 h-4" />
               </a>
@@ -62,13 +62,13 @@ export const Footer: React.FC<FooterProps> = ({ socialLinks }) => {
                 href="https://linkedin.com/in/aishwarya-bulusu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 bg-[#111111] border border-[#262626] rounded-full text-[#A0A0A0] hover:text-white hover:border-white transition-all"
+                className="p-2.5 bg-[#FAF4EB] border border-[#E6DEC8] rounded-full text-[#6E625A] hover:text-[#2B2522] hover:border-[#2B2522] transition-all"
               >
                 <Linkedin className="w-4 h-4" />
               </a>
               <a
                 href="mailto:aishwaryabulusu2006@gmail.com"
-                className="p-2.5 bg-[#111111] border border-[#262626] rounded-full text-[#A0A0A0] hover:text-white hover:border-white transition-all"
+                className="p-2.5 bg-[#FAF4EB] border border-[#E6DEC8] rounded-full text-[#6E625A] hover:text-[#2B2522] hover:border-[#2B2522] transition-all"
               >
                 <Mail className="w-4 h-4" />
               </a>

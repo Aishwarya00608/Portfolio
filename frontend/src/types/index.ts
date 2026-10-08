@@ -69,6 +69,7 @@ export interface Internship {
   achievements?: string;
   certificateUrl?: string;
   companyUrl?: string;
+  capstoneUrl?: string;
   featured: boolean;
   published: boolean;
   displayOrder: number;

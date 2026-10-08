@@ -1620,6 +1620,16 @@ export const AdminDashboardPage: React.FC = () => {
                     </div>
                   </div>
                   <div>
+                    <label className="block text-slate-400 mb-1">Capstone URL (Optional)</label>
+                    <input
+                      name="capstoneUrl"
+                      type="url"
+                      placeholder="https://example.com/capstone-project"
+                      defaultValue={editItem?.capstoneUrl || ''}
+                      className="w-full p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white font-mono text-xs"
+                    />
+                  </div>
+                  <div>
                     <label className="block text-slate-400 mb-1">Description</label>
                     <textarea
                       name="description"

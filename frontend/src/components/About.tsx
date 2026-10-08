@@ -14,9 +14,9 @@ export const About: React.FC<AboutProps> = ({ profile, stats }) => {
     'I am a dedicated 4th-year Computer Science Engineering student specializing in intelligent systems, machine learning pipelines, and modern web application development. My analytical mindset drives me to build computer vision fatigue monitors, role-based enterprise portals, and AI climate risk prediction systems. I thrive at the intersection of data-driven insights and elegant full-stack solutions.';
 
   const statItems = [
-    { label: 'SELECTED PROJECTS', value: stats ? stats.projects : 3, icon: <FolderGit2 className="w-4 h-4 text-white" /> },
-    { label: 'CERTIFICATIONS', value: stats ? stats.certifications : 11, icon: <Award className="w-4 h-4 text-white" /> },
-    { label: 'INTERNSHIPS', value: stats ? stats.internships : 2, icon: <Briefcase className="w-4 h-4 text-white" /> },
+    { label: 'SELECTED PROJECTS', value: stats ? stats.projects : 3, icon: <FolderGit2 className="w-4 h-4 text-[#9E4933]" /> },
+    { label: 'CERTIFICATIONS', value: stats ? stats.certifications : 11, icon: <Award className="w-4 h-4 text-[#9E4933]" /> },
+    { label: 'INTERNSHIPS', value: stats ? stats.internships : 2, icon: <Briefcase className="w-4 h-4 text-[#9E4933]" /> },
   ];
 
   const focusAreas = [
@@ -35,11 +35,11 @@ export const About: React.FC<AboutProps> = ({ profile, stats }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* About Editorial Panel */}
-        <div className="black-panel">
+        <div className="editorial-panel-about">
           
           {/* Section Marker */}
-          <div className="flex items-center gap-3 pb-6 border-b border-[#262626] font-mono text-xs uppercase tracking-widest text-[#A0A0A0]">
-            <span className="text-white font-bold">01 /</span>
+          <div className="flex items-center gap-3 pb-6 border-b border-[#E2D6C3] font-mono text-xs uppercase tracking-widest text-[#6E625A]">
+            <span className="text-[#9E4933] font-bold">01 /</span>
             <span>WHO I AM</span>
           </div>
 
@@ -53,13 +53,13 @@ export const About: React.FC<AboutProps> = ({ profile, stats }) => {
               transition={{ duration: 0.6 }}
               className="lg:col-span-5 space-y-4"
             >
-              <h2 className="font-serif italic text-3xl sm:text-5xl text-[#A0A0A0] leading-tight">
+              <h2 className="font-serif italic text-3xl sm:text-5xl text-[#9E4933] leading-tight">
                 Computer Science
               </h2>
-              <h3 className="font-sans font-extrabold text-3xl sm:text-4xl text-white uppercase leading-snug">
+              <h3 className="font-sans font-extrabold text-3xl sm:text-4xl text-[#2B2522] uppercase leading-snug">
                 STUDENT BUILDING WITH AI.
               </h3>
-              <p className="text-xs font-mono text-[#A0A0A0] uppercase tracking-widest pt-2">
+              <p className="text-xs font-mono text-[#6E625A] uppercase tracking-widest pt-2">
                 BRIDGING DATA SCIENCE WITH SCALABLE SOFTWARE SYSTEMS.
               </p>
             </motion.div>
@@ -72,23 +72,23 @@ export const About: React.FC<AboutProps> = ({ profile, stats }) => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="lg:col-span-7 space-y-6"
             >
-              <div className="black-card space-y-3">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#A0A0A0] block">
+              <div className="editorial-card space-y-3">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#6E625A] block">
                   BIOGRAPHY & BACKGROUND
                 </span>
-                <p className="text-sm font-sans text-[#D5D5D5] leading-relaxed">
+                <p className="text-sm font-sans text-[#473B35] leading-relaxed">
                   {bio}
                 </p>
               </div>
 
               {/* Focus Domains */}
-              <div className="black-card space-y-3">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#A0A0A0] block">
+              <div className="editorial-card space-y-3">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#6E625A] block">
                   CORE SPECIALIZATIONS
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {focusAreas.map((area) => (
-                    <span key={area} className="black-tag">
+                    <span key={area} className="editorial-tag">
                       {area}
                     </span>
                   ))}
@@ -98,12 +98,12 @@ export const About: React.FC<AboutProps> = ({ profile, stats }) => {
               {/* Stats & Academic Index */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                 {statItems.map((item) => (
-                  <div key={item.label} className="black-card p-4 flex items-center justify-between">
+                  <div key={item.label} className="editorial-card p-4 flex items-center justify-between">
                     <div>
-                      <span className="font-mono text-[9px] uppercase tracking-widest text-[#A0A0A0] block">
+                      <span className="font-mono text-[9px] uppercase tracking-widest text-[#6E625A] block">
                         {item.label}
                       </span>
-                      <span className="font-serif text-2xl font-bold text-white">
+                      <span className="font-serif text-2xl font-bold text-[#2B2522]">
                         {item.value}
                       </span>
                     </div>

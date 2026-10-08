@@ -49,11 +49,11 @@ export const ContactSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Contact Final Panel */}
-        <div className="black-panel">
+        <div className="editorial-panel-contact">
           
           {/* Section Marker */}
-          <div className="flex items-center gap-3 pb-6 border-b border-[#262626] font-mono text-xs uppercase tracking-widest text-[#A0A0A0]">
-            <span className="text-white font-bold">09 /</span>
+          <div className="flex items-center gap-3 pb-6 border-b border-[#4A3B35] font-mono text-xs uppercase tracking-widest text-[#D9C8BC]">
+            <span className="text-[#EAD5C6] font-bold">09 /</span>
             <span>LET'S BUILD SOMETHING</span>
           </div>
 
@@ -62,25 +62,25 @@ export const ContactSection: React.FC = () => {
             {/* Left: Oversized Typography & Info */}
             <div className="lg:col-span-5 space-y-6">
               <div className="space-y-2">
-                <span className="font-serif italic text-4xl sm:text-6xl text-[#A0A0A0] block">
+                <span className="font-serif italic text-4xl sm:text-6xl text-[#EAD5C6] block">
                   Let's Build
                 </span>
-                <h2 className="font-sans font-extrabold text-4xl sm:text-6xl text-white tracking-tighter uppercase leading-none">
+                <h2 className="font-sans font-extrabold text-4xl sm:text-6xl text-[#FAF6F0] tracking-tighter uppercase leading-none">
                   SOMETHING.
                 </h2>
               </div>
               
-              <p className="text-sm font-sans text-[#D5D5D5] leading-relaxed">
+              <p className="text-sm font-sans text-[#D9C8BC] leading-relaxed">
                 I am open to engineering collaborations in AI/ML, Computer Vision, Data Science, and Full-Stack Systems. Feel free to reach out directly.
               </p>
 
-              <div className="black-card p-6 space-y-2">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-[#A0A0A0] block">
+              <div className="bg-[#332A26] border border-[#4A3B35] rounded-2xl p-6 space-y-2">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#EAD5C6] block">
                   DIRECT EMAIL ADDRESS
                 </span>
                 <a
                   href="mailto:aishwaryabulusu2006@gmail.com"
-                  className="font-mono font-bold text-base sm:text-lg text-white hover:underline break-all block"
+                  className="font-mono font-bold text-base sm:text-lg text-[#FAF6F0] hover:text-[#EAD5C6] underline break-all block"
                 >
                   aishwaryabulusu2006@gmail.com
                 </a>
@@ -91,7 +91,7 @@ export const ContactSection: React.FC = () => {
                   href="https://linkedin.com/in/aishwarya-bulusu"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-black-secondary text-xs"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FAF6F0] text-[#241E1B] text-xs font-mono font-bold uppercase rounded-full hover:bg-[#EAD5C6] transition-all"
                 >
                   <Linkedin className="w-3.5 h-3.5" />
                   <span>LINKEDIN</span>
@@ -100,7 +100,7 @@ export const ContactSection: React.FC = () => {
                   href="https://github.com/Aishwarya00608"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-black-secondary text-xs"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FAF6F0] text-[#241E1B] text-xs font-mono font-bold uppercase rounded-full hover:bg-[#EAD5C6] transition-all"
                 >
                   <Github className="w-3.5 h-3.5" />
                   <span>GITHUB</span>
@@ -115,14 +115,14 @@ export const ContactSection: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="black-card p-6 sm:p-8"
+                className="bg-[#332A26] border border-[#4A3B35] rounded-2xl p-6 sm:p-8"
               >
                 {status && (
                   <div
                     className={`mb-6 p-4 rounded-xl border text-xs font-mono flex items-center gap-2 ${
                       status.type === 'success'
-                        ? 'border-emerald-600 bg-emerald-950/40 text-emerald-200'
-                        : 'border-rose-600 bg-rose-950/40 text-rose-200'
+                        ? 'border-emerald-600 bg-emerald-950/60 text-emerald-200'
+                        : 'border-rose-600 bg-rose-950/60 text-rose-200'
                     }`}
                   >
                     {status.type === 'success' ? (
@@ -137,7 +137,7 @@ export const ContactSection: React.FC = () => {
                 <form onSubmit={handleSubmit} className="space-y-4 font-sans text-sm">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] font-mono font-bold uppercase tracking-widest text-[#A0A0A0] mb-1.5">
+                      <label className="block text-[10px] font-mono font-bold uppercase tracking-widest text-[#EAD5C6] mb-1.5">
                         Your Name *
                       </label>
                       <input
@@ -146,12 +146,12 @@ export const ContactSection: React.FC = () => {
                         placeholder="Jane Doe"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 bg-[#141414] border border-[#262626] rounded-xl text-xs text-white focus:outline-none focus:border-white transition-all"
+                        className="w-full px-4 py-3 bg-[#FAF6F0] border border-[#E6DEC8] rounded-xl text-xs text-[#241E1B] focus:outline-none focus:border-[#EAD5C6] transition-all"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-mono font-bold uppercase tracking-widest text-[#A0A0A0] mb-1.5">
+                      <label className="block text-[10px] font-mono font-bold uppercase tracking-widest text-[#EAD5C6] mb-1.5">
                         Your Email *
                       </label>
                       <input
@@ -160,13 +160,13 @@ export const ContactSection: React.FC = () => {
                         placeholder="jane@example.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 bg-[#141414] border border-[#262626] rounded-xl text-xs text-white focus:outline-none focus:border-white transition-all"
+                        className="w-full px-4 py-3 bg-[#FAF6F0] border border-[#E6DEC8] rounded-xl text-xs text-[#241E1B] focus:outline-none focus:border-[#EAD5C6] transition-all"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-mono font-bold uppercase tracking-widest text-[#A0A0A0] mb-1.5">
+                    <label className="block text-[10px] font-mono font-bold uppercase tracking-widest text-[#EAD5C6] mb-1.5">
                       Subject
                     </label>
                     <input
@@ -174,12 +174,12 @@ export const ContactSection: React.FC = () => {
                       placeholder="Project Inquiry / Opportunity"
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="w-full px-4 py-3 bg-[#141414] border border-[#262626] rounded-xl text-xs text-white focus:outline-none focus:border-white transition-all"
+                      className="w-full px-4 py-3 bg-[#FAF6F0] border border-[#E6DEC8] rounded-xl text-xs text-[#241E1B] focus:outline-none focus:border-[#EAD5C6] transition-all"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-mono font-bold uppercase tracking-widest text-[#A0A0A0] mb-1.5">
+                    <label className="block text-[10px] font-mono font-bold uppercase tracking-widest text-[#EAD5C6] mb-1.5">
                       Message *
                     </label>
                     <textarea
@@ -188,14 +188,14 @@ export const ContactSection: React.FC = () => {
                       placeholder="Write your message here..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 bg-[#141414] border border-[#262626] rounded-xl text-xs text-white focus:outline-none focus:border-white transition-all"
+                      className="w-full px-4 py-3 bg-[#FAF6F0] border border-[#E6DEC8] rounded-xl text-xs text-[#241E1B] focus:outline-none focus:border-[#EAD5C6] transition-all"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={loading}
-                    className="btn-black-primary w-full py-4 text-xs font-mono"
+                    className="w-full py-4 text-xs font-mono font-bold uppercase tracking-widest bg-[#EAD5C6] text-[#241E1B] rounded-full hover:bg-[#FAF6F0] transition-colors shadow-md"
                   >
                     {loading ? (
                       <span>TRANSMITTING DISPATCH...</span>

@@ -20,29 +20,29 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Achievements Panel */}
-        <div className="black-panel">
+        <div className="editorial-panel-achievements">
           
           {/* Section Marker */}
-          <div className="flex items-center gap-3 pb-6 border-b border-[#262626] font-mono text-xs uppercase tracking-widest text-[#A0A0A0]">
-            <span className="text-white font-bold">07 /</span>
+          <div className="flex items-center gap-3 pb-6 border-b border-[#E2D8CC] font-mono text-xs uppercase tracking-widest text-[#6E625A]">
+            <span className="text-[#9E4933] font-bold">07 /</span>
             <span>MILESTONES & ACHIEVEMENTS</span>
           </div>
 
           <div className="pt-8 space-y-6">
-            <h2 className="font-serif italic text-3xl sm:text-4xl text-white">
+            <h2 className="font-serif italic text-3xl sm:text-4xl text-[#9E4933]">
               Achievements
             </h2>
 
-            <p className="text-sm font-sans text-[#D5D5D5] max-w-2xl">
+            <p className="text-sm font-sans text-[#473B35] max-w-2xl">
               Recognitions, active open-source contributions (GSSoC), public speaking engagements, and institutional honors.
             </p>
 
             {loading ? (
-              <div className="text-center py-12 font-mono text-xs text-[#A0A0A0]">
+              <div className="text-center py-12 font-mono text-xs text-[#6E625A]">
                 LOADING ACHIEVEMENTS...
               </div>
             ) : achievements.length === 0 ? (
-              <div className="text-center py-12 font-mono text-xs border border-dashed border-[#262626] rounded-2xl text-[#A0A0A0]">
+              <div className="text-center py-12 font-mono text-xs border border-dashed border-[#E2D8CC] rounded-2xl text-[#6E625A]">
                 NO ACHIEVEMENTS RECORDED YET.
               </div>
             ) : (
@@ -57,32 +57,32 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: idx * 0.08 }}
-                      className="black-card p-6 flex flex-col justify-between group"
+                      className="editorial-card p-6 flex flex-col justify-between group"
                     >
                       <div className="space-y-3">
                         <div className="flex items-center justify-between">
-                          <span className="black-tag text-[9px] px-2 py-0.5">
+                          <span className="editorial-tag text-[9px] px-2 py-0.5">
                             {item.category || 'MILESTONE'}
                           </span>
                           {item.date && (
-                            <span className="text-[10px] font-mono text-[#A0A0A0]">
+                            <span className="text-[10px] font-mono text-[#9E4933]">
                               {item.date}
                             </span>
                           )}
                         </div>
 
-                        <h3 className="font-serif font-bold text-lg text-white group-hover:text-[#A0A0A0] transition-colors">
+                        <h3 className="font-serif font-bold text-lg text-[#2B2522] group-hover:text-[#9E4933] transition-colors">
                           {item.title}
                         </h3>
 
                         {item.organization && (
-                          <h4 className="font-mono text-xs uppercase tracking-wider text-[#A0A0A0]">
+                          <h4 className="font-mono text-xs uppercase tracking-wider text-[#9E4933]">
                             {item.organization}
                           </h4>
                         )}
 
                         {item.description && (
-                          <p className="text-xs font-sans text-[#D5D5D5] leading-relaxed">
+                          <p className="text-xs font-sans text-[#473B35] leading-relaxed">
                             {item.description}
                           </p>
                         )}
@@ -90,7 +90,7 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
 
                       {/* Certificate Action (Hidden if no certificate exists) */}
                       {hasCertificate && (
-                        <div className="pt-4 mt-4 border-t border-[#262626] flex items-center justify-end">
+                        <div className="pt-4 mt-4 border-t border-[#E6DEC8] flex items-center justify-end">
                           <button
                             onClick={() =>
                               setSelectedCert({
@@ -98,7 +98,7 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
                                 title: item.title,
                               })
                             }
-                            className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-white hover:underline"
+                            className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#2B2522] hover:text-[#9E4933] hover:underline"
                           >
                             <span>View Certificate</span>
                             <ExternalLink className="w-3.5 h-3.5" />

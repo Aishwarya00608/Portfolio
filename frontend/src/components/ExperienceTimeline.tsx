@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Internship } from '../types';
-import { CertificateViewerModal } from './CertificateViewerModal';
-import { ExternalLink, Award } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 
 interface ExperienceTimelineProps {
   internships: Internship[];
@@ -10,36 +9,34 @@ interface ExperienceTimelineProps {
 }
 
 export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({ internships, loading }) => {
-  const [selectedCert, setSelectedCert] = useState<{ url: string; title: string } | null>(null);
-
   return (
     <section id="experience" className="py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Experience Panel */}
-        <div className="black-panel">
+        <div className="editorial-panel-experience">
           
           {/* Section Marker */}
-          <div className="flex items-center gap-3 pb-6 border-b border-[#262626] font-mono text-xs uppercase tracking-widest text-[#A0A0A0]">
-            <span className="text-white font-bold">04 /</span>
+          <div className="flex items-center gap-3 pb-6 border-b border-[#E8DFEA] font-mono text-xs uppercase tracking-widest text-[#6E625A]">
+            <span className="text-[#5C4D78] font-bold">04 /</span>
             <span>EXPERIENCE & INTERNSHIPS</span>
           </div>
 
           <div className="pt-8 space-y-6">
-            <h2 className="font-serif italic text-3xl sm:text-4xl text-white">
+            <h2 className="font-serif italic text-3xl sm:text-4xl text-[#5C4D78]">
               Where I've Worked
             </h2>
 
-            <p className="text-sm font-sans text-[#D5D5D5] max-w-2xl">
+            <p className="text-sm font-sans text-[#473B35] max-w-2xl">
               Applied engineering engagements in artificial intelligence, natural language search analytics, and enterprise Generative AI systems.
             </p>
 
             {loading ? (
-              <div className="text-center py-12 font-mono text-xs text-[#A0A0A0]">
+              <div className="text-center py-12 font-mono text-xs text-[#6E625A]">
                 LOADING EXPERIENCE LOG...
               </div>
             ) : internships.length === 0 ? (
-              <div className="text-center py-12 font-mono text-xs border border-dashed border-[#262626] rounded-2xl text-[#A0A0A0]">
+              <div className="text-center py-12 font-mono text-xs border border-dashed border-[#E8DFEA] rounded-2xl text-[#6E625A]">
                 NO EXPERIENCE RECORDS FOUND.
               </div>
             ) : (
@@ -50,7 +47,7 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({ internsh
                       ? 'July 2026 – September 2026'
                       : `${item.startDate} – ${item.endDate}`;
 
-                  const hasCertificate = Boolean(item.certificateUrl && item.certificateUrl.trim() !== '');
+                  const hasCapstone = Boolean(item.capstoneUrl && item.capstoneUrl.trim() !== '');
 
                   return (
                     <motion.div
@@ -59,33 +56,33 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({ internsh
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: idx * 0.1 }}
-                      className="black-card p-6 sm:p-8"
+                      className="editorial-card-lavender p-6 sm:p-8"
                     >
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                         
                         {/* Header */}
                         <div className="lg:col-span-4 space-y-2">
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-[#A0A0A0] block">
+                          <span className="text-[10px] font-mono uppercase tracking-widest text-[#5C4D78] block font-semibold">
                             {dateDisplay} • {item.location || 'REMOTE'}
                           </span>
-                          <h3 className="font-serif font-bold text-2xl text-white">
+                          <h3 className="font-serif font-bold text-2xl text-[#2B2522]">
                             {item.role}
                           </h3>
-                          <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-[#A0A0A0]">
+                          <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-[#5C4D78]">
                             {item.company}
                           </h4>
                         </div>
 
-                        {/* Deliverables & Certificate Action */}
+                        {/* Deliverables & Actions */}
                         <div className="lg:col-span-8 space-y-4">
-                          <p className="text-sm font-sans text-[#D5D5D5] leading-relaxed">
+                          <p className="text-sm font-sans text-[#332A26] leading-relaxed">
                             {item.description}
                           </p>
 
                           {item.achievements && (
-                            <div className="p-4 border-l-2 border-white bg-[#141414] text-xs font-sans text-[#D5D5D5] rounded-r-xl">
-                              <strong className="font-mono uppercase text-[10px] tracking-widest block text-[#A0A0A0] mb-1">
-                                KEY CAPSTONE / DELIVERABLE
+                            <div className="p-4 border-l-2 border-[#5C4D78] bg-[#F5F0FA] text-xs font-sans text-[#332A26] rounded-r-xl">
+                              <strong className="font-mono uppercase text-[10px] tracking-widest block text-[#5C4D78] mb-1">
+                                KEY RESPONSIBILITY / DELIVERABLE
                               </strong>
                               {item.achievements}
                             </div>
@@ -94,27 +91,24 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({ internsh
                           {/* Tech Tags */}
                           <div className="flex flex-wrap gap-1.5 pt-2">
                             {(item.technologiesList || []).map((tech) => (
-                              <span key={tech} className="black-tag text-[9px]">
+                              <span key={tech} className="editorial-tag-lavender text-[9px]">
                                 {tech}
                               </span>
                             ))}
                           </div>
 
-                          {/* Certificate Viewer Button */}
-                          {hasCertificate && (
+                          {/* OPTIONAL CAPSTONE ACTION: Shown ONLY if capstoneUrl exists */}
+                          {hasCapstone && (
                             <div className="pt-2">
-                              <button
-                                onClick={() =>
-                                  setSelectedCert({
-                                    url: item.certificateUrl!,
-                                    title: `${item.role} - ${item.company}`,
-                                  })
-                                }
-                                className="btn-black-secondary text-xs"
+                              <a
+                                href={item.capstoneUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#5C4D78] text-[#FAF7F2] hover:bg-[#43355C] text-xs font-mono font-bold tracking-wider uppercase transition-colors shadow-sm"
                               >
-                                <Award className="w-3.5 h-3.5" />
-                                <span>VIEW CERTIFICATE</span>
-                              </button>
+                                <ExternalLink className="w-3.5 h-3.5" />
+                                <span>VIEW CAPSTONE</span>
+                              </a>
                             </div>
                           )}
                         </div>
@@ -129,14 +123,6 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({ internsh
           </div>
 
         </div>
-
-        {/* Certificate Viewer Modal */}
-        <CertificateViewerModal
-          isOpen={Boolean(selectedCert)}
-          onClose={() => setSelectedCert(null)}
-          title={selectedCert?.title || ''}
-          certificateUrl={selectedCert?.url}
-        />
 
       </div>
     </section>

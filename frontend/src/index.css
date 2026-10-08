@@ -4,9 +4,9 @@
 
 @layer base {
   body {
-    @apply bg-[#080808] text-[#F5F5F5] selection:bg-white selection:text-black;
+    @apply bg-[#FAF7F2] text-[#2B2522] selection:bg-[#EAD5C6] selection:text-[#2B2522];
     background-image: 
-      radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      radial-gradient(rgba(43, 37, 34, 0.04) 1px, transparent 1px);
     background-size: 28px 28px;
   }
 
@@ -15,19 +15,19 @@
   }
 }
 
-/* Custom Dark Scrollbar */
+/* Warm Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #080808;
+  background: #FAF7F2;
 }
 ::-webkit-scrollbar-thumb {
-  background: #262626;
+  background: #DCD3C1;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #404040;
+  background: #B8AC96;
 }
 
 /* Typography Helpers */
@@ -35,31 +35,94 @@
   font-family: 'Instrument Serif', 'Playfair Display', Georgia, serif;
 }
 
-/* Black Panel Containers */
-.black-panel {
-  @apply bg-[#111111] border border-[#262626] rounded-3xl p-6 sm:p-10 shadow-panel relative overflow-hidden;
+/* Base Editorial Panels */
+.editorial-panel-hero {
+  @apply bg-[#FAF4EB] border border-[#E6DEC8] rounded-3xl p-6 sm:p-12 shadow-sm relative overflow-hidden;
 }
 
-.black-card {
-  @apply bg-[#181818] border border-[#262626] rounded-2xl p-6 transition-all duration-300 hover:border-[#404040] hover:bg-[#1E1E1E] relative;
+.editorial-panel-about {
+  @apply bg-[#F5EFE6] border border-[#E2D6C3] rounded-3xl p-6 sm:p-10 shadow-sm relative overflow-hidden;
 }
 
-.black-tag {
-  @apply text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-[#333333] bg-[#141414] text-[#D5D5D5] inline-block;
+.editorial-panel-projects {
+  @apply bg-[#FAF4EF] border border-[#ECDAD6] rounded-3xl p-6 sm:p-10 shadow-sm relative overflow-hidden;
 }
 
-/* Button Utilities */
-.btn-black-primary {
-  @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white text-black text-xs font-mono font-bold uppercase tracking-widest rounded-full border border-white hover:bg-[#E5E5E5] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer;
+.editorial-panel-skills {
+  @apply bg-[#F2F6F2] border border-[#D5E2D5] rounded-3xl p-6 sm:p-10 shadow-sm relative overflow-hidden;
 }
 
-.btn-black-secondary {
-  @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#181818] text-white text-xs font-mono font-bold uppercase tracking-widest rounded-full border border-[#333333] hover:border-white hover:bg-[#222222] transition-all cursor-pointer;
+.editorial-panel-experience {
+  @apply bg-[#FAF6F8] border border-[#E8DFEA] rounded-3xl p-6 sm:p-10 shadow-sm relative overflow-hidden;
 }
 
-.btn-black-ghost {
-  @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-xs font-mono font-bold uppercase tracking-widest text-[#A0A0A0] hover:text-white transition-colors cursor-pointer;
+.editorial-panel-certifications {
+  @apply bg-[#FAF2F2] border border-[#ECCECE] rounded-3xl p-6 sm:p-10 shadow-sm relative overflow-hidden;
 }
 
+.editorial-panel-hackathons {
+  @apply bg-[#FAF4EE] border border-[#ECCDC5] rounded-3xl p-6 sm:p-10 shadow-sm relative overflow-hidden;
+}
 
+.editorial-panel-achievements {
+  @apply bg-[#F7F2EC] border border-[#E2D8CC] rounded-3xl p-6 sm:p-10 shadow-sm relative overflow-hidden;
+}
 
+.editorial-panel-education {
+  @apply bg-[#F5F2ED] border border-[#E2D9CC] rounded-3xl p-6 sm:p-10 shadow-sm relative overflow-hidden;
+}
+
+.editorial-panel-contact {
+  @apply bg-[#241E1B] text-[#FAF6F0] border border-[#3D332E] rounded-3xl p-6 sm:p-12 shadow-xl relative overflow-hidden;
+}
+
+/* Card utilities */
+.editorial-card {
+  @apply bg-[#FAF7F2] border border-[#E6DEC8] rounded-2xl p-6 transition-all duration-300 hover:border-[#C4B79C] hover:shadow-md relative;
+}
+
+.editorial-card-pink {
+  @apply bg-[#F5E6E6] border border-[#E2CDCD] rounded-2xl p-6 transition-all duration-300 hover:border-[#C99B9B] hover:shadow-md relative;
+}
+
+.editorial-card-sage {
+  @apply bg-[#E4EBE4] border border-[#C2D4C2] rounded-2xl p-6 transition-all duration-300 hover:border-[#96B096] hover:shadow-md relative;
+}
+
+.editorial-card-lavender {
+  @apply bg-[#ECE7F2] border border-[#D4CCE3] rounded-2xl p-6 transition-all duration-300 hover:border-[#A898C2] hover:shadow-md relative;
+}
+
+.editorial-card-peach {
+  @apply bg-[#F4E8E0] border border-[#ECCDC5] rounded-2xl p-6 transition-all duration-300 hover:border-[#D6A192] hover:shadow-md relative;
+}
+
+/* Editorial Tags */
+.editorial-tag {
+  @apply text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-[#D5C9B3] bg-[#FAF7F2] text-[#4A3E38] inline-block;
+}
+
+.editorial-tag-sage {
+  @apply text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-[#B2C5B2] bg-[#EAF0EA] text-[#344834] inline-block;
+}
+
+.editorial-tag-pink {
+  @apply text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-[#DDBABA] bg-[#F7EBEB] text-[#703A3A] inline-block;
+}
+
+.editorial-tag-lavender {
+  @apply text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-[#C2B7D6] bg-[#F0EBF7] text-[#4A3A63] inline-block;
+}
+
+/* Buttons */
+.btn-editorial-primary {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#2B2522] text-[#FAF7F2] text-xs font-mono font-bold uppercase tracking-widest rounded-full border border-[#2B2522] hover:bg-[#473B35] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer shadow-sm;
+}
+
+.btn-editorial-secondary {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#FAF7F2] text-[#2B2522] text-xs font-mono font-bold uppercase tracking-widest rounded-full border border-[#D5C9B3] hover:border-[#2B2522] hover:bg-[#F2ECE1] transition-all cursor-pointer;
+}
+
+.btn-editorial-ghost {
+  @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-xs font-mono font-bold uppercase tracking-widest text-[#6E625A] hover:text-[#2B2522] transition-colors cursor-pointer;
+}

@@ -32,13 +32,13 @@ export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Large Horizontal Hero Panel */}
-        <div className="black-panel">
+        <div className="editorial-panel-hero">
           
           {/* Metadata Top Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-[#262626] font-mono text-xs uppercase tracking-widest text-[#A0A0A0]">
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-[#E6DEC8] font-mono text-xs uppercase tracking-widest text-[#6E625A]">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block" />
-              <span className="text-white font-bold">2026 EDITION</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-[#C87A64] animate-pulse inline-block" />
+              <span className="text-[#2B2522] font-bold">EDITORIAL 2026</span>
             </div>
             <div>AI / ML / COMPUTER VISION</div>
             <div>HYDERABAD, INDIA</div>
@@ -55,30 +55,30 @@ export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
               className="lg:col-span-7 space-y-6"
             >
               <div className="space-y-1">
-                <span className="font-serif italic text-4xl sm:text-6xl text-[#A0A0A0] block">
+                <span className="font-serif italic text-4xl sm:text-6xl text-[#9E4933] block">
                   Aiswarya's
                 </span>
-                <h1 className="font-sans font-extrabold text-5xl sm:text-7xl lg:text-8xl text-white tracking-tighter uppercase leading-none">
+                <h1 className="font-sans font-extrabold text-5xl sm:text-7xl lg:text-8xl text-[#2B2522] tracking-tighter uppercase leading-none">
                   PORTFOLIO
                 </h1>
               </div>
 
               <div className="space-y-3 pt-2">
-                <p className="font-mono text-xs text-white uppercase tracking-widest bg-[#181818] border border-[#262626] px-3 py-1.5 inline-block rounded-full">
+                <p className="font-mono text-xs text-[#2B2522] uppercase tracking-widest bg-[#F4EFE6] border border-[#E2D6C3] px-3 py-1.5 inline-block rounded-full">
                   B.TECH CSE • SPECIALIZATION IN AI / ML & COMPUTER VISION
                 </p>
 
-                <p className="text-sm sm:text-base text-[#D5D5D5] leading-relaxed font-sans max-w-xl">
+                <p className="text-sm sm:text-base text-[#473B35] leading-relaxed font-sans max-w-xl">
                   {bio}
                 </p>
               </div>
 
               {/* Direct Email Address */}
-              <div className="font-mono text-xs text-[#A0A0A0] pt-2 flex items-center gap-2">
+              <div className="font-mono text-xs text-[#6E625A] pt-2 flex items-center gap-2">
                 <span>EMAIL:</span>
                 <a
                   href="mailto:aishwaryabulusu2006@gmail.com"
-                  className="text-white hover:underline font-bold"
+                  className="text-[#9E4933] hover:underline font-bold"
                 >
                   aishwaryabulusu2006@gmail.com
                 </a>
@@ -90,15 +90,15 @@ export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
                   href={getResumeDownloadUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-black-primary text-xs"
+                  className="btn-editorial-primary text-xs"
                 >
-                  <Download className="w-4 h-4" />
+                  <Download className="w-4 h-4 text-[#F5E6E6]" />
                   <span>DOWNLOAD RESUME (PDF)</span>
                 </a>
 
-                <a href="#projects" className="btn-black-secondary text-xs">
+                <a href="#projects" className="btn-editorial-secondary text-xs">
                   <span>SELECTED WORK</span>
-                  <ArrowDownRight className="w-4 h-4" />
+                  <ArrowDownRight className="w-4 h-4 text-[#9E4933]" />
                 </a>
 
                 {/* Minimal Icon Buttons */}
@@ -110,7 +110,7 @@ export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-3 bg-[#181818] border border-[#262626] rounded-full text-[#A0A0A0] hover:text-white hover:border-white transition-all"
+                        className="p-3 bg-[#FAF7F2] border border-[#D5C9B3] rounded-full text-[#6E625A] hover:text-[#2B2522] hover:border-[#2B2522] transition-all"
                         title={link.platform}
                       >
                         {getSocialIcon(link.platform)}
@@ -122,7 +122,7 @@ export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
                         href="https://github.com/Aishwarya00608"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-3 bg-[#181818] border border-[#262626] rounded-full text-[#A0A0A0] hover:text-white hover:border-white transition-all"
+                        className="p-3 bg-[#FAF7F2] border border-[#D5C9B3] rounded-full text-[#6E625A] hover:text-[#2B2522] hover:border-[#2B2522] transition-all"
                       >
                         <Github className="w-4 h-4" />
                       </a>
@@ -130,13 +130,13 @@ export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
                         href="https://linkedin.com/in/aishwarya-bulusu"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-3 bg-[#181818] border border-[#262626] rounded-full text-[#A0A0A0] hover:text-white hover:border-white transition-all"
+                        className="p-3 bg-[#FAF7F2] border border-[#D5C9B3] rounded-full text-[#6E625A] hover:text-[#2B2522] hover:border-[#2B2522] transition-all"
                       >
                         <Linkedin className="w-4 h-4" />
                       </a>
                       <a
                         href="mailto:aishwaryabulusu2006@gmail.com"
-                        className="p-3 bg-[#181818] border border-[#262626] rounded-full text-[#A0A0A0] hover:text-white hover:border-white transition-all"
+                        className="p-3 bg-[#FAF7F2] border border-[#D5C9B3] rounded-full text-[#6E625A] hover:text-[#2B2522] hover:border-[#2B2522] transition-all"
                       >
                         <Mail className="w-4 h-4" />
                       </a>
@@ -153,19 +153,19 @@ export const Hero: React.FC<HeroProps> = ({ profile, socialLinks }) => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="lg:col-span-5 relative"
             >
-              <div className="bg-[#181818] border border-[#262626] rounded-3xl p-4 shadow-card-glow">
-                <div className="aspect-[4/5] rounded-2xl overflow-hidden bg-[#141414] relative border border-[#333333]">
+              <div className="bg-[#FAF7F2] border border-[#E6DEC8] rounded-3xl p-4 shadow-sm">
+                <div className="aspect-[4/5] rounded-2xl overflow-hidden bg-[#F4EFE6] relative border border-[#D5C9B3]">
                   <img
                     src={
                       profile?.profileImage ||
                       'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop'
                     }
                     alt={name}
-                    className="w-full h-full object-cover object-top filter grayscale contrast-105 hover:grayscale-0 transition-all duration-700"
+                    className="w-full h-full object-cover object-top hover:scale-105 transition-all duration-700"
                   />
-                  <div className="absolute bottom-3 left-3 right-3 bg-[#111111]/90 backdrop-blur-md border border-[#333333] rounded-xl px-3 py-2 flex items-center justify-between font-mono text-[10px] uppercase text-[#A0A0A0]">
+                  <div className="absolute bottom-3 left-3 right-3 bg-[#FAF7F2]/95 backdrop-blur-md border border-[#E6DEC8] rounded-xl px-3 py-2 flex items-center justify-between font-mono text-[10px] uppercase text-[#6E625A]">
                     <span>FIG 1.1 — AISWARYA BULUSU</span>
-                    <span className="text-white font-bold">B.TECH CSE</span>
+                    <span className="text-[#2B2522] font-bold">B.TECH CSE</span>
                   </div>
                 </div>
               </div>

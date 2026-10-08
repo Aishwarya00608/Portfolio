@@ -27,7 +27,7 @@ export const ProjectDetailPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#080808] font-mono text-xs text-[#A0A0A0]">
+      <div className="min-h-screen flex items-center justify-center bg-[#FAF7F2] font-mono text-xs text-[#6E625A]">
         LOADING PROJECT DISPATCH...
       </div>
     );
@@ -35,14 +35,14 @@ export const ProjectDetailPage: React.FC = () => {
 
   if (error || !project) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#080808] p-4 text-center font-sans">
-        <div className="max-w-md black-panel p-8 space-y-4 text-center">
-          <h2 className="font-serif font-bold text-2xl text-white">Project Not Found</h2>
-          <p className="text-xs text-[#A0A0A0]">
+      <div className="min-h-screen flex items-center justify-center bg-[#FAF7F2] p-4 text-center font-sans">
+        <div className="max-w-md editorial-panel-projects p-8 space-y-4 text-center">
+          <h2 className="font-serif font-bold text-2xl text-[#2B2522]">Project Not Found</h2>
+          <p className="text-xs text-[#6E625A]">
             The requested project record could not be retrieved.
           </p>
-          <Link to="/" className="btn-black-primary text-xs inline-flex items-center gap-2">
-            <ArrowLeft className="w-3.5 h-3.5" />
+          <Link to="/" className="btn-editorial-primary text-xs inline-flex items-center gap-2">
+            <ArrowLeft className="w-3.5 h-3.5 text-[#F5E6E6]" />
             <span>RETURN TO PORTFOLIO</span>
           </Link>
         </div>
@@ -53,37 +53,37 @@ export const ProjectDetailPage: React.FC = () => {
   const hasLiveDemo = Boolean(project.liveUrl && project.liveUrl.trim() !== '');
 
   return (
-    <div className="min-h-screen bg-[#080808] text-[#F5F5F5] font-sans pb-12">
+    <div className="min-h-screen bg-[#FAF7F2] text-[#2B2522] font-sans pb-12">
       <Navbar />
 
       <main className="pt-28 pb-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
-        <div className="black-panel space-y-8">
+        <div className="editorial-panel-projects space-y-8">
           {/* Back Link */}
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-[#A0A0A0] hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-[#6E625A] hover:text-[#2B2522] transition-colors"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
+            <ArrowLeft className="w-3.5 h-3.5 text-[#9E4933]" />
             <span>BACK TO ALL PROJECTS</span>
           </Link>
 
           {/* Header Block */}
-          <div className="space-y-6 border-b border-[#262626] pb-8">
+          <div className="space-y-6 border-b border-[#ECDAD6] pb-8">
             <div className="flex items-center justify-between">
-              <span className="black-tag">{project.category}</span>
+              <span className="editorial-tag-pink">{project.category}</span>
               {(project.startDate || project.endDate) && (
-                <span className="text-xs font-mono text-[#A0A0A0]">
+                <span className="text-xs font-mono text-[#9E4933]">
                   {project.startDate} – {project.endDate}
                 </span>
               )}
             </div>
 
-            <h1 className="font-serif font-bold text-4xl sm:text-6xl text-white">
+            <h1 className="font-serif font-bold text-4xl sm:text-6xl text-[#2B2522]">
               {project.title}
             </h1>
 
-            <p className="font-display italic text-xl sm:text-2xl text-[#A0A0A0] leading-snug">
+            <p className="font-display italic text-xl sm:text-2xl text-[#6E625A] leading-snug">
               "{project.shortDescription}"
             </p>
 
@@ -94,9 +94,9 @@ export const ProjectDetailPage: React.FC = () => {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-black-primary text-xs"
+                  className="btn-editorial-primary text-xs"
                 >
-                  <Github className="w-3.5 h-3.5" />
+                  <Github className="w-3.5 h-3.5 text-[#FAF7F2]" />
                   <span>GITHUB REPOSITORY</span>
                 </a>
               )}
@@ -107,9 +107,9 @@ export const ProjectDetailPage: React.FC = () => {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-black-secondary text-xs"
+                  className="btn-editorial-secondary text-xs"
                 >
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <ExternalLink className="w-3.5 h-3.5 text-[#9E4933]" />
                   <span>LIVE DEMO</span>
                 </a>
               )}
@@ -117,7 +117,7 @@ export const ProjectDetailPage: React.FC = () => {
           </div>
 
           {/* Main Cover Image */}
-          <div className="rounded-2xl overflow-hidden aspect-[16/9] border border-[#262626] bg-[#141414]">
+          <div className="rounded-2xl overflow-hidden aspect-[16/9] border border-[#E2CDCD] bg-[#FAF4EF]">
             {project.imageUrl && project.imageUrl.trim() !== '' ? (
               <img
                 src={project.imageUrl}
@@ -135,13 +135,13 @@ export const ProjectDetailPage: React.FC = () => {
           </div>
 
           {/* Technologies Grid */}
-          <div className="black-card space-y-4">
-            <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#A0A0A0]">
+          <div className="editorial-card-pink space-y-4">
+            <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#6E625A]">
               EQUIPPED TECHNOLOGY STACK
             </h3>
             <div className="flex flex-wrap gap-2">
               {(project.technologiesList || []).map((tech) => (
-                <span key={tech} className="black-tag">
+                <span key={tech} className="editorial-tag-pink">
                   {tech}
                 </span>
               ))}
@@ -151,28 +151,28 @@ export const ProjectDetailPage: React.FC = () => {
           {/* Problem & Solution Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {project.problem && (
-              <div className="black-card space-y-3">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#A0A0A0] block">
+              <div className="editorial-card-pink space-y-3">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#9E4933] block">
                   CHALLENGE & PROBLEM
                 </span>
-                <h3 className="font-serif font-bold text-xl text-white">
+                <h3 className="font-serif font-bold text-xl text-[#2B2522]">
                   Problem Statement
                 </h3>
-                <p className="text-xs sm:text-sm font-sans text-[#D5D5D5] leading-relaxed">
+                <p className="text-xs sm:text-sm font-sans text-[#473B35] leading-relaxed">
                   {project.problem}
                 </p>
               </div>
             )}
 
             {project.solution && (
-              <div className="black-card space-y-3">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-400 block">
+              <div className="editorial-card-pink space-y-3">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#4E6B4E] block">
                   ENGINEERED APPROACH
                 </span>
-                <h3 className="font-serif font-bold text-xl text-white">
+                <h3 className="font-serif font-bold text-xl text-[#2B2522]">
                   System Solution
                 </h3>
-                <p className="text-xs sm:text-sm font-sans text-[#D5D5D5] leading-relaxed">
+                <p className="text-xs sm:text-sm font-sans text-[#473B35] leading-relaxed">
                   {project.solution}
                 </p>
               </div>
@@ -181,11 +181,11 @@ export const ProjectDetailPage: React.FC = () => {
 
           {/* System Architecture */}
           {project.architecture && (
-            <div className="black-card space-y-4">
-              <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#A0A0A0]">
+            <div className="editorial-card-pink space-y-4">
+              <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#6E625A]">
                 SYSTEM ARCHITECTURE & PIPELINE
               </h3>
-              <div className="p-4 border border-[#262626] font-mono text-xs text-[#D5D5D5] bg-[#141414] rounded-xl leading-relaxed">
+              <div className="p-4 border border-[#E2CDCD] font-mono text-xs text-[#2B2522] bg-[#FAF7F2] rounded-xl leading-relaxed">
                 {project.architecture}
               </div>
             </div>
@@ -193,15 +193,15 @@ export const ProjectDetailPage: React.FC = () => {
 
           {/* Detailed Features */}
           {(project.featuresList || []).length > 0 && (
-            <div className="black-card space-y-6">
-              <h3 className="font-serif font-bold text-2xl text-white">
+            <div className="editorial-card-pink space-y-6">
+              <h3 className="font-serif font-bold text-2xl text-[#2B2522]">
                 Key System Features
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {project.featuresList?.map((feature, idx) => (
-                  <div key={idx} className="flex items-start gap-3 p-3 border border-[#262626] bg-[#141414] rounded-xl">
-                    <span className="font-mono text-xs text-white font-bold">—</span>
-                    <span className="text-xs font-sans text-[#D5D5D5]">
+                  <div key={idx} className="flex items-start gap-3 p-3 border border-[#E2CDCD] bg-[#FAF7F2] rounded-xl">
+                    <span className="font-mono text-xs text-[#9E4933] font-bold">—</span>
+                    <span className="text-xs font-sans text-[#473B35]">
                       {feature}
                     </span>
                   </div>
@@ -211,11 +211,11 @@ export const ProjectDetailPage: React.FC = () => {
           )}
 
           {/* Full Long Description */}
-          <div className="black-card space-y-4">
-            <h3 className="font-serif font-bold text-2xl text-white">
+          <div className="editorial-card-pink space-y-4">
+            <h3 className="font-serif font-bold text-2xl text-[#2B2522]">
               Comprehensive Overview
             </h3>
-            <p className="text-sm font-sans text-[#D5D5D5] leading-relaxed whitespace-pre-line">
+            <p className="text-sm font-sans text-[#473B35] leading-relaxed whitespace-pre-line">
               {project.description}
             </p>
           </div>
