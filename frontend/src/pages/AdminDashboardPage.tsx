@@ -75,6 +75,7 @@ export const AdminDashboardPage: React.FC = () => {
   // Modal Asset upload states
   const [modalImageUrl, setModalImageUrl] = useState<string>('');
   const [modalCertUrl, setModalCertUrl] = useState<string>('');
+  const [modalDate, setModalDate] = useState<string>('');
   const [projectImageUploading, setProjectImageUploading] = useState(false);
   const [certificateUploading, setCertificateUploading] = useState(false);
 
@@ -375,6 +376,7 @@ export const AdminDashboardPage: React.FC = () => {
     setEditItem(item);
     setModalImageUrl(item?.imageUrl || '');
     setModalCertUrl(item?.certificateUrl || '');
+    setModalDate(item?.date || '');
     setModalOpen(true);
   };
 
@@ -1116,6 +1118,7 @@ export const AdminDashboardPage: React.FC = () => {
                   <tr>
                     <th className="p-4">Title</th>
                     <th className="p-4">Organization</th>
+                    <th className="p-4">Date</th>
                     <th className="p-4">Category</th>
                     <th className="p-4 text-right">Actions</th>
                   </tr>
@@ -1125,6 +1128,7 @@ export const AdminDashboardPage: React.FC = () => {
                     <tr key={item.id} className="hover:bg-slate-700/40">
                       <td className="p-4 font-bold text-white">{item.title}</td>
                       <td className="p-4 text-purple-300">{item.organization || '—'}</td>
+                      <td className="p-4 text-slate-400 font-mono">{item.date || '—'}</td>
                       <td className="p-4 text-amber-400">{item.category || 'General'}</td>
                       <td className="p-4 text-right space-x-2">
                         <button
@@ -1167,6 +1171,7 @@ export const AdminDashboardPage: React.FC = () => {
                   <tr>
                     <th className="p-4">Hackathon Name</th>
                     <th className="p-4">Organizer</th>
+                    <th className="p-4">Date</th>
                     <th className="p-4">Project</th>
                     <th className="p-4">Result</th>
                     <th className="p-4 text-right">Actions</th>
@@ -1177,6 +1182,7 @@ export const AdminDashboardPage: React.FC = () => {
                     <tr key={item.id} className="hover:bg-slate-700/40">
                       <td className="p-4 font-bold text-white">{item.name}</td>
                       <td className="p-4 text-purple-300">{item.organizer || '—'}</td>
+                      <td className="p-4 text-slate-400 font-mono">{item.date || '—'}</td>
                       <td className="p-4 text-cyan-300">{item.projectName || '—'}</td>
                       <td className="p-4 text-emerald-400 font-semibold">{item.result || '—'}</td>
                       <td className="p-4 text-right space-x-2">
@@ -1768,6 +1774,27 @@ export const AdminDashboardPage: React.FC = () => {
                     />
                   </div>
                   <div>
+                    <label className="block text-slate-400 mb-1">Date</label>
+                    <div className="flex gap-2">
+                      <input
+                        name="date"
+                        type="text"
+                        value={modalDate}
+                        onChange={(e) => setModalDate(e.target.value)}
+                        placeholder="e.g. 2026, Oct 2026, or 2026-10-09"
+                        className="flex-1 p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white"
+                      />
+                      <input
+                        type="date"
+                        onChange={(e) => {
+                          if (e.target.value) setModalDate(e.target.value);
+                        }}
+                        className="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white cursor-pointer"
+                        title="Select Date from Calendar"
+                      />
+                    </div>
+                  </div>
+                  <div>
                     <label className="block text-slate-400 mb-1">Domain / Category</label>
                     <select
                       name="category"
@@ -1853,6 +1880,27 @@ export const AdminDashboardPage: React.FC = () => {
                       defaultValue={editItem?.organizer || ''}
                       className="w-full p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white"
                     />
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1">Date</label>
+                    <div className="flex gap-2">
+                      <input
+                        name="date"
+                        type="text"
+                        value={modalDate}
+                        onChange={(e) => setModalDate(e.target.value)}
+                        placeholder="e.g. 2026, Oct 2026, or 2026-10-09"
+                        className="flex-1 p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white"
+                      />
+                      <input
+                        type="date"
+                        onChange={(e) => {
+                          if (e.target.value) setModalDate(e.target.value);
+                        }}
+                        className="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white cursor-pointer"
+                        title="Select Date from Calendar"
+                      />
+                    </div>
                   </div>
                   <div>
                     <label className="block text-slate-400 mb-1">Project Name</label>
